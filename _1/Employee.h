@@ -1,26 +1,29 @@
 #pragma once
+#include <iostream>
+
+using namespace std;
 
 class Employee
 {
     char name[64];
     int experience;
-    int hourSalary;
+    int salary;
     int hours;
 
 public:
 
     Employee();
-    Employee(char name[64], int experience, int hourSalary, int hours);
+    Employee(string name, int experience, int salary, int hours);
 
-    const char* getName()       const;
-    int         getExperience() const;
-    int         getHourSalary() const;
-    int         getHours()      const;
-    int         getProfit()     const;
-    float       getBonus()      const;
+    string getName()       const;
+    int    getExperience() const;
+    int    getSalary()     const;
+    int    getHours()      const;
+    int    getProfit()     const;
+    float  getBonus()      const;
 
-    void setName(const char* name);
+    void setName(string name);
     void setExperience(int experience);
-    void setHourSalary(int salary);
+    void setSalary(int salary);
     void setHours(int hours);
 };

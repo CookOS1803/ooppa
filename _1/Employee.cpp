@@ -1,23 +1,22 @@
-#include <iostream>
 #include "Employee.h"
 
 Employee::Employee()
 {
     setName("");
     setExperience(0);
-    setHourSalary(0);
+    setSalary(0);
     setHours(0);
 }
 
-Employee::Employee(char name[64], int experience, int hourSalary, int hours)
+Employee::Employee(string name, int experience, int salary, int hours)
 {
     setName(name);
     setExperience(experience);
-    setHourSalary(hourSalary);
+    setSalary(salary);
     setHours(hours);
 }
 
-const char* Employee::getName() const
+string Employee::getName() const
 {
     return name;
 }
@@ -27,9 +26,9 @@ int Employee::getExperience() const
     return experience;
 }
 
-int Employee::getHourSalary() const
+int Employee::getSalary() const
 {
-    return hourSalary;
+    return salary;
 }
 
 int Employee::getHours() const
@@ -39,7 +38,7 @@ int Employee::getHours() const
 
 int Employee::getProfit() const
 {
-    return hourSalary*hours;
+    return salary*hours;
 }
 
 float Employee::getBonus() const
@@ -54,9 +53,9 @@ float Employee::getBonus() const
     return bonus;
 }
 
-void Employee::setName(const char* name)
+void Employee::setName(string name)
 {
-    strcpy(this->name, name);
+    strcpy_s(this->name, name.c_str());
 }
 
 void Employee::setExperience(int experience)
@@ -64,9 +63,9 @@ void Employee::setExperience(int experience)
     this->experience = experience;
 }
 
-void Employee::setHourSalary(int hourSalary)
+void Employee::setSalary(int salary)
 {
-    this->hourSalary = hourSalary;
+    this->salary = salary;
 }
 
 void Employee::setHours(int hours)
