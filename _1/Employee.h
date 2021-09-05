@@ -5,7 +5,7 @@ using namespace std;
 
 class Employee
 {
-    char name[64];
+    string name;
     int experience;
     int salary;
     int hours;
@@ -26,4 +26,7 @@ public:
     void setExperience(int experience);
     void setSalary(int salary);
     void setHours(int hours);
+
+    friend istream& operator>>(istream& in, Employee& e);
+    friend ostream& operator<<(ostream& out, const Employee& e);
 };

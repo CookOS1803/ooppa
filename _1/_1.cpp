@@ -6,15 +6,17 @@ void show_info(const Employee* e);
 
 int main()
 {
+    const char* FILE_NAME = "employee.txt";
+
     int choice;
     bool exit = false;
     Employee* e = nullptr;
-    ofstream f;
+    ofstream o;
     ifstream i;
 
     while (!exit)
     {
-        cout << "1. Enter info\n2. Show info\n3. Save to file\n4. Exit\n";
+        cout << "1. Enter info\n2. Show info\n3. Save to file\n4. Read from file\n5. Exit\n";
         cin >> choice;
         getc(stdin);
 
@@ -37,7 +39,7 @@ int main()
                 cout << "Enter hours of work: ";
                 cin >> hours;
 
-                if (e) delete e;
+                delete e;
                 e = new Employee(name, experience, salary, hours);
 
                 cout << endl;
@@ -51,12 +53,25 @@ int main()
                 if (!e) cout << "Enter info first\n";
                 else
                 {
-                    f.open("da.txt", ios::app);
-                    f.write((char*)e, sizeof(Employee));
-                    f.close();
+                    o.open(FILE_NAME);
+                    o << *e;
+                    o.close();
                 }
             break;
             case 4:
+                i.open(FILE_NAME);
+
+                if (!i.is_open()) cout << "File doesn't exist\n";
+                else
+                {
+                    delete e;
+                    e = new Employee;
+
+                    i >> *e;
+                    i.close();
+                }
+            break;
+            case 5:
                 delete e;
                 exit = true;
         }
@@ -72,5 +87,5 @@ void show_info(const Employee* e)
          << "Hourly salary: " << e->getSalary() << endl
          << "Hours of work: " << e->getHours() << endl
          << "Profit: " << e->getProfit() << endl
-         << "Bonus :" << e->getBonus() << endl << endl;
+         << "Bonus: " << e->getBonus() << endl << endl;
 }

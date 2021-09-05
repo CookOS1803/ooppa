@@ -1,3 +1,4 @@
+#include <string>
 #include "Employee.h"
 
 Employee::Employee()
@@ -55,7 +56,7 @@ float Employee::getBonus() const
 
 void Employee::setName(string name)
 {
-    strcpy_s(this->name, name.c_str());
+    this->name = name;
 }
 
 void Employee::setExperience(int experience)
@@ -71,4 +72,19 @@ void Employee::setSalary(int salary)
 void Employee::setHours(int hours)
 {
     this->hours = hours;
+}
+
+istream& operator>>(istream& in, Employee& e)
+{
+    getline(in, e.name, '\n');
+    in >> e.experience >> e.salary >> e.hours;
+    
+    return in;
+}
+
+ostream& operator<<(ostream& out, const Employee& e)
+{
+    out << e.name << endl << e.experience << endl << e.salary << endl << e.hours << endl;
+
+    return out;
 }
