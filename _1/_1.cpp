@@ -6,7 +6,7 @@ void show_info(const Employee* e);
 
 int main()
 {
-    const char* FILE_NAME = "employee.txt";
+    const char* FILE_NAME = "employee.dat";
 
     int choice;
     bool exit = false;
