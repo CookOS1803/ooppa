@@ -12,12 +12,12 @@ int main()
     int courses = 6, n = 7;
     Day* week = new Day[n]
     {
-        {"Monday", new string[courses] {"РИК", "Матем", "ФизК", "КС"}, courses},
+        {"Monday", new string[courses] {"РИК", "Матем", "ФизК", "КС", "", ""}, courses},
         {"Tuesday", courses},
-        {"Wednesday", new string[courses] {"", "МСиСвИфнТ", "ООП", "ФизК", "ООП"}, courses},
+        {"Wednesday", new string[courses] {"", "МСиСвИфнТ", "ООП", "ФизК", "ООП", ""}, courses},
         {"Thursday", new string[courses] {"", "", "", "Эк", "БЖЧ", "БЖЧ"}, courses},
-        {"Friday", new string[courses] {"ДВ", "ДВ", "БЖЧ", "РИК"}, courses},
-        {"Saturday", new string[courses] {"Эк", "Матем", "Эк"}, courses},
+        {"Friday", new string[courses] {"ДВ", "ДВ", "БЖЧ", "РИК", "", ""}, courses},
+        {"Saturday", new string[courses] {"Эк", "Матем", "Эк", "", "", ""}, courses},
         {"Sunday", courses}
     };
     bool exit = false;
@@ -32,8 +32,11 @@ int main()
         switch (choice)
         {
             case 1:
-                cout << "Enter number of day (1 - 7): ";
-                cin >> choice;
+                do
+                {
+                    cout << "Enter number of day (1 - 7): ";
+                    cin >> choice;
+                } while (choice < 1 or choice > 7);
 
                 show_info(week[choice - 1]);
             break;
