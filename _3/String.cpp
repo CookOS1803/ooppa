@@ -1,4 +1,5 @@
 #include "String.h"
+#include <string>
 
 String::String()
 {
@@ -58,10 +59,10 @@ String String::operator()(int begin, int end)
 {
 	String result;
 
-	if (begin < 0)		    begin = 0;
-	if (end < 0)			end = 0;
-	if (begin > length - 1) begin = length - 1;
-	if (end > length - 1)   end = length - 1;
+	if		(begin < 0)		     begin = 0;
+	else if (begin > length - 1) begin = length - 1;
+	if		(end < 0)			 end = 0;
+	else if (end > length - 1)   end = length - 1;
 
 	int newLength = end - begin;
 
@@ -96,7 +97,6 @@ String String::operator=(const String& other)
 istream& operator>>(istream& in, String& s)
 {
 	char temp[256];
-
 	in.getline(temp, sizeof(temp));
 
 	s.setCString(temp, strlen(temp) + 1);
