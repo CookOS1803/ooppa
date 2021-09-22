@@ -86,19 +86,11 @@ char String::operator[](int i)
 	return str[i];
 }
 
-String String::operator=(const String& other)
-{
-	setCString(other.str, other.length);
-
-	return *this;
-}
-
 istream& operator>>(istream& in, String& s)
 {
 	char temp[256];
 
 	in.getline(temp, sizeof(temp));
-
 	s.setCString(temp, strlen(temp) + 1);
 
 	return in;
