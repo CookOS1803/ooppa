@@ -1,5 +1,4 @@
 #include "String.h"
-#include <string>
 
 String::String()
 {
