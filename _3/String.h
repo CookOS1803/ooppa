@@ -23,7 +23,8 @@ public:
 
 	bool operator!() const;
 	String operator()(int begin, int end);
-	char operator[](int i);
+	char& operator[](int i);
+	String operator=(const String& other);
 
 	friend istream& operator>>(istream& in, String& s);
 	friend ostream& operator<<(ostream& out, const String& s);

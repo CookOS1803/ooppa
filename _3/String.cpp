@@ -57,33 +57,34 @@ bool String::operator!() const
 String String::operator()(int begin, int end)
 {
 	String result;
-
-	if		(begin < 0)		     begin = 0;
-	else if (begin > length - 1) begin = length - 1;
-	if		(end < 0)			 end = 0;
-	else if (end > length - 1)   end = length - 1;
-
 	int newLength = end - begin;
 
-	if (newLength < 1) result.setCString("", 1);
+	if (newLength < 0) result.setCString("", 1);
 	else
 	{
-		newLength++;
+		newLength += 2;
 		result.setCString("", newLength);
 
-		for (int i = 0; i < newLength; i++)
+		for (int i = 0; i < newLength - 1; i++)
 		{
-			result.str[i] = str[begin + i];
+			result[i] = str[begin + i];
 		}
+		result[newLength - 1] = '\0';
 	}
 
 
 	return result;
 }
 
-char String::operator[](int i)
+char& String::operator[](int i)
 {
 	return str[i];
+}
+
+String String::operator=(const String& other)
+{
+	setCString(other.str, other.length);
+	return *this;
 }
 
 istream& operator>>(istream& in, String& s)
