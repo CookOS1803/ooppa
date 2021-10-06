@@ -2,21 +2,14 @@
 
 Transport::Transport()
 {
-	setName("");
 	setSpeed(0);
 	setPrice(0);
 }
 
-Transport::Transport(string name, float speed, int price)
+Transport::Transport(float speed, int price)
 {
-	setName(name);
 	setSpeed(speed);
 	setPrice(price);
-}
-
-void Transport::setName(string name)
-{
-	this->name = name;
 }
 
 void Transport::setSpeed(float speed)
@@ -27,11 +20,6 @@ void Transport::setSpeed(float speed)
 void Transport::setPrice(int price)
 {
 	this->price = price;
-}
-
-string Transport::getName() const
-{
-	return name;
 }
 
 float Transport::getSpeed() const
