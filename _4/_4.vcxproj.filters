@@ -35,13 +35,13 @@
     <ClInclude Include="Transport.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Airplane.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Train.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Vehicle.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Airplane.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
