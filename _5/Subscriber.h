@@ -6,33 +6,40 @@ using std::string;
 
 class Book;
 
+struct info
+{
+	Book* book;
+	int deadline;
+};
+
 class Subscriber
 {
 	string name;
 	string faculty;
 	int group;
-	Book* books = nullptr;
+	info* books = nullptr;
 	int bookCount;
 
 public:
 
 	Subscriber();
 	Subscriber(const Subscriber& other);
-	Subscriber(string name, string faculty, int group, Book* books, int n);
+	Subscriber(string name, string faculty, int group, info* books, int nDir);
+	~Subscriber();
 
 	string getName() const;
 	string getFaculty() const;
 	int getGroup() const;
-	Book* getBooks() const;
+	info* getBooks() const;
 	int getBookCount() const;
 
 	void setName(string name);
 	void setFaculty(string faculty);
 	void setGroup(int group);
-	void setBooks(Book* books, int n);
+	void setBooks(info* books, int nDir);
 
-	void addBook(Book book);
+	void addBook(info book);
 
-	Book& operator[](int i);
+	info& operator[](int i);
 };
 

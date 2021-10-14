@@ -17,12 +17,17 @@ Subscriber::Subscriber(const Subscriber& other)
 	setBooks(other.books, other.bookCount);
 }
 
-Subscriber::Subscriber(string name, string faculty, int group, Book* books, int n)
+Subscriber::Subscriber(string name, string faculty, int group, info* books, int nDir)
 {
 	setName(name);
 	setFaculty(faculty);
 	setGroup(group);
-	setBooks(books, n);
+	setBooks(books, nDir);
+}
+
+Subscriber::~Subscriber()
+{
+	delete[] books;
 }
 
 string Subscriber::getName() const
@@ -40,7 +45,7 @@ int Subscriber::getGroup() const
 	return group;
 }
 
-Book* Subscriber::getBooks() const
+info* Subscriber::getBooks() const
 {
 	return books;
 }
@@ -65,25 +70,26 @@ void Subscriber::setGroup(int group)
 	this->group = group;
 }
 
-void Subscriber::setBooks(Book* books, int n)
+void Subscriber::setBooks(info* books, int nDir)
 {
 	delete[] this->books;
 
 	this->books = books;
-	bookCount = n;
+	bookCount = nDir;
 }
 
-void Subscriber::addBook(Book book)
+void Subscriber::addBook(info book)
 {
-	Book* temp = new Book[bookCount + 1];
+	info* temp = new info[bookCount + 1];
 
-	memcpy(temp, books, sizeof(Book) * bookCount);
+	for (int i = 0; i < bookCount; i++)
+		temp[i] = books[i];
 	temp[bookCount] = book;
 
 	setBooks(temp, bookCount + 1);	
 }
 
-Book& Subscriber::operator[](int i)
+info& Subscriber::operator[](int i)
 {
 	return books[i];
 }
