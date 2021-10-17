@@ -26,6 +26,7 @@ Department::Department(string name, string* directions, int nDir, Book* books, i
 Department::~Department()
 {
 	delete[] directions;
+	delete[] books;
 }
 
 string Department::getName() const

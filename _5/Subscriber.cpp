@@ -89,6 +89,21 @@ void Subscriber::addBook(info book)
 	setBooks(temp, bookCount + 1);	
 }
 
+void Subscriber::removeBook(int n)
+{
+	info* temp = new info[bookCount - 1];
+
+	for (int i = 0, a = 0; i - a < bookCount; i++)
+		if (i == n) 
+		{
+			a = 1;
+			bookCount--;
+		}
+		else temp[i - a] = books[i];
+
+	setBooks(temp, bookCount);	
+}
+
 info& Subscriber::operator[](int i)
 {
 	return books[i];

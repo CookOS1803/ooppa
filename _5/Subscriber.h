@@ -39,6 +39,7 @@ public:
 	void setBooks(info* books, int nDir);
 
 	void addBook(info book);
+	void removeBook(int n);
 
 	info& operator[](int i);
 };
