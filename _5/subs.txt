@@ -1,0 +1,36 @@
+Name: Kirill
+Faculty: FITU
+Group: 4
+
+Books:
+Name: Crime and Punishment
+Author: Dostoevskiy
+Publisher: aa
+
+Deadline: 10
+
+
+Name: Ilya
+Faculty: FITU
+Group: 4
+
+Books:
+Name: OOp metoda
+Author: neznau
+Publisher: aa
+
+Deadline: 25
+
+
+Name: Pashgen
+Faculty: FITU
+Group: 1
+
+Books:
+Name: ks metoda
+Author: neznau
+Publisher: aa
+
+Deadline: 25
+
+

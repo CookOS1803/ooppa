@@ -11,9 +11,9 @@ bool check_input(bool fail_flag);
 void show_sub(const Subscriber& sub, ostream& out);
 void add_sub(Subscriber sub, Subscriber*& subs, int& n);
 void remove_sub(const Subscriber* sub, Subscriber*& subs, int& n);
-void show_department(const Department& d);
-void show_book(const Book& b);
-void show_books(Subscriber& s);
+void show_department(const Department& d, ostream& out);
+void show_book(const Book& b, ostream& out);
+void show_books(Subscriber& s, ostream& out);
 Subscriber* findSub(string name, Subscriber* subs, int n);
 Book* findBook(string name, Book* books, int n);
 
@@ -78,7 +78,7 @@ int main()
 
     while (!exit)
     {
-        do cout << "1. Show subscribers\n2. Show departments\n3. Show subscriber's books\n4. Find debtors\n5. Save debtors to file\n6. Edit info\n7. Exit\n";
+        do cout << "1. Show subscribers\n2. Show departments\n3. Show subscriber's books\n4. Find debtors\n5. Save files\n6. Edit info\n7. Exit\n";
         while (!check_input(!(cin >> choice)));
         getc(stdin);
 
@@ -91,8 +91,8 @@ int main()
                 }
             break;
             case 2:
-                show_department(fic);
-                show_department(tech);
+                show_department(fic, cout);
+                show_department(tech, cout);
             break;
             case 3:
             {
@@ -104,7 +104,7 @@ int main()
                 Subscriber* s = findSub(name, subs, nSub);
 
                 if (s == nullptr) cout << "There's no such subscriber\n";
-                else show_books(*s);
+                else show_books(*s, cout);
             }
             break;
             case 4:
@@ -136,6 +136,24 @@ int main()
                 }
 
                 o.close();
+
+                o.open("subs.txt", ios::out);
+
+                for (int i = 0; i < nSub; i++)
+                {
+                    show_sub(subs[i], o);
+                    o << "Books:\n";
+                    show_books(subs[i], o);
+                }
+
+                o.close();
+
+                o.open("departments.txt", ios::out);
+
+                show_department(fic, o);
+                show_department(tech, o);
+
+                o.close();
             break;
             case 6:
             {
@@ -159,7 +177,7 @@ int main()
                         {
                             show_sub(*s, cout);
                             cout << "Books:\n";
-                            show_books(*s);
+                            show_books(*s, cout);
 
                             do cout << "1. Edit name\n2. Edit faculty\n3. Edit group\n4. Add book\n5. Remove book\n6. Change deadline\n";
                             while (!check_input(!(cin >> choice)));
@@ -416,17 +434,17 @@ void remove_sub(const Subscriber* sub, Subscriber*& subs, int& n)
     subs = temp;
 }
 
-void show_department(const Department& d)
+void show_department(const Department& d, ostream& out)
 {
-    cout << "Books of " << d.getDepartmentType() << " \"" << d.getName() << "\":\n";
+    out << "Books of " << d.getDepartmentType() << " \"" << d.getName() << "\":\n";
 
     for (int i = 0; i < d.getBookCount(); i++)
-        show_book(d.getBooks()[i]);
+        show_book(d.getBooks()[i], out);
 }
 
-void show_book(const Book& b)
+void show_book(const Book& b, ostream& out)
 {
-    cout << "Name: " << b.getName() << endl
+    out << "Name: " << b.getName() << endl
          << "Author: " << b.getAuthor() << endl
          << "Publisher: " << b.getPublisher() << endl << endl;
 }
@@ -447,7 +465,7 @@ Book* findBook(string name, Book* books, int n)
     return nullptr;
 }
 
-void show_books(Subscriber& s)
+void show_books(Subscriber& s, ostream& out)
 {
     for (int i = 0; i < s.getBookCount(); i++)
     {
@@ -459,8 +477,8 @@ void show_books(Subscriber& s)
                 findBook(b->getName(), tech.getBooks(), tech.getBookCount()) == nullptr) s.removeBook(i);
             else
             {
-                show_book(*b);
-                cout << "Deadline: " << s.getBooks()[i].deadline << endl << endl;
+                show_book(*b, out);
+                out << "Deadline: " << s.getBooks()[i].deadline << endl << endl;
             }
         }
         catch (exception e)
@@ -468,5 +486,5 @@ void show_books(Subscriber& s)
             s.removeBook(i);
         }
     }
-    cout << endl;
+    out << endl;
 }

@@ -1,0 +1,14 @@
+Books of Department of fiction "Ficlib":
+Name: Crime and Punishment
+Author: Dostoevskiy
+Publisher: aa
+
+Books of Department of tecnical literature "Techlib":
+Name: OOp metoda
+Author: neznau
+Publisher: aa
+
+Name: ks metoda
+Author: neznau
+Publisher: aa
+
