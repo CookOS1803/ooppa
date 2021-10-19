@@ -34,6 +34,7 @@ public:
 
 	void addDirection(string direction);
 	void addBook(Book book);
+	void removeBook(int i);
 
 	void giveBook(Subscriber& sub, int i, int deadline);
 

@@ -13,38 +13,39 @@ void add_sub(Subscriber sub, Subscriber*& subs, int& n);
 void remove_sub(const Subscriber* sub, Subscriber*& subs, int& n);
 void show_department(const Department& d);
 void show_book(const Book& b);
-void show_books(const Subscriber& s);
+void show_books(Subscriber& s);
 Subscriber* findSub(string name, Subscriber* subs, int n);
+Book* findBook(string name, Book* books, int n);
+
+DepartmentOfFiction fic
+(
+    "Ficlib",
+    nullptr,
+    0,
+    new Book[1]
+    {
+        {"Crime and Punishment", "Dostoevskiy", "aa"}
+    },
+    1
+);
+DepartmentOfTechLiterature tech
+(
+    "Techlib",
+    nullptr,
+    0,
+    new Book[2]
+    {
+        {"OOp metoda", "neznau", "aa"},
+        {"ks metoda", "neznau", "aa"}
+    },
+    2
+);
 
 int main()
 {
     int choice, currentTime = 20, nSub = 3;
     bool exit = false;
-    ofstream o;
-
-    DepartmentOfFiction fic
-    (
-        "Ficlib",
-        nullptr,
-        0,
-        new Book[1]
-        {
-            {"Crime and Punishment", "Dostoevskiy", "aa"}
-        },
-        1
-    );
-    DepartmentOfTechLiterature tech
-    (
-        "Techlib",
-        nullptr,
-        0,
-        new Book[2]
-        {
-            {"OOp metoda", "neznau", "aa"},
-            {"ks metoda", "neznau", "aa"}
-        },
-        2
-    );
+    ofstream o;    
     
     Subscriber* subs = new Subscriber[nSub]
     {
@@ -111,7 +112,7 @@ int main()
                 {
                     for (int j = 0; j < subs[i].getBookCount(); j++)
                     {
-                        if (subs[i].getBooks()[j].deadline > currentTime)
+                        if (subs[i].getBooks()[j].deadline < currentTime)
                         {
                             show_sub(subs[i], cout);
                             break;
@@ -138,7 +139,7 @@ int main()
             break;
             case 6:
             {
-                do cout << "1. Edit subscriber\n2. Add subscriber\n3. Remove subscriber";
+                do cout << "1. Edit subscriber\n2. Add subscriber\n3. Remove subscriber\n4. Edit department\n";
                 while (!check_input(!(cin >> choice)));
                 getc(stdin);
 
@@ -266,6 +267,97 @@ int main()
                         if (s == nullptr) cout << "There's no such subscriber\n";
                         else remove_sub(s, subs, nSub);
                     }
+                    break;
+                    case 4:
+                    {
+                        Department* d;
+
+                        do
+                        {
+                            cout << "Choose department:\n";
+                            cout << "1. " << fic.getDepartmentType() << " \"" << fic.getName() << "\":\n";
+                            cout << "2. " << tech.getDepartmentType() << " \"" << tech.getName() << "\":\n";
+                        }
+                        while (!check_input(!(cin >> choice)));
+
+                        switch (choice)
+                        {
+                            case 1: d = &fic;  break;
+                            case 2: d = &tech; break;
+                            default: d = nullptr;
+                        }
+
+                        if (d == nullptr) break;
+
+                        do cout << "1. Edit book\n2. Add book\n3. Remove book\n";
+                        while (!check_input(!(cin >> choice)));
+                        getc(stdin);
+
+                        switch (choice)
+                        {
+                            case 1:
+                            {
+                                string name;
+
+                                cout << "Enter name of book: ";
+                                getline(cin, name);
+
+                                Book* b = findBook(name, d->getBooks(), d->getBookCount());
+
+                                if (b == nullptr) break;
+
+                                do cout << "1. Edit name\n2. Edit author\n3. Edit publisher\n";
+                                while (!check_input(!(cin >> choice)));
+                                getc(stdin);
+
+                                switch (choice)
+                                {
+                                    case 1:
+                                        cout << "Enter name of book: ";
+                                        getline(cin, name);
+
+                                        b->setName(name);
+                                    break;
+                                    case 2:
+                                        cout << "Enter author: ";
+                                        getline(cin, name);
+
+                                        b->setAuthor(name);
+                                    break;
+                                    case 3:
+                                        cout << "Enter publisher: ";
+                                        getline(cin, name);
+
+                                        b->setPublisher(name);
+                                    break;
+                                }
+                            }
+                            break;
+                            case 2:
+                            {
+                                string name, author, publisher;
+
+                                cout << "Enter name of book: ";
+                                getline(cin, name);
+                                                                
+                                cout << "Enter author: ";
+                                getline(cin, author);
+
+                                cout << "Enter publisher: ";
+                                getline(cin, publisher);
+
+                                d->addBook({name, author, publisher});
+                            }
+                            break;
+                            case 3:
+                                do cout << "Enter book number: ";
+                                while (!check_input(!(cin >> choice)) or choice < 1);
+                                choice--;
+
+                                d->removeBook(choice);
+                            break;
+                        }
+                    }
                 }
             }
             break;
@@ -347,12 +439,34 @@ Subscriber* findSub(string name, Subscriber* subs, int n)
     return nullptr;
 }
 
-void show_books(const Subscriber& s)
+Book* findBook(string name, Book* books, int n)
+{
+    for (int i = 0; i < n; i++)
+        if (books[i].getName() == name) return books + i;
+
+    return nullptr;
+}
+
+void show_books(Subscriber& s)
 {
     for (int i = 0; i < s.getBookCount(); i++)
     {
-        show_book(*s.getBooks()[i].book);
-        cout << "Deadline: " << s.getBooks()[i].deadline << endl << endl;
+        Book* b = s.getBooks()[i].book;
+
+        try
+        {
+            if (findBook(b->getName(), fic.getBooks(), fic.getBookCount()) == nullptr and
+                findBook(b->getName(), tech.getBooks(), tech.getBookCount()) == nullptr) s.removeBook(i);
+            else
+            {
+                show_book(*b);
+                cout << "Deadline: " << s.getBooks()[i].deadline << endl << endl;
+            }
+        }
+        catch (exception e)
+        {
+            s.removeBook(i);
+        }
     }
     cout << endl;
 }

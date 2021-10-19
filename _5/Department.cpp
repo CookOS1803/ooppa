@@ -97,6 +97,21 @@ void Department::addBook(Book book)
 	setBooks(temp, nBooks + 1);
 }
 
+void Department::removeBook(int n)
+{
+	Book* temp = new Book[nBooks - 1];
+
+	for (int i = 0, a = 0; i - a < nBooks; i++)
+		if (i == n) 
+		{
+			a = 1;
+			nBooks--;
+		}
+		else temp[i - a] = books[i];
+
+	setBooks(temp, nBooks);	
+}
+
 void Department::giveBook(Subscriber& sub, int i, int deadline)
 {
 	sub.addBook({books + i, deadline});
