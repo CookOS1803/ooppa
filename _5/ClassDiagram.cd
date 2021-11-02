@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Book" Collapsed="true">
+    <Position X="10.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAABAAAAAAIggAAAEIABAAgAEAAAAAAA=</HashCode>
+      <FileName>Book.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Department" Collapsed="true">
+    <Position X="7" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAICAAAAOEAAAAFCAFAADAAAAEAAVAAAQ=</HashCode>
+      <FileName>Department.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DepartmentOfFiction" Collapsed="true">
+    <Position X="8" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DepartmentOfFiction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DepartmentOfTechLiterature" Collapsed="true">
+    <Position X="5.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DepartmentOfTechLiterature.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Subscriber" Collapsed="true">
+    <Position X="12.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UACAAAAAgAAAICAAACOEAAgAAAEEAABQAEAEBAAAAAA=</HashCode>
+      <FileName>Subscriber.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="info" Collapsed="true">
+    <Position X="10.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Subscriber.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

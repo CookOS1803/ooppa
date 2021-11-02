@@ -21,6 +21,16 @@ private:
 public:
 
 	LinkedList() : begin(nullptr), end(nullptr) {}
+	LinkedList(const LinkedList& other) : LinkedList()
+	{
+		Iterator<T>* temp = other.begin;
+
+		while (temp != nullptr)
+		{
+			pushBack(temp->info);
+			temp = temp->next;
+		}
+	}
 	~LinkedList()
 	{
 		while (begin != nullptr)

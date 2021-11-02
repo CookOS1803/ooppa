@@ -139,7 +139,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="B1.cpp" />
+    <ClCompile Include="B2.cpp" />
+    <ClCompile Include="D1.cpp" />
+    <ClCompile Include="D2.cpp" />
+    <ClCompile Include="D3.cpp" />
     <ClCompile Include="_6.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="B1.h" />
+    <ClInclude Include="B2.h" />
+    <ClInclude Include="D1.h" />
+    <ClInclude Include="D2.h" />
+    <ClInclude Include="D3.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

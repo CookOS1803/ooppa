@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <fstream>
 #include "LinkedList.h"
 
 using namespace std;
@@ -12,10 +13,11 @@ int main()
     bool exit = false;
     int choice, n, elementI;
     double elementD;
+    ofstream o;
 
     while (!exit)
     {
-        do cout << "1. Add elements\n2. Delete elements\n3. Show\n4. Compare sizes\n5. Exit\n";
+        do cout << "1. Add elements\n2. Delete elements\n3. Show\n4. Save to file\n5. Compare sizes\n6. Exit\n";
         while (!check_input(!(cin >> choice)));
 
         switch (choice)
@@ -27,15 +29,15 @@ int main()
                 do cout << "Enter number of elements: ";
                 while (!check_input(!(cin >> n)));
                 
+                cout << "Enter " << n << " elements: ";
+
                 switch (choice)
                 {
                     case 1:
-                        cout << "Enter " << n << " elements: ";
                         for (int i = 0; i < n and check_input(!(cin >> elementI)); i++)
                             intList.pushBack(elementI);
                     break;
                     case 2:
-                        cout << "Enter " << n << " elements: ";
                         for (int i = 0; i < n and check_input(!(cin >> elementD)); i++)
                             doubleList.pushBack(elementD);
                 }                
@@ -65,9 +67,17 @@ int main()
                      << endl;
             break;
             case 4:
-                cout << "Sizes of lists is " << (intList == doubleList ? "" : "not ") << "equal\n\n";
+
+                o.open("info.txt", ios::out);
+                o << "Integer list: " << intList << endl
+                  << "Double list:  " << doubleList << endl
+                  << endl;
+                o.close();
             break;
-            case 5: exit = true;
+            case 5:
+                cout << "Sizes of lists are " << (intList == doubleList ? "" : "not ") << "equal\n\n";
+            break;
+            case 6: exit = true;
         }
     }
 
