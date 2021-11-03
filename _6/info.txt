@@ -1,0 +1,17 @@
+Point:
+(0, 0)
+
+Ellipse:
+Center point: (0, 0)
+Radius X: 0
+Radius Y: 0
+
+Ellipsoid:
+Center point: (0, 0)
+Radius X: 0
+Radius Y: 0
+Radius Z: 0
+
+Sphere:
+Center point: (0, 0)
+Radius: 0

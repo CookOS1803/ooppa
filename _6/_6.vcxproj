@@ -139,19 +139,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="B1.cpp" />
-    <ClCompile Include="B2.cpp" />
-    <ClCompile Include="D1.cpp" />
-    <ClCompile Include="D2.cpp" />
-    <ClCompile Include="D3.cpp" />
+    <ClCompile Include="Shape2D.cpp" />
+    <ClCompile Include="Point.cpp" />
+    <ClCompile Include="Ellipse.cpp" />
+    <ClCompile Include="Ellipsoid.cpp" />
+    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="_6.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="B1.h" />
-    <ClInclude Include="B2.h" />
-    <ClInclude Include="D1.h" />
-    <ClInclude Include="D2.h" />
-    <ClInclude Include="D3.h" />
+    <ClInclude Include="Shape2D.h" />
+    <ClInclude Include="Point.h" />
+    <ClInclude Include="Ellipse.h" />
+    <ClInclude Include="Ellipsoid.h" />
+    <ClInclude Include="Sphere.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

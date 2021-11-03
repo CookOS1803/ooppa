@@ -1,43 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="B1" Collapsed="true">
-    <Position X="7" Y="1" Width="1.5" />
+  <Class Name="Shape2D">
+    <Position X="4.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>B1.h</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shape2D.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="B2" Collapsed="true">
-    <Position X="10" Y="1" Width="1.5" />
+  <Class Name="Point">
+    <Position X="7.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>B2.h</FileName>
+      <HashCode>AAAAAAAAAAAAgAAAAAAGAAAAAAAAAAAAAABgAGBAAAA=</HashCode>
+      <FileName>Point.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="D1" Collapsed="true">
-    <Position X="7" Y="2.25" Width="1.5" />
-    <InheritanceLine Type="B2">
+  <Class Name="Ellipse">
+    <Position X="4.25" Y="3.75" Width="1.5" />
+    <InheritanceLine Type="Point">
       <InheritanceModifierLabel ManuallyPlaced="true">
-        <Position X="-0.622" Y="0.038" />
+        <Position X="-0.588" Y="0.081" />
       </InheritanceModifierLabel>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>D1.h</FileName>
+      <HashCode>MAAAHABCAAAAAAAAACAAAAAAAAMAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Ellipse.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="D2" Collapsed="true">
-    <Position X="7" Y="4" Width="1.5" />
+  <Class Name="Ellipsoid">
+    <Position X="4.25" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>D2.h</FileName>
+      <HashCode>sAAAAgAAAAAAAAAAACAAAAAAAAsAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Ellipsoid.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="D3" Collapsed="true">
-    <Position X="7" Y="5.25" Width="1.5" />
+  <Class Name="Sphere">
+    <Position X="4.25" Y="11.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>D3.h</FileName>
+      <HashCode>MAAAAAAAAAAAAAAAACQAAAAAAAMAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sphere.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
