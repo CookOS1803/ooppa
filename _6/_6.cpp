@@ -86,6 +86,10 @@ int main()
 						while (!check_input(!(cin >> choice)));
 						ellipsoid.setY(choice);
 
+						do cout << "Enter center point Z: ";
+						while (!check_input(!(cin >> choice)));
+						ellipsoid.setZ(choice);
+
 						do cout << "Enter radius X: ";
 						while (!check_input(!(cin >> choice)));
 						ellipsoid.setRadiusX(choice);
@@ -106,6 +110,10 @@ int main()
 						do cout << "Enter center point Y: ";
 						while (!check_input(!(cin >> choice)));
 						sphere.setY(choice);
+
+						do cout << "Enter center point Z: ";
+						while (!check_input(!(cin >> choice)));
+						sphere.setZ(choice);
 
 						do cout << "Enter radius: ";
 						while (!check_input(!(cin >> choice)));

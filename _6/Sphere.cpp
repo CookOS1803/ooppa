@@ -8,7 +8,7 @@ Sphere::Sphere(::Point point, int radius) : Ellipsoid(point, radius, radius, rad
 
 void Sphere::printData(ostream& out)
 {
-	out << "Center point: ";
-	getCenterPoint().printPoint(out);
-	out << "Radius: " << radiusZ << endl;
+	out << "Center point: "
+		<< "(" << getX() << ", " << getY() << ", " << z << ")\n"
+		<< "Radius: " << radiusZ << endl;
 }

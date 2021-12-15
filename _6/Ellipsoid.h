@@ -6,6 +6,7 @@ class Ellipsoid : private Ellipse
 protected:
 
 	int radiusZ;
+	int z;
 
 public:
 
@@ -19,8 +20,10 @@ public:
 
 	using Ellipse::getX;
 	using Ellipse::getY;
+	int getZ() const { return z; }
 	using Ellipse::setX;
 	using Ellipse::setY;
+	void setZ(int z) { this->z = z; };
 	using Ellipse::getCenterPoint;
 	using Ellipse::setCenterPoint;
 
