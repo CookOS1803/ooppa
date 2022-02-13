@@ -148,10 +148,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="SmartPointer.cpp" />
+    <ClCompile Include="Speciality.cpp" />
+    <ClCompile Include="Student.cpp" />
+    <ClCompile Include="Transaction.cpp" />
     <ClCompile Include="__1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SmartPointer.h" />
+    <ClInclude Include="Speciality.h" />
+    <ClInclude Include="Student.h" />
+    <ClInclude Include="Transaction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
