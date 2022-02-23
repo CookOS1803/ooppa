@@ -1,7 +1,7 @@
 #pragma once
 
 template <class T>
-class SmartPointer
+class SharedPointer
 {
 	struct status
 	{
@@ -13,31 +13,28 @@ class SmartPointer
 
 public:
 
-	SmartPointer();
-	SmartPointer(T* pointer);
-	SmartPointer(const SmartPointer& other);
-	~SmartPointer();
+	SharedPointer();
+	SharedPointer(T* pointer);
+	SharedPointer(const SharedPointer& other);
+	~SharedPointer();
 
 	int GetCounter() const;
 	void Destroy();
 
-	SmartPointer<T>& operator=(const SmartPointer& other);
-	SmartPointer<T>& operator=(T* pointer);
+	SharedPointer<T>& operator=(const SharedPointer& other);
+	SharedPointer<T>& operator=(T* pointer);
 	T* operator->();
+	T& operator*();
 	const T& operator*() const;
-
 };
 
-
-
-
 template<class T>
-inline SmartPointer<T>::SmartPointer() : data(nullptr)
+SharedPointer<T>::SharedPointer() : data(nullptr)
 {
 }
 
 template<class T>
-SmartPointer<T>::SmartPointer(T* pointer)
+SharedPointer<T>::SharedPointer(T* pointer)
 {
 	if (pointer == nullptr)
 	{
@@ -52,7 +49,7 @@ SmartPointer<T>::SmartPointer(T* pointer)
 }
 
 template<class T>
-SmartPointer<T>::SmartPointer(const SmartPointer& other) : data(other.data)
+SharedPointer<T>::SharedPointer(const SharedPointer& other) : data(other.data)
 {
 	if (data)
 	{
@@ -61,13 +58,13 @@ SmartPointer<T>::SmartPointer(const SmartPointer& other) : data(other.data)
 }
 
 template<class T>
-inline SmartPointer<T>::~SmartPointer()
+SharedPointer<T>::~SharedPointer()
 {
 	Destroy();
 }
 
 template<class T>
-SmartPointer<T>& SmartPointer<T>::operator=(const SmartPointer& other)
+SharedPointer<T>& SharedPointer<T>::operator=(const SharedPointer& other)
 {
 	Destroy();
 
@@ -81,7 +78,7 @@ SmartPointer<T>& SmartPointer<T>::operator=(const SmartPointer& other)
 }
 
 template<class T>
-SmartPointer<T>& SmartPointer<T>::operator=(T* pointer)
+SharedPointer<T>& SharedPointer<T>::operator=(T* pointer)
 {
 	Destroy();
 
@@ -96,7 +93,7 @@ SmartPointer<T>& SmartPointer<T>::operator=(T* pointer)
 }
 
 template<class T>
-void SmartPointer<T>::Destroy()
+void SharedPointer<T>::Destroy()
 {
 	if (data)
 	{
@@ -113,19 +110,25 @@ void SmartPointer<T>::Destroy()
 }
 
 template<class T>
-inline int SmartPointer<T>::GetCounter() const
+int SharedPointer<T>::GetCounter() const
 {
 	return data ? data->counter : 0;
 }
 
 template<class T>
-inline T* SmartPointer<T>::operator->()
+T* SharedPointer<T>::operator->()
 {
 	return data->pointer;
 }
 
 template<class T>
-inline const T& SmartPointer<T>::operator*() const
+T& SharedPointer<T>::operator*()
+{
+	return *data->pointer;
+}
+
+template<class T>
+const T& SharedPointer<T>::operator*() const
 {
 	return *data->pointer;
 }
