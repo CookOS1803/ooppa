@@ -13,6 +13,8 @@ public:
 
 	void AddSpeciality(const Speciality& speciality);
 	auto GetSpecialityCount() const -> int;
+	bool IsSpeciality(std::string name);
+	void RemoveSpeciality(std::string name);
 
 	auto operator[](int i) -> Speciality&;
 	auto operator[](int i) const -> const Speciality&;

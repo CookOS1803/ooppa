@@ -13,6 +13,13 @@ using std::cin;
 using std::endl;
 
 bool check_input(bool fail_flag);
+
+//#define INPUT_CONDITION(text, value, condition) \
+//    do cout << text; \
+//    while (!check_input(!(cin >> value)) or !condition);
+//
+//#define INPUT(text, value) INPUT_CONDITION(text, value, true)
+
 std::ostream& table(std::ostream& stream);
 
 void CreateFaculty(Faculty& faculty);
@@ -21,6 +28,11 @@ void ShowStudents_Task(Faculty& faculty);
 void ShowStudentInfo_Task(Faculty& faculty);
 void ChangeStudentInfo_Task(Faculty& faculty);
 void AddStudent_Task(Faculty& faculty);
+void AddSubject_Task(Faculty& faculty);
+void AddSpeciality_Task(Faculty& faculty);
+//void RemoveStudent_Task(Faculty& faculty);
+//void RemoveSubject_Task(Faculty& faculty);
+//void RemoveSpeciality_Task(Faculty& faculty);
 void SaveStudents_Task(Faculty& faculty);
 void SaveOneStudent_Task(Faculty& faculty);
 
@@ -46,9 +58,11 @@ int main()
                    "2. Показать конкретного студента\n"
                    "3. Изменить информацию о студенте\n"
                    "4. Добавить студента\n"
-                   "5. Сохранить информацию о студентах в файл\n"
-                   "6. Сохранить информацию о конкретном студенте в файл\n"
-                   "7. Выход\n";
+                   "5. Добавить предмет\n"
+                   "6. Добавить специальность\n"        
+                   "7. Сохранить информацию о студентах в файл\n"
+                   "8. Сохранить информацию о конкретном студенте в файл\n"
+                   "9. Выход\n";
         while (!check_input(!(cin >> choice)));
         getc(stdin);
 
@@ -67,12 +81,27 @@ int main()
                 AddStudent_Task(fitu);
             break;
             case 5:
-                SaveStudents_Task(fitu);
+                AddSubject_Task(fitu);
             break;
             case 6:
+                AddSpeciality_Task(fitu);
+            break;
+            /*case 7:
+                RemoveStudent_Task(fitu);
+                break;
+            case 8:
+                RemoveSubject_Task(fitu);
+                break;
+            case 9:
+                RemoveSpeciality_Task(fitu);
+                break;*/
+            case 7:
+                SaveStudents_Task(fitu);
+            break;
+            case 8:
                 SaveOneStudent_Task(fitu);
             break;
-            case 7:
+            case 9:
                 exit = true;
             break;
         }
@@ -340,6 +369,89 @@ void AddStudent_Task(Faculty& faculty)
     faculty[spec].AddStudent(name, group, course);
 }
 
+void AddSubject_Task(Faculty& faculty)
+{
+    int choice;
+
+    do
+    {
+        cout << "Выберите специальность:\n";
+
+        for (int i = 0; i < faculty.GetSpecialityCount(); i++)
+        {
+            cout << i + 1 << ". " << faculty[i].GetName() << endl;
+        }
+    }
+    while (!check_input(!(cin >> choice)) or choice < 1 or choice > faculty.GetSpecialityCount());
+    getc(stdin);
+
+    std::string name;
+    int course;
+
+    cout << "Введите название предмета: ";
+    std::getline(cin, name);
+
+    do cout << "Введите номер курса: ";
+    while (!check_input(!(cin >> course)) or course < 1 or course > Speciality::COURSES_COUNT);
+
+    faculty[choice - 1].AddSubject(name, course);
+}
+
+void AddSpeciality_Task(Faculty& faculty)
+{
+    std::string name;
+
+    cout << "Введите название специальности: ";
+    std::getline(cin, name);
+
+    faculty.AddSpeciality(name);
+}
+
+//void RemoveStudent_Task(Faculty& faculty)
+//{
+//}
+//
+//void RemoveSubject_Task(Faculty& faculty)
+//{
+//    int choice;
+//
+//    do
+//    {
+//        cout << "Выберите специальность:\n";
+//
+//        for (int i = 0; i < faculty.GetSpecialityCount(); i++)
+//        {
+//            cout << i + 1 << ". " << faculty[i].GetName() << endl;
+//        }
+//    }
+//    while (!check_input(!(cin >> choice)) or choice < 1 or choice > faculty.GetSpecialityCount());
+//    getc(stdin);
+//
+//    std::string name;
+//    int course;
+//
+//    cout << "Введите название предмета: ";
+//    std::getline(cin, name);
+//
+//    do cout << "Введите номер курса: ";
+//    while (!check_input(!(cin >> course)) or course < 1 or course > Speciality::COURSES_COUNT);
+//
+//    faculty[choice - 1].RemoveSubject(name, course);
+//}
+//
+//void RemoveSpeciality_Task(Faculty& faculty)
+//{
+//    std::string name;
+//
+//    cout << "Введите название специальности: ";
+//    std::getline(cin, name);
+//
+//    if (faculty.IsSpeciality(name))
+//    {
+//        faculty.RemoveSpeciality(name);
+//    }
+//}
+
 void SaveStudents_Task(Faculty& faculty)
 {
     std::ofstream file("fitu.txt");
@@ -361,7 +473,6 @@ void SaveOneStudent_Task(Faculty& faculty)
 
     cout << endl;
 
-    int course;
     Transaction<Student>* student = FindStudent(faculty, name, group);
 
     if (student)
