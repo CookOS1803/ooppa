@@ -16,6 +16,14 @@ Speciality::Speciality(const Speciality& other)
 void Speciality::AddSubject(std::string name, int course)
 {
 	coursesSubjects[course - 1].push_back(name);
+
+	for (auto& trans : coursesStudents[course - 1])
+	{
+		Student temp = trans.GetCurrentState();
+		temp.AddSubject(name);
+		trans.BeginTransaction(temp);
+		trans.Commit();
+	}
 }
 
 void Speciality::AddStudent(std::string name, std::string group, int course)
@@ -29,6 +37,11 @@ void Speciality::AddStudent(std::string name, std::string group, int course)
 
 	coursesStudents[course - 1].emplace_back(temp);
 }
+
+//void Speciality::RemoveSubject(std::string name, int course)
+//{
+//	for (int i = 0; i < coursesSubjects[])
+//}
 
 auto Speciality::GetName() const -> std::string
 {

@@ -18,6 +18,29 @@ auto Faculty::GetSpecialityCount() const -> int
 	return specialities.size();
 }
 
+bool Faculty::IsSpeciality(std::string name)
+{
+	for (const auto& spec : specialities)
+	{
+		if (spec.GetName() == name)
+			return true;
+	}
+
+	return false;
+}
+
+void Faculty::RemoveSpeciality(std::string name)
+{
+	for (int i = 0; i < specialities.size(); i++)
+	{
+		if (specialities[i].GetName() == name)
+		{
+			specialities.erase(specialities.begin() + i);
+			return;
+		}
+	}
+}
+
 auto Faculty::operator[](int i) -> Speciality&
 {
 	return specialities[i];

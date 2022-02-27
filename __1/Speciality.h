@@ -25,6 +25,8 @@ public:
 	void AddSubject(std::string name, int course);
 	void AddStudent(std::string name, std::string group, int course);
 
+	void RemoveSubject(std::string name, int course);
+
 	auto GetName() const -> std::string;
 	auto GetStudents(int course) -> std::vector<Transaction<Student>>&;
 	auto GetStudents(int course) const -> const std::vector<Transaction<Student>>&;
