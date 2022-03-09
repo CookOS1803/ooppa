@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <memory>
 #include "Match.h"
 
 struct PersonalInfo
@@ -26,7 +27,7 @@ struct Results
 
 class Sportsman
 {
-	std::vector<Match> previousMatches;
+	std::vector<std::weak_ptr<Match>> previousMatches;
 	std::string role;
 	PersonalInfo info;
 	Results results;
@@ -37,8 +38,10 @@ public:
 	Sportsman(std::string_view role, const PersonalInfo& info, const Results& results);
 	Sportsman(const Sportsman& other);
 
-	auto GetPreviousMatches() const -> const std::vector<Match>&;
+	auto GetPreviousMatches() const -> const std::vector<std::weak_ptr<Match>>&;
 	auto GetRole() const -> std::string_view;
 	auto GetPersonalInfo() const -> const PersonalInfo&;
 	auto GetResults() const -> const Results&;
+
+	void AddMatch(const std::weak_ptr<Match>& match);
 };

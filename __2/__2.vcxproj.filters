@@ -30,6 +30,15 @@
     <ClCompile Include="Team.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="WrongMemberNameException.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="DuplicateMatchException.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="DuplicateMemberException.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UserInput.h">
@@ -45,6 +54,21 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Team.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Tasks.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="WrongMemberNameException.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="DuplicateMatchException.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="DuplicateMemberException.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

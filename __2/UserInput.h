@@ -13,8 +13,9 @@ bool check_input(bool fail_flag)
     else return true;
 }
 
-#define INPUT_CONDITION(value, condition, command) \
+#define INPUT_CONDITION(command, value, condition) \
     do {command;} \
-    while (!check_input(!(std::cin >> value)) or !(condition))
+    while (!check_input(!(std::cin >> value)) or !(condition)); \
+    std::ignore = getc(stdin)
 
-#define INPUT(value, command) INPUT_CONDITION(value, true, command)
+#define INPUT(command, value) INPUT_CONDITION(command, value, true)

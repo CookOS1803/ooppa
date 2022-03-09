@@ -88,6 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,18 +141,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DuplicateMatchException.cpp" />
+    <ClCompile Include="DuplicateMemberException.cpp" />
     <ClCompile Include="Match.cpp" />
     <ClCompile Include="Sportsman.cpp" />
     <ClCompile Include="Team.cpp" />
     <ClCompile Include="WrongDateFormatException.cpp" />
+    <ClCompile Include="WrongMemberNameException.cpp" />
     <ClCompile Include="__2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DuplicateMatchException.h" />
+    <ClInclude Include="DuplicateMemberException.h" />
     <ClInclude Include="Match.h" />
     <ClInclude Include="Sportsman.h" />
+    <ClInclude Include="Tasks.h" />
     <ClInclude Include="Team.h" />
     <ClInclude Include="UserInput.h" />
+    <ClInclude Include="Util.h" />
     <ClInclude Include="WrongDateFormatException.h" />
+    <ClInclude Include="WrongMemberNameException.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
