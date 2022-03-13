@@ -1,5 +1,4 @@
-﻿#include <vector>
-#include <Windows.h>
+﻿#include <Windows.h>
 #include "UserInput.h"
 #include "Tasks.h"
 #include "Team.h"
@@ -8,6 +7,7 @@ int main()
 {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
+    set_terminate(Terminate);
 
     std::vector<std::shared_ptr<Match>> matches;
     CreateMatches_Task(matches);

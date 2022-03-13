@@ -1,21 +1,26 @@
 #pragma once
 #include <iostream>
-
-bool check_input(bool fail_flag)
-{
-    if (fail_flag)
-    {
-        std::cin.clear();
-        while (std::cin.get() != '\n');
-
-        return false;
-    }
-    else return true;
-}
+#include <string>
 
 #define INPUT_CONDITION(command, value, condition) \
-    do {command;} \
-    while (!check_input(!(std::cin >> value)) or !(condition)); \
-    std::ignore = getc(stdin)
+    do \
+    { \
+        while (true) \
+        { \
+            command; \
+            std::string temp; \
+            std::getline(std::cin, temp); \
+            try \
+            { \
+                value = std::stoi(temp); \
+            } \
+            catch (...) \
+            { \
+                continue; \
+            } \
+            break; \
+        } \
+    } \
+    while (!(condition))
 
 #define INPUT(command, value) INPUT_CONDITION(command, value, true)

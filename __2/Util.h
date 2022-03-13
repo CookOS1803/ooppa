@@ -3,6 +3,12 @@
 #include <iomanip>
 #include "Sportsman.h"
 
+void Terminate()
+{
+	std::cout << "Необработаное исключение" << std::endl;
+	exit(-1);
+}
+
 std::ostream& table(std::ostream& stream)
 {
 	stream << std::setw(15);
