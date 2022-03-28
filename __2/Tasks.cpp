@@ -1,4 +1,5 @@
 #include "Tasks.h"
+#include "Util.h"
 
 void Menu(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches)
 {
@@ -46,7 +47,7 @@ void Menu(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matche
 			ShowSportsmen_Task(current);
 			break;
 		case 8:
-			AddToCurrent(team, current);
+			AddToCurrent_Task(team, current);
 			break;
 		case 0:
 			exit = true;
@@ -124,9 +125,9 @@ void CreateTeam_Task(Team& team, const std::vector<std::shared_ptr<Match>>& matc
 
 void ShowSportsmen_Task(const Team& team)
 {
-	for (const Sportsman& s : team)
+	for (const auto& s : team)
 	{
-		std::cout << s.GetPersonalInfo().name << ", " << s.GetRole() << "\n";
+		std::cout << s->GetPersonalInfo().name << ", " << s->GetRole() << "\n";
 	}
 }
 
@@ -139,8 +140,8 @@ void ShowOneSportsman_Task(const Team& team)
 
 	try
 	{
-		const Sportsman& s = team.GetSportsman(name);
-		ShowSportsman(s);
+		const auto& s = team.GetSportsman(name);
+		ShowSportsman(*s);
 	}
 	catch (std::exception* e)
 	{
@@ -298,7 +299,7 @@ void AddMatchToSportsman_Task(Team& team, const std::vector<std::shared_ptr<Matc
 	}
 }
 
-void AddToCurrent(const Team& team, Team& current)
+void AddToCurrent_Task(const Team& team, Team& current)
 {
 	std::string name;
 
@@ -308,7 +309,7 @@ void AddToCurrent(const Team& team, Team& current)
 
 	try
 	{
-		const Sportsman& s = team.GetSportsman(name);
+		const auto& s = team.GetSportsman(name);
 		current.AddSportsman(s);
 	}
 	catch (std::exception* e)

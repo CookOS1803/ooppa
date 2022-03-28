@@ -1,6 +1,5 @@
 #pragma once
 #include "UserInput.h"
-#include "Util.h"
 #include "Team.h"
 
 void Menu(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches);
@@ -19,4 +18,4 @@ void AddMatch_Task(const Team& team, std::vector<std::shared_ptr<Match>>& matche
 
 void AddMatchToSportsman_Task(Team& team, const std::vector<std::shared_ptr<Match>>& matches);
 
-void AddToCurrent(const Team& team, Team& current);
+void AddToCurrent_Task(const Team& team, Team& current);

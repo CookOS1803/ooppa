@@ -42,7 +42,7 @@ Sportsman::Sportsman(const Sportsman& other)
 {
 }
 
-auto Sportsman::GetPreviousMatches() const -> const std::vector<std::weak_ptr<Match>>&
+auto Sportsman::GetPreviousMatches() const -> const std::vector<std::shared_ptr<Match>>&
 {
 	return previousMatches;
 }
@@ -62,7 +62,7 @@ auto Sportsman::GetResults() const -> const Results&
 	return results;
 }
 
-void Sportsman::AddMatch(const std::weak_ptr<Match>& match)
+void Sportsman::AddMatch(const std::shared_ptr<Match>& match)
 {
 	previousMatches.push_back(match);
 }

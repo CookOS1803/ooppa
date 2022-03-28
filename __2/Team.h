@@ -5,7 +5,7 @@
 class Team
 {
 	std::string name;
-	std::vector<Sportsman> members;
+	std::vector<std::shared_ptr<Sportsman>> members;
 
 public:
 
@@ -14,14 +14,14 @@ public:
 	auto GetName() const -> std::string_view;
 
 	void AddSportsman(std::string_view role, const PersonalInfo& info, const Results& results);
-	void AddSportsman(const Sportsman& s);
-	void AddMatchToSportsman(const std::string& name, std::weak_ptr<Match> match);
+	void AddSportsman(const std::shared_ptr<Sportsman>& s);
+	void AddMatchToSportsman(const std::string& name, const std::shared_ptr<Match>& match);
 
-	auto GetSportsman(const std::string& name) const -> const Sportsman&; 
+	auto GetSportsman(const std::string& name) const -> const std::shared_ptr<Sportsman>&;
 
-	auto begin() -> std::vector<Sportsman>::iterator;
-	auto begin() const -> std::vector<Sportsman>::const_iterator;
-	auto end() -> std::vector<Sportsman>::iterator;
-	auto end() const -> std::vector<Sportsman>::const_iterator;
+	auto begin() -> std::vector<std::shared_ptr<Sportsman>>::iterator;
+	auto begin() const ->std::vector<std::shared_ptr<Sportsman>>::const_iterator;
+	auto end() -> std::vector<std::shared_ptr<Sportsman>>::iterator;
+	auto end() const -> std::vector<std::shared_ptr<Sportsman>>::const_iterator;
 };
 

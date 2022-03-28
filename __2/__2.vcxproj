@@ -147,6 +147,7 @@
     <ClCompile Include="Sportsman.cpp" />
     <ClCompile Include="Tasks.cpp" />
     <ClCompile Include="Team.cpp" />
+    <ClCompile Include="Util.cpp" />
     <ClCompile Include="WrongDateFormatException.cpp" />
     <ClCompile Include="WrongMemberNameException.cpp" />
     <ClCompile Include="__2.cpp" />

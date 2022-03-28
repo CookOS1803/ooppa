@@ -15,14 +15,14 @@ auto Team::GetName() const -> std::string_view
 
 void Team::AddSportsman(std::string_view role, const PersonalInfo& info, const Results& results)
 {
-	members.emplace_back(role, info, results);
+	members.emplace_back(new Sportsman(role, info, results));
 }
 
-void Team::AddSportsman(const Sportsman& s)
+void Team::AddSportsman(const std::shared_ptr<Sportsman>& s)
 {
 	for (const auto& m : members)
 	{
-		if (m.GetPersonalInfo().name == s.GetPersonalInfo().name)
+		if (m->GetPersonalInfo().name == s->GetPersonalInfo().name)
 		{
 			throw new DuplicateMemberException;
 		}
@@ -31,21 +31,21 @@ void Team::AddSportsman(const Sportsman& s)
 	members.push_back(s);
 }
 
-void Team::AddMatchToSportsman(const std::string& name, std::weak_ptr<Match> match)
+void Team::AddMatchToSportsman(const std::string& name, const std::shared_ptr<Match>& match)
 {
-	for (Sportsman& s : members)
+	for (auto& s : members)
 	{
-		if (s.GetPersonalInfo().name == name)
+		if (s->GetPersonalInfo().name == name)
 		{
-			for (const auto& m : s.GetPreviousMatches())
+			for (const auto& m : s->GetPreviousMatches())
 			{
-				if (m.lock().get() == match.lock().get())
+				if (m.get() == match.get())
 				{
 					throw new DuplicateMatchException;
 				}
 			}
 
-			s.AddMatch(match);
+			s->AddMatch(match);
 			return;
 		}
 	}
@@ -53,11 +53,11 @@ void Team::AddMatchToSportsman(const std::string& name, std::weak_ptr<Match> mat
 	throw new WrongMemberNameException(name);
 }
 
-auto Team::GetSportsman(const std::string& name) const -> const Sportsman&
+auto Team::GetSportsman(const std::string& name) const -> const std::shared_ptr<Sportsman>&
 {
-	for (const Sportsman& s : members)
+	for (const auto& s : members)
 	{
-		if (s.GetPersonalInfo().name == name)
+		if (s->GetPersonalInfo().name == name)
 		{
 			return s;
 		}
@@ -66,22 +66,22 @@ auto Team::GetSportsman(const std::string& name) const -> const Sportsman&
 	throw new WrongMemberNameException(name);
 }
 
-auto Team::begin() -> std::vector<Sportsman>::iterator
+auto Team::begin() -> std::vector<std::shared_ptr<Sportsman>>::iterator
 {
 	return members.begin();
 }
 
-auto Team::begin() const -> std::vector<Sportsman>::const_iterator
+auto Team::begin() const -> std::vector<std::shared_ptr<Sportsman>>::const_iterator
 {
 	return members.begin();
 }
 
-auto Team::end() -> std::vector<Sportsman>::iterator
+auto Team::end() -> std::vector<std::shared_ptr<Sportsman>>::iterator
 {
 	return members.end();
 }
 
-auto Team::end() const -> std::vector<Sportsman>::const_iterator
+auto Team::end() const -> std::vector<std::shared_ptr<Sportsman>>::const_iterator
 {
 	return members.end();
 }
