@@ -116,10 +116,9 @@ void CreateTeam_Task(Team& team, const std::vector<std::shared_ptr<Match>>& matc
 		team.AddMatchToSportsman("nikita", matches[1]);
 		team.AddMatchToSportsman("andryuha", matches[1]);
 	}
-	catch (std::exception* e)
+	catch (std::exception& e)
 	{
-		std::cout << e->what() << "\n";
-		delete e;
+		std::cout << e.what() << "\n";
 	}
 }
 
@@ -143,10 +142,9 @@ void ShowOneSportsman_Task(const Team& team)
 		const auto& s = team.GetSportsman(name);
 		ShowSportsman(*s);
 	}
-	catch (std::exception* e)
+	catch (std::exception& e)
 	{
-		std::cout << e->what() << "\n\n";
-		delete e;
+		std::cout << e.what() << "\n\n";
 	}
 
 }
@@ -219,10 +217,9 @@ void AddMatch_Task(const Team& team, std::vector<std::shared_ptr<Match>>& matche
 	{
 		temp->SetDate(str);
 	}
-	catch (std::exception* e)
+	catch (std::exception& e)
 	{
-		std::cout << e->what() << "\n";
-		delete e;
+		std::cout << e.what() << "\n";
 		return;
 	}
 
@@ -273,10 +270,9 @@ void AddMatchToSportsman_Task(Team& team, const std::vector<std::shared_ptr<Matc
 	{
 		std::ignore = team.GetSportsman(name);
 	}
-	catch (std::exception* e)
+	catch (std::exception& e)
 	{
-		std::cout << e->what() << "\n";
-		delete e;
+		std::cout << e.what() << "\n";
 		return;
 	}
 
@@ -291,10 +287,9 @@ void AddMatchToSportsman_Task(Team& team, const std::vector<std::shared_ptr<Matc
 	{
 		team.AddMatchToSportsman(name, matches[choice - 1]);
 	}
-	catch (std::exception* e)
+	catch (std::exception& e)
 	{
-		std::cout << e->what() << "\n";
-		delete e;
+		std::cout << e.what() << "\n";
 	}
 }
 
@@ -311,9 +306,8 @@ void AddToCurrent_Task(const Team& team, Team& current)
 		const auto& s = team.GetSportsman(name);
 		current.AddSportsman(s);
 	}
-	catch (std::exception* e)
+	catch (std::exception& e)
 	{
-		std::cout << e->what() << "\n";
-		delete e;
+		std::cout << e.what() << "\n";
 	}
 }

@@ -34,28 +34,28 @@ Match::Match(std::string_view tournament, std::string_view date, const Score& te
 void Match::SetDate(std::string_view date)
 {
 	if (date.size() != 10)
-		throw new WrongDateFormatException;
+		throw WrongDateFormatException();
 
 
 	const char* day = date.substr(0, 2).data();
 	this->date.tm_mday = atoi(day);
 
 	if (this->date.tm_mday < 1 or this->date.tm_mday > 31)
-		throw new WrongDateFormatException;
+		throw WrongDateFormatException();
 
 
 	const char* month = date.substr(3, 2).data();
 	this->date.tm_mon = atoi(month) - 1;
 
 	if (this->date.tm_mon < 0 or this->date.tm_mon > 11)
-		throw new WrongDateFormatException;
+		throw WrongDateFormatException();
 
 
 	const char* year = date.substr(6, 4).data();
 	this->date.tm_year = atoi(year) - 1900;
 
 	if (this->date.tm_year < 0)
-		throw new WrongDateFormatException;
+		throw WrongDateFormatException();
 }
 
 auto Match::GetTournament() const -> std::string_view

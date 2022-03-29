@@ -24,7 +24,7 @@ void Team::AddSportsman(const std::shared_ptr<Sportsman>& s)
 	{
 		if (m->GetPersonalInfo().name == s->GetPersonalInfo().name)
 		{
-			throw new DuplicateMemberException;
+			throw DuplicateMemberException();
 		}
 	}
 
@@ -41,7 +41,7 @@ void Team::AddMatchToSportsman(const std::string& name, const std::shared_ptr<Ma
 			{
 				if (m.get() == match.get())
 				{
-					throw new DuplicateMatchException;
+					throw DuplicateMatchException();
 				}
 			}
 
@@ -50,7 +50,7 @@ void Team::AddMatchToSportsman(const std::string& name, const std::shared_ptr<Ma
 		}
 	}
 
-	throw new WrongMemberNameException(name);
+	throw WrongMemberNameException(name);
 }
 
 auto Team::GetSportsman(const std::string& name) const -> const std::shared_ptr<Sportsman>&
@@ -63,7 +63,7 @@ auto Team::GetSportsman(const std::string& name) const -> const std::shared_ptr<
 		}
 	}
 
-	throw new WrongMemberNameException(name);
+	throw WrongMemberNameException(name);
 }
 
 auto Team::begin() -> std::vector<std::shared_ptr<Sportsman>>::iterator
