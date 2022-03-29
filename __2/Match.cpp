@@ -20,6 +20,11 @@ Match::Match()
 {
 }
 
+Match::Match(const Match& other)
+	: tournament(other.tournament), teamOne(other.teamOne), teamTwo(other.teamTwo), date(other.date)
+{
+}
+
 Match::Match(std::string_view tournament, std::string_view date, const Score& teamOne, const Score& teamTwo)
 	: tournament(tournament), teamOne(teamOne), teamTwo(teamTwo)
 {

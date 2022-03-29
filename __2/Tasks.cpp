@@ -164,7 +164,7 @@ void AddSportsman_Task(Team& team)
 	(
 		std::cout << "¬ведите возраст: ",
 		info.age,
-		info.age > 0
+		info.age >= 0
 	);
 
 	INPUT_CONDITION
@@ -188,14 +188,14 @@ void AddSportsman_Task(Team& team)
 	(
 		std::cout << "¬ведите количество голов: ",
 		results.goals,
-		results.goals > 0
+		results.goals >= 0
 	);
 
 	INPUT_CONDITION
 	(
 		std::cout << "¬ведите количество голевых передач: ",
 		results.assists,
-		results.assists > 0
+		results.assists >= 0
 	);
 
 	team.AddSportsman(role, info, results);
@@ -203,28 +203,21 @@ void AddSportsman_Task(Team& team)
 
 void AddMatch_Task(const Team& team, std::vector<std::shared_ptr<Match>>& matches)
 {
-	std::string tournament;
-	std::string date;
+	std::shared_ptr<Match> temp(new Match());
+	std::string str;
 	int choice;
 
 	std::cout << "¬ведите название турнира: ";
-	std::getline(std::cin, tournament);
+	std::getline(std::cin, str);
+
+	temp->SetTournament(str);
 
 	std::cout << "¬ведите дату: ";
-	std::getline(std::cin, date);
+	std::getline(std::cin, str);
 
 	try
 	{
-		matches.emplace_back
-		(
-			new Match
-			(
-				tournament,
-				date,
-				{ team.GetName(), -1 },
-				{ "", 2 }
-			)
-		);
+		temp->SetDate(str);
 	}
 	catch (std::exception* e)
 	{
@@ -233,31 +226,37 @@ void AddMatch_Task(const Team& team, std::vector<std::shared_ptr<Match>>& matche
 		return;
 	}
 
+	Score s;
+	s.name = team.GetName();
+
 	INPUT_CONDITION
 	(
 		std::cout << "¬ведите счЄт вашей команды: ",
 		choice,
-		choice > 0
+		choice >= 0
 	);
 
-	Score s1 = matches.back()->GetTeamOneScore();
-	s1.amount = choice;
-	matches.back()->SetTeamOneScore(s1);
+	s.amount = choice;
+
+	temp->SetTeamOneScore(s);
 
 	std::cout << "¬ведите название другой команды: ";
-	std::getline(std::cin, tournament);
+	std::getline(std::cin, str);
+
+	s.name = str;
 
 	INPUT_CONDITION
 	(
 		std::cout << "¬ведите счЄт другой команды: ",
 		choice,
-		choice > 0
+		choice >= 0
 	);
 
-	Score s2 = matches.back()->GetTeamTwoScore();
-	s2.name = tournament;
-	s2.amount = choice;
-	matches.back()->SetTeamOneScore(s2);
+	s.amount = choice;
+
+	temp->SetTeamTwoScore(s);
+
+	matches.push_back(temp);
 }
 
 void AddMatchToSportsman_Task(Team& team, const std::vector<std::shared_ptr<Match>>& matches)

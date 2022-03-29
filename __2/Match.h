@@ -23,6 +23,7 @@ class Match
 public:
 
 	Match();
+	Match(const Match& other);
 	Match(std::string_view tournament, std::string_view date, const Score& teamOne, const Score& teamTwo);
 
 	auto GetTournament() const -> std::string_view;
