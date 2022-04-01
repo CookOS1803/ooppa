@@ -3,6 +3,9 @@
 #include "Team.h"
 
 void Menu(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches);
+void MenuForTeam(Team& team, std::vector<std::shared_ptr<Match>>& matches);
+void MenuForCurrent(Team& team, Team& current);
+void MenuForMatches(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches);
 
 void CreateMatches_Task(std::vector<std::shared_ptr<Match>>& matches);
 

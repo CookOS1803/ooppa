@@ -11,15 +11,45 @@ void Menu(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matche
 		INPUT
 		(
 			std::cout
+			<< "1. Команда\n"
+			<< "2. Состав для следующего матча\n"
+			<< "3. Матчи\n"
+			<< "0. Выход\n",
+			choice
+		);
+
+		switch (choice)
+		{
+		case 1:
+			MenuForTeam(team, matches);
+			break;
+		case 2:
+			MenuForCurrent(team, current);
+			break;
+		case 3:
+			MenuForMatches(team, current, matches);
+			break;
+		case 0:
+			exit = true;
+		}
+	}
+}
+
+void MenuForTeam(Team& team, std::vector<std::shared_ptr<Match>>& matches)
+{
+	int choice;
+	bool exit = false;
+
+	while (!exit)
+	{
+		INPUT
+		(
+			std::cout
 			<< "1. Показать всех спортсменов\n"
 			<< "2. Показать конкретного спортсмена\n"
-			<< "3. Показать матчи\n"
-			<< "4. Добавить спортсмена\n"
-			<< "5. Добавить матч\n"
-			<< "6. Добавить матч спортсмену\n"
-			<< "7. Показать состав для следующего матча\n"
-			<< "8. Добавить спортсмена в состав для следующего матча\n"
-			<< "0. Выход\n",
+			<< "3. Добавить спортсмена\n"
+			<< "4. Добавить матч спортсмену\n"
+			<< "0. Назад\n",
 			choice
 		);
 
@@ -32,28 +62,85 @@ void Menu(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matche
 			ShowOneSportsman_Task(team);
 			break;
 		case 3:
-			ShowMatches(matches);
-			break;
-		case 4:
 			AddSportsman_Task(team);
 			break;
-		case 5:
-			AddMatch_Task(team, matches);
-			break;
-		case 6:
+		case 4:
 			AddMatchToSportsman_Task(team, matches);
 			break;
-		case 7:
+		case 0:
+			exit = true;
+			break;
+		}
+	}
+}
+
+
+void MenuForCurrent(Team& team, Team& current)
+{
+	int choice;
+	bool exit = false;
+
+	while (!exit)
+	{
+		INPUT
+		(
+			std::cout
+			<< "1. Показать состав\n"
+			<< "2. Показать конкретного спортсмена\n"
+			<< "3. Добавить спортсмена в состав\n"
+			<< "0. Назад\n",
+			choice
+		);
+
+		switch (choice)
+		{
+		case 1:
 			ShowSportsmen_Task(current);
 			break;
-		case 8:
+		case 2:
+			ShowOneSportsman_Task(current);
+			break;
+		case 3:
 			AddToCurrent_Task(team, current);
 			break;
 		case 0:
 			exit = true;
+			break;
 		}
 	}
 }
+
+void MenuForMatches(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches)
+{
+	int choice;
+	bool exit = false;
+
+	while (!exit)
+	{
+		INPUT
+		(
+			std::cout
+			<< "1. Показать матчи\n"
+			<< "2. Добавить матч\n"
+			<< "0. Назад\n",
+			choice
+		);
+
+		switch (choice)
+		{
+		case 1:
+			ShowMatches(matches);
+			break;
+		case 2:
+			AddMatch_Task(team, matches);
+			break;
+		case 0:
+			exit = true;
+			break;
+		}
+	}
+}
+
 
 void CreateMatches_Task(std::vector<std::shared_ptr<Match>>& matches)
 {
