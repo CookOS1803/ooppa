@@ -15,6 +15,7 @@ public:
 
 	void AddSportsman(std::string_view role, const PersonalInfo& info, const Results& results);
 	void AddSportsman(const std::shared_ptr<Sportsman>& s);
+	void DeleteSportsman(std::string_view name);
 	void AddMatchToSportsman(const std::string& name, const std::shared_ptr<Match>& match);
 
 	auto GetSportsman(const std::string& name) const -> const std::shared_ptr<Sportsman>&;

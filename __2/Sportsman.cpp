@@ -62,6 +62,41 @@ auto Sportsman::GetResults() const -> const Results&
 	return results;
 }
 
+void Sportsman::SetName(std::string_view name)
+{
+	info.name = name;
+}
+
+void Sportsman::SetAge(int age)
+{
+	info.age = age;
+}
+
+void Sportsman::SetHeight(int height)
+{
+	info.height = height;
+}
+
+void Sportsman::SetWeight(int weight)
+{
+	info.weight = weight;
+}
+
+void Sportsman::SetGoals(int goals)
+{
+	results.goals = goals;
+}
+
+void Sportsman::SetAssists(int assists)
+{
+	results.assists = assists;
+}
+
+void Sportsman::SetRole(std::string_view role)
+{
+	this->role = role;
+}
+
 void Sportsman::AddMatch(const std::shared_ptr<Match>& match)
 {
 	previousMatches.push_back(match);

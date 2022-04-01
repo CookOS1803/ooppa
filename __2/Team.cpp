@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "Team.h"
 #include "WrongMemberNameException.h"
 #include "DuplicateMatchException.h"
@@ -29,6 +30,15 @@ void Team::AddSportsman(const std::shared_ptr<Sportsman>& s)
 	}
 
 	members.push_back(s);
+}
+
+void Team::DeleteSportsman(std::string_view name)
+{
+	auto it = std::find_if(members.begin(), members.end(), 
+		[name](const std::shared_ptr<Sportsman> p) { return p->GetPersonalInfo().name == name; });
+
+	if (it != members.end())
+		members.erase(it);
 }
 
 void Team::AddMatchToSportsman(const std::string& name, const std::shared_ptr<Match>& match)

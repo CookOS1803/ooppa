@@ -1,3 +1,4 @@
+#include <functional>
 #include "Tasks.h"
 #include "Util.h"
 
@@ -21,7 +22,7 @@ void Menu(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matche
 		switch (choice)
 		{
 		case 1:
-			MenuForTeam(team, matches);
+			MenuForTeam(team, current, matches);
 			break;
 		case 2:
 			MenuForCurrent(team, current);
@@ -35,7 +36,7 @@ void Menu(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matche
 	}
 }
 
-void MenuForTeam(Team& team, std::vector<std::shared_ptr<Match>>& matches)
+void MenuForTeam(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches)
 {
 	int choice;
 	bool exit = false;
@@ -48,7 +49,8 @@ void MenuForTeam(Team& team, std::vector<std::shared_ptr<Match>>& matches)
 			<< "1. Показать всех спортсменов\n"
 			<< "2. Показать конкретного спортсмена\n"
 			<< "3. Добавить спортсмена\n"
-			<< "4. Добавить матч спортсмену\n"
+			<< "4. Удалить спортсмена\n"
+			<< "5. Изменить спортсмена\n"
 			<< "0. Назад\n",
 			choice
 		);
@@ -65,8 +67,10 @@ void MenuForTeam(Team& team, std::vector<std::shared_ptr<Match>>& matches)
 			AddSportsman_Task(team);
 			break;
 		case 4:
-			AddMatchToSportsman_Task(team, matches);
+			DeleteSportsman_Task(team, current, matches);
 			break;
+		case 5:
+			ChangeSportsman_Task(team);
 		case 0:
 			exit = true;
 			break;
@@ -74,6 +78,51 @@ void MenuForTeam(Team& team, std::vector<std::shared_ptr<Match>>& matches)
 	}
 }
 
+void ChangeSportsman_Task(Team& team)
+{
+	std::string name;
+
+	std::cout << "Введите имя: ";
+	std::getline(std::cin, name);
+
+	try
+	{
+		auto s = team.GetSportsman(name);
+		MenuForSportsmanChange(s);
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << "\n\n";
+	}
+}
+
+void MenuForSportsmanChange(std::shared_ptr<Sportsman>& sportsman)
+{
+	int choice;
+	bool exit = false;
+	std::function<void(std::string_view)> funcStr;
+
+
+	while (!exit)
+	{
+		INPUT
+		(
+			std::cout
+			<< "1. Изменить имя\n"
+			<< "0. Назад\n",
+			choice
+		);
+
+		switch (choice)
+		{
+		case 1:
+			
+		case 0:
+			exit = true;
+			break;
+		}
+	}
+}
 
 void MenuForCurrent(Team& team, Team& current)
 {
@@ -284,6 +333,27 @@ void AddSportsman_Task(Team& team)
 	);
 
 	team.AddSportsman(role, info, results);
+}
+
+void DeleteSportsman_Task(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches)
+{
+	std::string name;
+
+	std::cout << "Введите имя: ";
+	std::getline(std::cin, name);
+
+	try
+	{
+		std::ignore = team.GetSportsman(name);
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << "\n";
+		return;
+	}
+
+	team.DeleteSportsman(name);
+	current.DeleteSportsman(name);
 }
 
 void AddMatch_Task(const Team& team, std::vector<std::shared_ptr<Match>>& matches)

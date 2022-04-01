@@ -43,5 +43,15 @@ public:
 	auto GetPersonalInfo() const -> const PersonalInfo&;
 	auto GetResults() const -> const Results&;
 
+	void SetName(std::string_view name);
+	void SetAge(int age);
+	void SetHeight(int height);
+	void SetWeight(int weight);
+
+	void SetGoals(int goals);
+	void SetAssists(int assists);
+
+	void SetRole(std::string_view role);
+
 	void AddMatch(const std::shared_ptr<Match>& match);
 };
