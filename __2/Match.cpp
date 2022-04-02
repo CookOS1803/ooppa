@@ -91,7 +91,27 @@ void Match::SetTeamOneScore(const Score& team)
 	teamOne = team;
 }
 
+void Match::SetTeamOneName(std::string_view name)
+{
+	teamOne.name = name;
+}
+
+void Match::SetTeamOneScoreAmount(int amount)
+{
+	teamOne.amount = amount;
+}
+
 void Match::SetTeamTwoScore(const Score& team)
 {
 	teamTwo = team;
+}
+
+void Match::SetTeamTwoName(std::string_view name)
+{
+	teamTwo.name = name;
+}
+
+void Match::SetTeamTwoScoreAmount(int amount)
+{
+	teamTwo.amount = amount;
 }

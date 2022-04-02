@@ -34,6 +34,10 @@ public:
 	void SetTournament(std::string_view tournament);
 	void SetDate(std::string_view date);
 	void SetTeamOneScore(const Score& team);
+	void SetTeamOneName(std::string_view name);
+	void SetTeamOneScoreAmount(int amount);
 	void SetTeamTwoScore(const Score& team);
+	void SetTeamTwoName(std::string_view name);
+	void SetTeamTwoScoreAmount(int amount);
 };
 

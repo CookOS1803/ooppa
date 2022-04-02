@@ -8,6 +8,7 @@ void ChangeSportsman_Task(Team& team, std::vector<std::shared_ptr<Match>>& match
 void MenuForSportsmanChange(std::shared_ptr<Sportsman>& sportsman, std::vector<std::shared_ptr<Match>>& matches);
 void MenuForCurrent(Team& team, Team& current);
 void MenuForMatches(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches);
+void MenuForMatchChange(std::shared_ptr<Match>& match);
 
 void CreateMatches_Task(std::vector<std::shared_ptr<Match>>& matches);
 

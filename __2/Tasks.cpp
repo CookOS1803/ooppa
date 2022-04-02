@@ -302,6 +302,18 @@ void MenuForMatches(Team& team, Team& current, std::vector<std::shared_ptr<Match
 			matches.erase(matches.begin() + choice - 1);
 
 			break;
+		case 4:
+			ShowMatches(matches);
+			INPUT_CONDITION
+			(
+				std::cout << "Введите номер матча: ",
+				choice,
+				choice > 0 and choice <= matches.size(),
+			);
+
+			MenuForMatchChange(matches[choice - 1]);
+
+			break;
 		case 0:
 			exit = true;
 			break;
@@ -309,6 +321,84 @@ void MenuForMatches(Team& team, Team& current, std::vector<std::shared_ptr<Match
 	}
 }
 
+void MenuForMatchChange(std::shared_ptr<Match>& match)
+{
+	int choice;
+	bool exit = false;
+	std::string temp;
+
+	while (!exit)
+	{
+		INPUT
+		(
+			std::cout
+			<< "1. Изменить название турнира\n"
+			<< "2. Изменить дату\n"
+			<< "3. Изменить счёт вашей команды\n"
+			<< "4. Изменить счёт другой команды\n"
+			<< "5. Изменить название другой команды\n"
+			<< "0. Назад\n",
+			choice
+		);
+
+		switch (choice)
+		{
+		case 1:
+			std::cout << "Введите новое название турнира: ";
+			std::getline(std::cin, temp);
+
+			match->SetTournament(temp);
+
+			break;
+		case 2:
+			std::cout << "Введите новую дату: ";
+			std::getline(std::cin, temp);
+
+			try
+			{
+				match->SetDate(temp);
+			}
+			catch (std::exception& e)
+			{
+				std::cout << e.what() << "\n";
+			}
+
+			break;
+		case 3:
+			INPUT_CONDITION
+			(
+				std::cout << "Введите новый счёт вашей команды: ",
+				choice,
+				choice >= 0
+			);
+
+			match->SetTeamOneScoreAmount(choice);
+
+			break;
+		case 4:
+			INPUT_CONDITION
+			(
+				std::cout << "Введите новый счёт другой команды: ",
+				choice,
+				choice >= 0
+			);
+
+			match->SetTeamTwoScoreAmount(choice);
+
+			break;
+		case 5:
+			std::cout << "Введите новое название другой команды: ";
+			std::getline(std::cin, temp);
+
+			match->SetTeamTwoName(temp);
+
+			break;
+		case 0:
+			exit = true;
+			break;
+		}
+	}
+}
 
 void CreateMatches_Task(std::vector<std::shared_ptr<Match>>& matches)
 {
