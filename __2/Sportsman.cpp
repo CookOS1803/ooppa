@@ -1,4 +1,6 @@
+#include <algorithm>
 #include "Sportsman.h"
+#include "DuplicateMatchException.h"
 
 PersonalInfo::PersonalInfo()
 {
@@ -99,5 +101,21 @@ void Sportsman::SetRole(std::string_view role)
 
 void Sportsman::AddMatch(const std::shared_ptr<Match>& match)
 {
+	for (const auto& m : previousMatches)
+	{
+		if (m.get() == match.get())
+		{
+			throw DuplicateMatchException();
+		}
+	}
+
 	previousMatches.push_back(match);
+}
+
+void Sportsman::RemoveMatch(const Match* matchAddress)
+{
+	auto it = find_if(previousMatches.begin(), previousMatches.end(),
+		[matchAddress](const std::shared_ptr<Match>& m) { return m.get() == matchAddress; });
+
+	previousMatches.erase(it);
 }

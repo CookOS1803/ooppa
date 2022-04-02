@@ -54,4 +54,5 @@ public:
 	void SetRole(std::string_view role);
 
 	void AddMatch(const std::shared_ptr<Match>& match);
+	void RemoveMatch(const Match* matchAddress);
 };

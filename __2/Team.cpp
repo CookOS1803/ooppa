@@ -46,15 +46,7 @@ void Team::AddMatchToSportsman(const std::string& name, const std::shared_ptr<Ma
 	for (auto& s : members)
 	{
 		if (s->GetPersonalInfo().name == name)
-		{
-			for (const auto& m : s->GetPreviousMatches())
-			{
-				if (m.get() == match.get())
-				{
-					throw DuplicateMatchException();
-				}
-			}
-
+		{			
 			s->AddMatch(match);
 			return;
 		}

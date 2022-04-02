@@ -70,7 +70,8 @@ void MenuForTeam(Team& team, Team& current, std::vector<std::shared_ptr<Match>>&
 			DeleteSportsman_Task(team, current, matches);
 			break;
 		case 5:
-			ChangeSportsman_Task(team);
+			ChangeSportsman_Task(team, matches);
+			break;
 		case 0:
 			exit = true;
 			break;
@@ -78,7 +79,7 @@ void MenuForTeam(Team& team, Team& current, std::vector<std::shared_ptr<Match>>&
 	}
 }
 
-void ChangeSportsman_Task(Team& team)
+void ChangeSportsman_Task(Team& team, std::vector<std::shared_ptr<Match>>& matches)
 {
 	std::string name;
 
@@ -88,7 +89,7 @@ void ChangeSportsman_Task(Team& team)
 	try
 	{
 		auto s = team.GetSportsman(name);
-		MenuForSportsmanChange(s);
+		MenuForSportsmanChange(s, matches);
 	}
 	catch (std::exception& e)
 	{
@@ -96,19 +97,28 @@ void ChangeSportsman_Task(Team& team)
 	}
 }
 
-void MenuForSportsmanChange(std::shared_ptr<Sportsman>& sportsman)
+void MenuForSportsmanChange(std::shared_ptr<Sportsman>& sportsman, std::vector<std::shared_ptr<Match>>& matches)
 {
 	int choice;
 	bool exit = false;
-	std::function<void(std::string_view)> funcStr;
-
+	std::string temp;
 
 	while (!exit)
 	{
+		ShowSportsman(*sportsman);
+
 		INPUT
 		(
 			std::cout
 			<< "1. Изменить имя\n"
+			<< "2. Изменить роль\n"
+			<< "3. Изменить возраст\n"
+			<< "4. Изменить рост\n"
+			<< "5. Изменить вес\n"
+			<< "6. Изменить количество голов\n"
+			<< "7. Изменить количество голевых передач\n"
+			<< "8. Добавить матч\n"
+			<< "9. Удалить матч\n"
 			<< "0. Назад\n",
 			choice
 		);
@@ -116,7 +126,100 @@ void MenuForSportsmanChange(std::shared_ptr<Sportsman>& sportsman)
 		switch (choice)
 		{
 		case 1:
-			
+			std::cout << "Введите новое имя: ";
+			std::getline(std::cin, temp);
+			sportsman->SetName(temp);
+
+			break;
+		case 2:
+			std::cout << "Введите новую роль: ";
+			std::getline(std::cin, temp);
+			sportsman->SetRole(temp);
+
+			break;
+		case 3:
+			INPUT_CONDITION
+			(
+				std::cout << "Введите новый возраст: ",
+				choice,
+				choice >= 0,
+			);
+			sportsman->SetAge(choice);
+
+			break;
+		case 4:
+			INPUT_CONDITION
+			(
+				std::cout << "Введите новый рост: ",
+				choice,
+				choice >= 0,
+			);
+			sportsman->SetHeight(choice);
+
+			break;
+		case 5:
+			INPUT_CONDITION
+			(
+				std::cout << "Введите новый вес: ",
+				choice,
+				choice >= 0,
+			);
+			sportsman->SetWeight(choice);
+
+			break;
+		case 6:
+			INPUT_CONDITION
+			(
+				std::cout << "Введите новое количество голов: ",
+				choice,
+				choice >= 0,
+			);
+			sportsman->SetGoals(choice);
+
+			break;
+		case 7:
+			INPUT_CONDITION
+			(
+				std::cout << "Введите новое количество голевых передач: ",
+				choice,
+				choice >= 0,
+			);
+			sportsman->SetAssists(choice);
+
+			break;
+		case 8:
+			ShowMatches(matches);
+			INPUT_CONDITION
+			(
+				std::cout << "Введите номер матча: ",
+				choice,
+				choice > 0 and choice <= matches.size(),
+			);
+
+			try
+			{
+				sportsman->AddMatch(matches[choice - 1]);
+			}
+			catch (std::exception& e)
+			{
+				std::cout << e.what() << "\n";
+			}
+			break;
+		case 9:
+		{
+			const auto& sm = sportsman->GetPreviousMatches();
+
+			ShowMatches(matches);
+			INPUT_CONDITION
+			(
+				std::cout << "Введите номер матча: ",
+				choice,
+				choice > 0 and choice <= sm.size(),
+			);
+
+			sportsman->RemoveMatch(sm[choice - 1].get());
+		}
+			break;
 		case 0:
 			exit = true;
 			break;
