@@ -274,6 +274,8 @@ void MenuForMatches(Team& team, Team& current, std::vector<std::shared_ptr<Match
 			std::cout
 			<< "1. Показать матчи\n"
 			<< "2. Добавить матч\n"
+			<< "3. Удалить матч\n"
+			<< "4. Изменить матч\n"
 			<< "0. Назад\n",
 			choice
 		);
@@ -285,6 +287,20 @@ void MenuForMatches(Team& team, Team& current, std::vector<std::shared_ptr<Match
 			break;
 		case 2:
 			AddMatch_Task(team, matches);
+			break;
+		case 3:
+			ShowMatches(matches);
+			INPUT_CONDITION
+			(
+				std::cout << "Введите номер матча: ",
+				choice,
+				choice > 0 and choice <= matches.size(),
+			);
+
+			team.RemoveMatch(matches[choice - 1].get());
+
+			matches.erase(matches.begin() + choice - 1);
+
 			break;
 		case 0:
 			exit = true;

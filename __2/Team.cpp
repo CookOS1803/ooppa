@@ -35,7 +35,7 @@ void Team::AddSportsman(const std::shared_ptr<Sportsman>& s)
 void Team::DeleteSportsman(std::string_view name)
 {
 	auto it = std::find_if(members.begin(), members.end(), 
-		[name](const std::shared_ptr<Sportsman> p) { return p->GetPersonalInfo().name == name; });
+		[name](const std::shared_ptr<Sportsman>& p) { return p->GetPersonalInfo().name == name; });
 
 	if (it != members.end())
 		members.erase(it);
@@ -53,6 +53,14 @@ void Team::AddMatchToSportsman(const std::string& name, const std::shared_ptr<Ma
 	}
 
 	throw WrongMemberNameException(name);
+}
+
+void Team::RemoveMatch(const Match* matchAddress)
+{
+	for (auto& sp : members)
+	{
+		sp->RemoveMatch(matchAddress);
+	}
 }
 
 auto Team::GetSportsman(const std::string& name) const -> const std::shared_ptr<Sportsman>&

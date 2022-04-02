@@ -117,5 +117,6 @@ void Sportsman::RemoveMatch(const Match* matchAddress)
 	auto it = find_if(previousMatches.begin(), previousMatches.end(),
 		[matchAddress](const std::shared_ptr<Match>& m) { return m.get() == matchAddress; });
 
-	previousMatches.erase(it);
+	if (it != previousMatches.end())
+		previousMatches.erase(it);
 }

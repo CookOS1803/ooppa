@@ -17,6 +17,7 @@ public:
 	void AddSportsman(const std::shared_ptr<Sportsman>& s);
 	void DeleteSportsman(std::string_view name);
 	void AddMatchToSportsman(const std::string& name, const std::shared_ptr<Match>& match);
+	void RemoveMatch(const Match* matchAddress);
 
 	auto GetSportsman(const std::string& name) const -> const std::shared_ptr<Sportsman>&;
 
