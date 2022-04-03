@@ -2,6 +2,7 @@
 #include <string>
 #include <string_view>
 #include <ctime>
+#include <memory>
 
 struct Score
 {
@@ -40,5 +41,17 @@ public:
 	void SetTeamTwoScore(const Score& team);
 	void SetTeamTwoName(std::string_view name);
 	void SetTeamTwoScoreAmount(int amount);
+	
+	static bool ByTournamentAscendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2);
+	static bool ByTournamentDescendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2);
+	static bool ByDateAscendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2);
+	static bool ByDateDescendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2);
+	static bool ByTeamOneScoreAscendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2);
+	static bool ByTeamOneScoreDescendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2);
+	static bool ByTeamTwoScoreAscendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2);
+	static bool ByTeamTwoScoreDescendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2);
+	static bool ByTeamTwoNameAscendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2);
+	static bool ByTeamTwoNameDescendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2);
+
 };
 

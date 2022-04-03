@@ -120,3 +120,63 @@ void Match::SetTeamTwoScoreAmount(int amount)
 {
 	teamTwo.amount = amount;
 }
+
+bool Match::ByTournamentAscendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2)
+{
+	return m1->GetTournament()[0] < m2->GetTournament()[0];
+}
+
+bool Match::ByTournamentDescendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2)
+{
+	return m1->GetTournament()[0] > m2->GetTournament()[0];
+}
+
+bool Match::ByDateAscendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2)
+{
+	bool result =
+		m1->GetDateRaw().tm_year < m2->GetDateRaw().tm_year ? true :
+		m1->GetDateRaw().tm_mon < m2->GetDateRaw().tm_mon ? true :
+		m1->GetDateRaw().tm_mday < m2->GetDateRaw().tm_mday;
+
+	return result;
+}
+
+bool Match::ByDateDescendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2)
+{
+	bool result =
+		m1->GetDateRaw().tm_year > m2->GetDateRaw().tm_year ? true :
+		m1->GetDateRaw().tm_mon > m2->GetDateRaw().tm_mon ? true :
+		m1->GetDateRaw().tm_mday > m2->GetDateRaw().tm_mday;
+
+	return result;
+}
+
+bool Match::ByTeamOneScoreAscendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2)
+{
+	return m1->GetTeamOneScore().amount < m2->GetTeamOneScore().amount;
+}
+
+bool Match::ByTeamOneScoreDescendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2)
+{
+	return m1->GetTeamOneScore().amount > m2->GetTeamOneScore().amount;
+}
+
+bool Match::ByTeamTwoScoreAscendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2)
+{
+	return m1->GetTeamTwoScore().amount < m2->GetTeamTwoScore().amount;
+}
+
+bool Match::ByTeamTwoScoreDescendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2)
+{
+	return m1->GetTeamTwoScore().amount > m2->GetTeamTwoScore().amount;
+}
+
+bool Match::ByTeamTwoNameAscendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2)
+{
+	return m1->GetTeamTwoScore().name[0] < m2->GetTeamTwoScore().name[0];
+}
+
+bool Match::ByTeamTwoNameDescendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2)
+{
+	return m1->GetTeamTwoScore().name[0] > m2->GetTeamTwoScore().name[0];
+}

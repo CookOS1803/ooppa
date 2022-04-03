@@ -1,4 +1,4 @@
-#include <functional>
+#include <algorithm>
 #include "Tasks.h"
 #include "Util.h"
 
@@ -541,9 +541,10 @@ void MenuForMatches(Team& team, std::vector<std::shared_ptr<Match>>& matches)
 			std::cout
 			<< "1. Показать матчи\n"
 			<< "2. Найти матчи по ключу\n"
-			<< "3. Добавить матч\n"
-			<< "4. Удалить матч\n"
-			<< "5. Изменить матч\n"
+			<< "3. Отсортировать\n"
+			<< "4. Добавить матч\n"
+			<< "5. Удалить матч\n"
+			<< "6. Изменить матч\n"
 			<< "0. Назад\n",
 			choice
 		);
@@ -557,9 +558,12 @@ void MenuForMatches(Team& team, std::vector<std::shared_ptr<Match>>& matches)
 			MenuForMatchesFind(matches);
 			break;
 		case 3:
-			AddMatch_Task(team, matches);
+			MenuForMatchesSort(matches);
 			break;
 		case 4:
+			AddMatch_Task(team, matches);
+			break;
+		case 5:
 			ShowMatches(matches);
 			INPUT_CONDITION
 			(
@@ -573,7 +577,7 @@ void MenuForMatches(Team& team, std::vector<std::shared_ptr<Match>>& matches)
 			matches.erase(matches.begin() + choice - 1);
 
 			break;
-		case 5:
+		case 6:
 			ShowMatches(matches);
 			INPUT_CONDITION
 			(
@@ -704,6 +708,72 @@ void MenuForMatchesFind(const std::vector<std::shared_ptr<Match>>& matches)
 		{
 			ShowMatches(tempMatches);
 			tempMatches.clear();
+		}
+	}
+}
+
+void MenuForMatchesSort(std::vector<std::shared_ptr<Match>>& matches)
+{
+	int choice, order;
+	bool exit = false;
+
+	while (!exit)
+	{
+		INPUT
+		(
+			std::cout
+			<< "1. Сортировать по названию турнира\n"
+			<< "2. Сортировать по дате\n"
+			<< "3. Сортировать по счёту вашей команды\n"
+			<< "4. Сортировать по счёту другой команды\n"
+			<< "5. Сортировать по названию другой команды\n"
+			<< "0. Назад\n",
+			choice
+		);
+
+		if (choice != 0)
+			order = GetBinaryChoice();
+
+		switch (choice)
+		{
+		case 1:
+			if (order == 1)
+				std::sort(matches.begin(), matches.end(), Match::ByTournamentAscendingly);
+			else
+				std::sort(matches.begin(), matches.end(), Match::ByTournamentDescendingly);
+
+			break;
+		case 2:
+			if (order == 1)
+				std::sort(matches.begin(), matches.end(), Match::ByDateAscendingly);
+			else
+				std::sort(matches.begin(), matches.end(), Match::ByDateDescendingly);
+
+			break;
+		case 3:
+			if (order == 1)
+				std::sort(matches.begin(), matches.end(), Match::ByTeamOneScoreAscendingly);
+			else
+				std::sort(matches.begin(), matches.end(), Match::ByTeamOneScoreDescendingly);
+
+			break;
+		case 4:
+			if (order == 1)
+				std::sort(matches.begin(), matches.end(), Match::ByTeamTwoScoreAscendingly);
+			else
+				std::sort(matches.begin(), matches.end(), Match::ByTeamTwoScoreDescendingly);
+
+			break;
+		case 5:
+			if (order == 1)
+				std::sort(matches.begin(), matches.end(), Match::ByTeamTwoNameAscendingly);
+			else
+				std::sort(matches.begin(), matches.end(), Match::ByTeamTwoNameDescendingly);
+
+			break;
+		case 0:
+			exit = true;
+			break;
 		}
 	}
 }
