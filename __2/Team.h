@@ -18,8 +18,10 @@ public:
 	void DeleteSportsman(std::string_view name);
 	void AddMatchToSportsman(const std::string& name, const std::shared_ptr<Match>& match);
 	void RemoveMatch(const Match* matchAddress);
+	void Clear();
 
 	auto GetSportsman(const std::string& name) const -> const std::shared_ptr<Sportsman>&;
+	auto GetSize() const -> int;
 
 	auto begin() -> std::vector<std::shared_ptr<Sportsman>>::iterator;
 	auto begin() const ->std::vector<std::shared_ptr<Sportsman>>::const_iterator;

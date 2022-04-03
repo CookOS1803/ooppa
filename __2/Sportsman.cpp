@@ -64,6 +64,14 @@ auto Sportsman::GetResults() const -> const Results&
 	return results;
 }
 
+bool Sportsman::HasMatch(const Match* matchAddress)
+{
+	auto it = find_if(previousMatches.begin(), previousMatches.end(),
+		[matchAddress](const std::shared_ptr<Match>& m) { return m.get() == matchAddress; });
+
+	return it != previousMatches.end();
+}
+
 void Sportsman::SetName(std::string_view name)
 {
 	info.name = name;

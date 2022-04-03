@@ -25,10 +25,10 @@ void Menu(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matche
 			MenuForTeam(team, current, matches);
 			break;
 		case 2:
-			MenuForCurrent(team, current);
+			MenuForCurrent(team, current, matches);
 			break;
 		case 3:
-			MenuForMatches(team, current, matches);
+			MenuForMatches(team, matches);
 			break;
 		case 0:
 			exit = true;
@@ -36,7 +36,7 @@ void Menu(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matche
 	}
 }
 
-void MenuForTeam(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches)
+void MenuForTeam(Team& team, Team& current, const std::vector<std::shared_ptr<Match>>& matches)
 {
 	int choice;
 	bool exit = false;
@@ -48,9 +48,10 @@ void MenuForTeam(Team& team, Team& current, std::vector<std::shared_ptr<Match>>&
 			std::cout
 			<< "1. Показать всех спортсменов\n"
 			<< "2. Показать конкретного спортсмена\n"
-			<< "3. Добавить спортсмена\n"
-			<< "4. Удалить спортсмена\n"
-			<< "5. Изменить спортсмена\n"
+			<< "3. Найти спортсменов по ключу\n"
+			<< "4. Добавить спортсмена\n"
+			<< "5. Удалить спортсмена\n"
+			<< "6. Изменить спортсмена\n"
 			<< "0. Назад\n",
 			choice
 		);
@@ -64,12 +65,15 @@ void MenuForTeam(Team& team, Team& current, std::vector<std::shared_ptr<Match>>&
 			ShowOneSportsman_Task(team);
 			break;
 		case 3:
-			AddSportsman_Task(team);
+			MenuForSportsmenFind(team, matches);
 			break;
 		case 4:
-			DeleteSportsman_Task(team, current, matches);
+			AddSportsman_Task(team);
 			break;
 		case 5:
+			DeleteSportsman_Task(team, current, matches);
+			break;
+		case 6:
 			ChangeSportsman_Task(team, matches);
 			break;
 		case 0:
@@ -79,7 +83,152 @@ void MenuForTeam(Team& team, Team& current, std::vector<std::shared_ptr<Match>>&
 	}
 }
 
-void ChangeSportsman_Task(Team& team, std::vector<std::shared_ptr<Match>>& matches)
+void MenuForSportsmenFind(const Team& team, const std::vector<std::shared_ptr<Match>>& matches)
+{
+	int choice;
+	bool exit = false;
+	std::string role;
+	Team temp("temp");
+
+	while (true)
+	{
+		INPUT
+		(
+			std::cout
+			<< "1. Найти по роли\n"
+			<< "2. Найти по возрасту\n"
+			<< "3. Найти по росту\n"
+			<< "4. Найти по весу\n"
+			<< "5. Найти по количеству голов\n"
+			<< "6. Найти по количеству голевых передач\n"
+			<< "7. Найти по участию в матче\n"
+			<< "0. Назад\n",
+			choice
+		);
+
+		switch (choice)
+		{
+		case 1:
+			std::cout << "Введите роль: ";
+			std::getline(std::cin, role);
+
+			for (const auto& sp : team)
+			{
+				if (sp->GetRole() == role)
+					temp.AddSportsman(sp);
+			}
+
+			break;
+		case 2:
+			INPUT_CONDITION
+			(
+				std::cout << "Введите возраст: ",
+				choice,
+				choice >= 0,
+			);
+
+			for (const auto& sp : team)
+			{
+				if (sp->GetPersonalInfo().age == choice)
+					temp.AddSportsman(sp);
+			}
+
+			break;
+		case 3:
+			INPUT_CONDITION
+			(
+				std::cout << "Введите рост: ",
+				choice,
+				choice >= 0,
+			);
+
+			for (const auto& sp : team)
+			{
+				if (sp->GetPersonalInfo().height == choice)
+					temp.AddSportsman(sp);
+			}
+
+			break;
+		case 4:
+			INPUT_CONDITION
+			(
+				std::cout << "Введите вес: ",
+				choice,
+				choice >= 0,
+			);
+
+			for (const auto& sp : team)
+			{
+				if (sp->GetPersonalInfo().weight == choice)
+					temp.AddSportsman(sp);
+			}
+
+			break;
+		case 5:
+			INPUT_CONDITION
+			(
+				std::cout << "Введите количество голов: ",
+				choice,
+				choice >= 0,
+			);
+
+			for (const auto& sp : team)
+			{
+				if (sp->GetResults().goals == choice)
+					temp.AddSportsman(sp);
+			}
+
+			break;
+		case 6:
+			INPUT_CONDITION
+			(
+				std::cout << "Введите количество голевых передач: ",
+				choice,
+				choice >= 0,
+			);
+
+			for (const auto& sp : team)
+			{
+				if (sp->GetResults().assists == choice)
+					temp.AddSportsman(sp);
+			}
+
+			break;
+		case 7:
+			ShowMatches(matches);
+			INPUT_CONDITION
+			(
+				std::cout << "Введите номер матча: ",
+				choice,
+				choice > 0 and choice <= matches.size(),
+			);
+
+			for (const auto& sp : team)
+			{
+				if (sp->HasMatch(matches[choice - 1].get()))
+					temp.AddSportsman(sp);
+			}
+
+			break;
+		case 0:
+			exit = true;
+			break;
+		}
+
+		if (exit)
+			break;
+
+		if (temp.GetSize() == 0)
+			std::cout << "Таких спортсменов нет\n\n";
+		else
+		{
+			ShowSportsmen_Task(temp);
+			temp.Clear();
+		}
+	}
+}
+
+void ChangeSportsman_Task(Team& team, const std::vector<std::shared_ptr<Match>>& matches)
 {
 	std::string name;
 
@@ -97,7 +246,7 @@ void ChangeSportsman_Task(Team& team, std::vector<std::shared_ptr<Match>>& match
 	}
 }
 
-void MenuForSportsmanChange(std::shared_ptr<Sportsman>& sportsman, std::vector<std::shared_ptr<Match>>& matches)
+void MenuForSportsmanChange(std::shared_ptr<Sportsman>& sportsman, const std::vector<std::shared_ptr<Match>>& matches)
 {
 	int choice;
 	bool exit = false;
@@ -227,7 +376,7 @@ void MenuForSportsmanChange(std::shared_ptr<Sportsman>& sportsman, std::vector<s
 	}
 }
 
-void MenuForCurrent(Team& team, Team& current)
+void MenuForCurrent(Team& team, Team& current, const std::vector<std::shared_ptr<Match>>& matches)
 {
 	int choice;
 	bool exit = false;
@@ -239,7 +388,8 @@ void MenuForCurrent(Team& team, Team& current)
 			std::cout
 			<< "1. Показать состав\n"
 			<< "2. Показать конкретного спортсмена\n"
-			<< "3. Добавить спортсмена в состав\n"
+			<< "3. Найти спортсменов по ключу\n"
+			<< "4. Добавить спортсмена в состав\n"
 			<< "0. Назад\n",
 			choice
 		);
@@ -253,6 +403,9 @@ void MenuForCurrent(Team& team, Team& current)
 			ShowOneSportsman_Task(current);
 			break;
 		case 3:
+			MenuForSportsmenFind(current, matches);
+			break;
+		case 4:
 			AddToCurrent_Task(team, current);
 			break;
 		case 0:
@@ -262,7 +415,7 @@ void MenuForCurrent(Team& team, Team& current)
 	}
 }
 
-void MenuForMatches(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches)
+void MenuForMatches(Team& team, std::vector<std::shared_ptr<Match>>& matches)
 {
 	int choice;
 	bool exit = false;
@@ -273,9 +426,10 @@ void MenuForMatches(Team& team, Team& current, std::vector<std::shared_ptr<Match
 		(
 			std::cout
 			<< "1. Показать матчи\n"
-			<< "2. Добавить матч\n"
-			<< "3. Удалить матч\n"
-			<< "4. Изменить матч\n"
+			<< "2. Найти матчи по ключу\n"
+			<< "3. Добавить матч\n"
+			<< "4. Удалить матч\n"
+			<< "5. Изменить матч\n"
 			<< "0. Назад\n",
 			choice
 		);
@@ -286,9 +440,12 @@ void MenuForMatches(Team& team, Team& current, std::vector<std::shared_ptr<Match
 			ShowMatches(matches);
 			break;
 		case 2:
-			AddMatch_Task(team, matches);
+			MenuForMatchesFind(matches);
 			break;
 		case 3:
+			AddMatch_Task(team, matches);
+			break;
+		case 4:
 			ShowMatches(matches);
 			INPUT_CONDITION
 			(
@@ -302,7 +459,7 @@ void MenuForMatches(Team& team, Team& current, std::vector<std::shared_ptr<Match
 			matches.erase(matches.begin() + choice - 1);
 
 			break;
-		case 4:
+		case 5:
 			ShowMatches(matches);
 			INPUT_CONDITION
 			(
@@ -317,6 +474,122 @@ void MenuForMatches(Team& team, Team& current, std::vector<std::shared_ptr<Match
 		case 0:
 			exit = true;
 			break;
+		}
+	}
+}
+
+void MenuForMatchesFind(const std::vector<std::shared_ptr<Match>>& matches)
+{
+	int choice;
+	bool exit = false;
+	std::string tempStr;
+	std::vector<std::shared_ptr<Match>> tempMatches;
+
+	while (true)
+	{
+		INPUT
+		(
+			std::cout
+			<< "1. Найти по названию турнира\n"
+			<< "2. Найти по дате проведения\n"
+			<< "3. Найти по счёту вашей команды\n"
+			<< "4. Найти по счёту другой команды\n"
+			<< "5. Найти по названию другой команды\n"
+			<< "0. Назад\n",
+			choice
+		);
+
+		switch (choice)
+		{
+		case 1:
+			std::cout << "Введите название турнира: ";
+			std::getline(std::cin, tempStr);
+
+			for (const auto& m : matches)
+			{
+				if (m->GetTournament() == tempStr)
+					tempMatches.push_back(m);
+			}
+
+			break;
+		case 2:
+			std::cout << "Введите дату: ";
+			std::getline(std::cin, tempStr);
+
+			try
+			{
+				Match match;
+				match.SetDate(tempStr);
+				tempStr = match.GetDate();
+			}
+			catch (std::exception& e)
+			{
+				std::cout << e.what() << "\n";
+				break;
+			}
+
+			for (const auto& m : matches)
+			{
+				if (m->GetDate() == tempStr)
+					tempMatches.push_back(m);
+			}
+
+			break;
+		case 3:
+			INPUT_CONDITION
+			(
+				std::cout << "Введите счёт: ",
+				choice,
+				choice >= 0,
+			);
+
+			for (const auto& m : matches)
+			{
+				if (m->GetTeamOneScore().amount == choice)
+					tempMatches.push_back(m);
+			}
+
+			break;
+		case 4:
+			INPUT_CONDITION
+			(
+				std::cout << "Введите счёт: ",
+				choice,
+				choice >= 0,
+			);
+
+			for (const auto& m : matches)
+			{
+				if (m->GetTeamTwoScore().amount == choice)
+					tempMatches.push_back(m);
+			}
+
+			break;
+		case 5:
+			std::cout << "Введите название другой команды: ";
+			std::getline(std::cin, tempStr);
+
+			for (const auto& m : matches)
+			{
+				if (m->GetTeamTwoScore().name == tempStr)
+					tempMatches.push_back(m);
+			}
+
+			break;
+		case 0:
+			exit = true;
+			break;
+		}
+
+		if (exit)
+			break;
+
+		if (tempMatches.size() == 0)
+			std::cout << "Таких матчей нет\n\n";
+		else
+		{
+			ShowMatches(tempMatches);
+			tempMatches.clear();
 		}
 	}
 }
@@ -473,6 +746,8 @@ void ShowSportsmen_Task(const Team& team)
 	{
 		std::cout << s->GetPersonalInfo().name << ", " << s->GetRole() << "\n";
 	}
+
+	std::cout << std::endl;
 }
 
 void ShowOneSportsman_Task(const Team& team)
@@ -544,7 +819,7 @@ void AddSportsman_Task(Team& team)
 	team.AddSportsman(role, info, results);
 }
 
-void DeleteSportsman_Task(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches)
+void DeleteSportsman_Task(Team& team, Team& current, const std::vector<std::shared_ptr<Match>>& matches)
 {
 	std::string name;
 

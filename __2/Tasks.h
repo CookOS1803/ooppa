@@ -3,11 +3,13 @@
 #include "Team.h"
 
 void Menu(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches);
-void MenuForTeam(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches);
-void ChangeSportsman_Task(Team& team, std::vector<std::shared_ptr<Match>>& matches);
-void MenuForSportsmanChange(std::shared_ptr<Sportsman>& sportsman, std::vector<std::shared_ptr<Match>>& matches);
-void MenuForCurrent(Team& team, Team& current);
-void MenuForMatches(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches);
+void MenuForTeam(Team& team, Team& current, const std::vector<std::shared_ptr<Match>>& matches);
+void MenuForSportsmenFind(const Team& team, const std::vector<std::shared_ptr<Match>>& matches);
+void ChangeSportsman_Task(Team& team, const std::vector<std::shared_ptr<Match>>& matches);
+void MenuForSportsmanChange(std::shared_ptr<Sportsman>& sportsman, const std::vector<std::shared_ptr<Match>>& matches);
+void MenuForCurrent(Team& team, Team& current, const std::vector<std::shared_ptr<Match>>& matches);
+void MenuForMatches(Team& team, std::vector<std::shared_ptr<Match>>& matches);
+void MenuForMatchesFind(const std::vector<std::shared_ptr<Match>>& matches);
 void MenuForMatchChange(std::shared_ptr<Match>& match);
 
 void CreateMatches_Task(std::vector<std::shared_ptr<Match>>& matches);
@@ -20,7 +22,7 @@ void ShowOneSportsman_Task(const Team& team);
 
 void AddSportsman_Task(Team& team);
 
-void DeleteSportsman_Task(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches);
+void DeleteSportsman_Task(Team& team, Team& current, const std::vector<std::shared_ptr<Match>>& matches);
 
 void AddMatch_Task(const Team& team, std::vector<std::shared_ptr<Match>>& matches);
 

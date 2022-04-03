@@ -42,6 +42,8 @@ public:
 	auto GetRole() const -> std::string_view;
 	auto GetPersonalInfo() const -> const PersonalInfo&;
 	auto GetResults() const -> const Results&;
+	
+	bool HasMatch(const Match* matchAddress);
 
 	void SetName(std::string_view name);
 	void SetAge(int age);

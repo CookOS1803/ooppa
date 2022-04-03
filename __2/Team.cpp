@@ -63,6 +63,11 @@ void Team::RemoveMatch(const Match* matchAddress)
 	}
 }
 
+void Team::Clear()
+{
+	members.clear();
+}
+
 auto Team::GetSportsman(const std::string& name) const -> const std::shared_ptr<Sportsman>&
 {
 	for (const auto& s : members)
@@ -74,6 +79,11 @@ auto Team::GetSportsman(const std::string& name) const -> const std::shared_ptr<
 	}
 
 	throw WrongMemberNameException(name);
+}
+
+auto Team::GetSize() const -> int
+{
+	return members.size();
 }
 
 auto Team::begin() -> std::vector<std::shared_ptr<Sportsman>>::iterator
