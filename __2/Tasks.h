@@ -5,6 +5,8 @@
 void Menu(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches);
 void MenuForTeam(Team& team, Team& current, const std::vector<std::shared_ptr<Match>>& matches);
 void MenuForSportsmenFind(const Team& team, const std::vector<std::shared_ptr<Match>>& matches);
+void MenuForSportsmenSort(Team& team);
+int GetBinaryChoice();
 void ChangeSportsman_Task(Team& team, const std::vector<std::shared_ptr<Match>>& matches);
 void MenuForSportsmanChange(std::shared_ptr<Sportsman>& sportsman, const std::vector<std::shared_ptr<Match>>& matches);
 void MenuForCurrent(Team& team, Team& current, const std::vector<std::shared_ptr<Match>>& matches);

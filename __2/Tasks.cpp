@@ -49,9 +49,10 @@ void MenuForTeam(Team& team, Team& current, const std::vector<std::shared_ptr<Ma
 			<< "1. Показать всех спортсменов\n"
 			<< "2. Показать конкретного спортсмена\n"
 			<< "3. Найти спортсменов по ключу\n"
-			<< "4. Добавить спортсмена\n"
-			<< "5. Удалить спортсмена\n"
-			<< "6. Изменить спортсмена\n"
+			<< "4. Отсортировать\n"
+			<< "5. Добавить спортсмена\n"
+			<< "6. Удалить спортсмена\n"
+			<< "7. Изменить спортсмена\n"
 			<< "0. Назад\n",
 			choice
 		);
@@ -68,12 +69,15 @@ void MenuForTeam(Team& team, Team& current, const std::vector<std::shared_ptr<Ma
 			MenuForSportsmenFind(team, matches);
 			break;
 		case 4:
-			AddSportsman_Task(team);
+			MenuForSportsmenSort(team);
 			break;
 		case 5:
-			DeleteSportsman_Task(team, current, matches);
+			AddSportsman_Task(team);
 			break;
 		case 6:
+			DeleteSportsman_Task(team, current, matches);
+			break;
+		case 7:
 			ChangeSportsman_Task(team, matches);
 			break;
 		case 0:
@@ -124,7 +128,7 @@ void MenuForSportsmenFind(const Team& team, const std::vector<std::shared_ptr<Ma
 			(
 				std::cout << "Введите возраст: ",
 				choice,
-				choice >= 0,
+				choice >= 0
 			);
 
 			for (const auto& sp : team)
@@ -139,7 +143,7 @@ void MenuForSportsmenFind(const Team& team, const std::vector<std::shared_ptr<Ma
 			(
 				std::cout << "Введите рост: ",
 				choice,
-				choice >= 0,
+				choice >= 0
 			);
 
 			for (const auto& sp : team)
@@ -154,7 +158,7 @@ void MenuForSportsmenFind(const Team& team, const std::vector<std::shared_ptr<Ma
 			(
 				std::cout << "Введите вес: ",
 				choice,
-				choice >= 0,
+				choice >= 0
 			);
 
 			for (const auto& sp : team)
@@ -169,7 +173,7 @@ void MenuForSportsmenFind(const Team& team, const std::vector<std::shared_ptr<Ma
 			(
 				std::cout << "Введите количество голов: ",
 				choice,
-				choice >= 0,
+				choice >= 0
 			);
 
 			for (const auto& sp : team)
@@ -184,7 +188,7 @@ void MenuForSportsmenFind(const Team& team, const std::vector<std::shared_ptr<Ma
 			(
 				std::cout << "Введите количество голевых передач: ",
 				choice,
-				choice >= 0,
+				choice >= 0
 			);
 
 			for (const auto& sp : team)
@@ -200,7 +204,7 @@ void MenuForSportsmenFind(const Team& team, const std::vector<std::shared_ptr<Ma
 			(
 				std::cout << "Введите номер матча: ",
 				choice,
-				choice > 0 and choice <= matches.size(),
+				choice > 0 and choice <= matches.size()
 			);
 
 			for (const auto& sp : team)
@@ -226,6 +230,112 @@ void MenuForSportsmenFind(const Team& team, const std::vector<std::shared_ptr<Ma
 			temp.Clear();
 		}
 	}
+}
+
+void MenuForSportsmenSort(Team& team)
+{
+	int choice, order;
+	bool exit = false;
+
+	while (!exit)
+	{
+		INPUT
+		(
+			std::cout
+			<< "1. Сортировать по имени\n"
+			<< "2. Сортировать по роли\n"
+			<< "3. Сортировать по возрасту\n"
+			<< "4. Сортировать по росту\n"
+			<< "5. Сортировать по весу\n"
+			<< "6. Сортировать по количеству голов\n"
+			<< "7. Сортировать по количеству голевых передач\n"
+			<< "8. Сортировать по дате последнего матча\n"
+			<< "0. Назад\n",
+			choice
+		);
+
+		if (choice != 0)
+			order = GetBinaryChoice();
+
+		switch (choice)
+		{
+		case 1:
+			if (order == 1)
+				team.Sort(Team::ByNameAscendingly);
+			else
+				team.Sort(Team::ByNameDescendingly);
+
+			break;
+		case 2:
+			if (order == 1)
+				team.Sort(Team::ByRoleAscendingly);
+			else
+				team.Sort(Team::ByRoleDescendingly);
+
+			break;
+		case 3:
+			if (order == 1)
+				team.Sort(Team::ByAgeAscendingly);
+			else
+				team.Sort(Team::ByAgeDescendingly);
+			
+			break;
+		case 4:
+			if (order == 1)
+				team.Sort(Team::ByHeightAscendingly);
+			else
+				team.Sort(Team::ByHeightDescendingly);
+
+			break;
+		case 5:
+			if (order == 1)
+				team.Sort(Team::ByWeightAscendingly);
+			else
+				team.Sort(Team::ByWeightDescendingly);
+
+			break;
+		case 6:
+			if (order == 1)
+				team.Sort(Team::ByGoalsAscendingly);
+			else
+				team.Sort(Team::ByGoalsDescendingly);
+
+			break;
+		case 7:
+			if (order == 1)
+				team.Sort(Team::ByAssistsAscendingly);
+			else
+				team.Sort(Team::ByAssistsDescendingly);
+
+			break;
+		case 8:
+			if (order == 1)
+				team.Sort(Team::ByLastMatchAscendingly);
+			else
+				team.Sort(Team::ByLastMatchDescendingly);
+
+			break;
+		case 0:
+			exit = true;
+			break;
+		}
+	}
+}
+
+int GetBinaryChoice()
+{
+	int choice;
+
+	INPUT_CONDITION
+	(
+		std::cout
+		<< "1. По возрастанию\n"
+		<< "2. По убыванию\n",
+		choice,
+		choice == 1 or choice == 2
+	);
+
+	return choice;
 }
 
 void ChangeSportsman_Task(Team& team, const std::vector<std::shared_ptr<Match>>& matches)
@@ -291,7 +401,7 @@ void MenuForSportsmanChange(std::shared_ptr<Sportsman>& sportsman, const std::ve
 			(
 				std::cout << "Введите новый возраст: ",
 				choice,
-				choice >= 0,
+				choice >= 0
 			);
 			sportsman->SetAge(choice);
 
@@ -301,7 +411,7 @@ void MenuForSportsmanChange(std::shared_ptr<Sportsman>& sportsman, const std::ve
 			(
 				std::cout << "Введите новый рост: ",
 				choice,
-				choice >= 0,
+				choice >= 0
 			);
 			sportsman->SetHeight(choice);
 
@@ -311,7 +421,7 @@ void MenuForSportsmanChange(std::shared_ptr<Sportsman>& sportsman, const std::ve
 			(
 				std::cout << "Введите новый вес: ",
 				choice,
-				choice >= 0,
+				choice >= 0
 			);
 			sportsman->SetWeight(choice);
 
@@ -321,7 +431,7 @@ void MenuForSportsmanChange(std::shared_ptr<Sportsman>& sportsman, const std::ve
 			(
 				std::cout << "Введите новое количество голов: ",
 				choice,
-				choice >= 0,
+				choice >= 0
 			);
 			sportsman->SetGoals(choice);
 
@@ -389,7 +499,8 @@ void MenuForCurrent(Team& team, Team& current, const std::vector<std::shared_ptr
 			<< "1. Показать состав\n"
 			<< "2. Показать конкретного спортсмена\n"
 			<< "3. Найти спортсменов по ключу\n"
-			<< "4. Добавить спортсмена в состав\n"
+			<< "4. Отсортировать\n"
+			<< "5. Добавить спортсмена в состав\n"
 			<< "0. Назад\n",
 			choice
 		);
@@ -406,6 +517,9 @@ void MenuForCurrent(Team& team, Team& current, const std::vector<std::shared_ptr
 			MenuForSportsmenFind(current, matches);
 			break;
 		case 4:
+			MenuForSportsmenSort(current);
+			break;
+		case 5:
 			AddToCurrent_Task(team, current);
 			break;
 		case 0:

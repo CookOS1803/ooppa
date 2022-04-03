@@ -49,6 +49,24 @@ auto Sportsman::GetPreviousMatches() const -> const std::vector<std::shared_ptr<
 	return previousMatches;
 }
 
+auto Sportsman::GetLastMatch() const -> const std::shared_ptr<Match>&
+{
+	std::shared_ptr<Match> result(new Match);
+	result->SetDate("12.12.9999");
+
+	for (const auto& m : previousMatches)
+	{
+		if (m->GetDateRaw().tm_year < result->GetDateRaw().tm_year)
+			result = m;
+		else if (m->GetDateRaw().tm_mon < result->GetDateRaw().tm_mon)
+			result = m;
+		else if (m->GetDateRaw().tm_mday < result->GetDateRaw().tm_mday)
+			result = m;
+	}
+
+	return result;
+}
+
 auto Sportsman::GetRole() const -> std::string_view
 {
 	return role;

@@ -28,6 +28,7 @@ public:
 
 	auto GetTournament() const -> std::string_view;
 	auto GetDate() const -> std::string;
+	auto GetDateRaw() const -> const tm&;
 	auto GetTeamOneScore() const -> const Score&;
 	auto GetTeamTwoScore() const -> const Score&;
 

@@ -105,3 +105,104 @@ auto Team::end() const -> std::vector<std::shared_ptr<Sportsman>>::const_iterato
 {
 	return members.end();
 }
+
+void Team::Sort(const std::function<bool(const std::shared_ptr<Sportsman>&, const std::shared_ptr<Sportsman>&)>& criteria)
+{
+	std::sort(members.begin(), members.end(), criteria);
+}
+
+bool Team::ByNameAscendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2)
+{
+	return s1->GetPersonalInfo().name[0] < s2->GetPersonalInfo().name[0];
+}
+
+bool Team::ByNameDescendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2)
+{
+	return s1->GetPersonalInfo().name[0] > s2->GetPersonalInfo().name[0];
+}
+
+bool Team::ByRoleAscendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2)
+{
+	return s1->GetRole()[0] > s2->GetRole()[0];
+}
+
+bool Team::ByRoleDescendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2)
+{
+	return s1->GetRole()[0] < s2->GetRole()[0];
+}
+
+bool Team::ByAgeAscendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2)
+{
+	return s1->GetPersonalInfo().age < s2->GetPersonalInfo().age;
+}
+
+bool Team::ByAgeDescendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2)
+{
+	return s1->GetPersonalInfo().age > s2->GetPersonalInfo().age;
+}
+
+bool Team::ByHeightAscendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2)
+{
+	return s1->GetPersonalInfo().height < s2->GetPersonalInfo().height;
+}
+
+bool Team::ByHeightDescendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2)
+{
+	return s1->GetPersonalInfo().height > s2->GetPersonalInfo().height;
+}
+
+bool Team::ByWeightAscendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2)
+{
+	return s1->GetPersonalInfo().weight < s2->GetPersonalInfo().weight;
+}
+
+bool Team::ByWeightDescendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2)
+{
+	return s1->GetPersonalInfo().weight > s2->GetPersonalInfo().weight;
+}
+
+bool Team::ByGoalsAscendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2)
+{
+	return s1->GetResults().goals < s2->GetResults().goals;
+}
+
+bool Team::ByGoalsDescendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2)
+{
+	return s1->GetResults().goals > s2->GetResults().goals;
+}
+
+bool Team::ByAssistsAscendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2)
+{
+	return s1->GetResults().assists < s2->GetResults().assists;
+}
+
+bool Team::ByAssistsDescendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2)
+{
+	return s1->GetResults().assists > s2->GetResults().assists;
+}
+
+bool Team::ByLastMatchAscendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2)
+{
+	auto m1 = s1->GetLastMatch();
+	auto m2 = s2->GetLastMatch();
+
+	bool result =
+		m1->GetDateRaw().tm_year < m2->GetDateRaw().tm_year ? true :
+		m1->GetDateRaw().tm_mon < m2->GetDateRaw().tm_mon ? true :
+		m1->GetDateRaw().tm_mday < m2->GetDateRaw().tm_mday;
+
+	return result;
+}
+
+bool Team::ByLastMatchDescendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2)
+{
+	auto m1 = s1->GetLastMatch();
+	auto m2 = s2->GetLastMatch();
+
+	bool result =
+		m1->GetDateRaw().tm_year > m2->GetDateRaw().tm_year ? true :
+		m1->GetDateRaw().tm_mon > m2->GetDateRaw().tm_mon ? true :
+		m1->GetDateRaw().tm_mday > m2->GetDateRaw().tm_mday;
+
+	return result;
+}

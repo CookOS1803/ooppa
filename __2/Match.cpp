@@ -71,6 +71,11 @@ auto Match::GetDate() const -> std::string
 	return buffer;
 }
 
+auto Match::GetDateRaw() const -> const tm&
+{
+	return date;
+}
+
 auto Match::GetTeamOneScore() const -> const Score&
 {
 	return teamOne;

@@ -39,6 +39,7 @@ public:
 	Sportsman(const Sportsman& other);
 
 	auto GetPreviousMatches() const -> const std::vector<std::shared_ptr<Match>>&;
+	auto GetLastMatch() const -> const std::shared_ptr<Match>&;
 	auto GetRole() const -> std::string_view;
 	auto GetPersonalInfo() const -> const PersonalInfo&;
 	auto GetResults() const -> const Results&;

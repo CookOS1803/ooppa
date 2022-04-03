@@ -1,6 +1,6 @@
 #pragma once
+#include <functional>
 #include "Sportsman.h"
-
 
 class Team
 {
@@ -27,5 +27,24 @@ public:
 	auto begin() const ->std::vector<std::shared_ptr<Sportsman>>::const_iterator;
 	auto end() -> std::vector<std::shared_ptr<Sportsman>>::iterator;
 	auto end() const -> std::vector<std::shared_ptr<Sportsman>>::const_iterator;
+
+	void Sort(const std::function<bool(const std::shared_ptr<Sportsman>&,const std::shared_ptr<Sportsman>&)>& criteria);
+
+	static bool ByNameAscendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2);
+	static bool ByNameDescendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2);
+	static bool ByRoleAscendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2);
+	static bool ByRoleDescendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2);
+	static bool ByAgeAscendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2);
+	static bool ByAgeDescendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2);
+	static bool ByHeightAscendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2);
+	static bool ByHeightDescendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2);
+	static bool ByWeightAscendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2);
+	static bool ByWeightDescendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2);
+	static bool ByGoalsAscendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2);
+	static bool ByGoalsDescendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2);
+	static bool ByAssistsAscendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2);
+	static bool ByAssistsDescendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2);
+	static bool ByLastMatchAscendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2);
+	static bool ByLastMatchDescendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2);
 };
 
