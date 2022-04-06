@@ -5,6 +5,7 @@ namespace IMEX
 {
 	class User
 	{
+	protected:
 		static inline const std::string FILE_NAME = "users.txt";
 
 		std::string login;
