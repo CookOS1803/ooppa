@@ -54,55 +54,45 @@ void User::Logout()
 void User::SaveToFile()
 {
 	std::fstream file;
-	std::string readLogin;
 
-	file.open(FILE_NAME, std::ios::in);
+	file.open(GetFolderName() + login + FILE_EXT, std::ios::in);
 
-	while (file.good())
+	if (file.good())
 	{
-		file >> readLogin;
-
-		if (this->login == readLogin)
-		{
-			file.close();
-			throw DuplicateLoginException();
-		}
-
-		file.ignore(99999, '\n');
-		std::ignore = file.peek();
+		file.close();
+		throw DuplicateLoginException();
 	}
 
 	file.close();
-	file.open(FILE_NAME, std::ios::app);
+	file.open(GetFolderName() + login + FILE_EXT, std::ios::app);
 
 	file << login << " " << password << "\n";
 
 	file.close();
 }
 
-void User::ReadFromFile(std::string_view login)
+void User::ReadFromFile(const std::string& login)
 {
 	std::ifstream in;
 
-	in.open(FILE_NAME);
+	in.open(GetFolderName() + login + FILE_EXT);
 
-	while (in.good())
+	if (!in.good())
 	{
-		in >> this->login;
-		in >> password;
+		in.close();
+		throw WrongLoginException();
+	}
 
-		if (this->login == login)
-		{
-			in.close();
-			return;
-		}
-
-		std::ignore = in.get();
-		std::ignore = in.peek();
-	}	
+	in >> this->login;
+	in >> password;
 
 	in.close();
-	throw WrongLoginException();
+	
+}
+
+std::string User::GetFolderName()
+{
+	return "admins\\";
 }
 
 std::string User::MakePassword(const std::string& password)
