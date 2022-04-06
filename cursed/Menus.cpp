@@ -8,7 +8,6 @@ void IMEX::MainMenu()
     int choice;
     User u;
     std::string login, password;
-    std::fstream file;
 
     while (true)
     {
@@ -32,22 +31,21 @@ void IMEX::MainMenu()
             {
                 u.ReadFromFile(login);
             }
-            catch (std::exception& ex)
+            catch (const std::exception& e)
             {
-                std::cout << ex.what() << "\n";
+                std::cout << e.what() << "\n";
                 break;
             }
 
             std::cout << "Введите пароль: ";
             std::getline(std::cin, password);
-            password = User::MakePassword(password);
-
+            
             u.TryLogin(login, password);
 
             if (u.IsInitialized())
             {
                 std::cout << "Успешный вход\n";
-                return;
+                u.Logout();
             }
             else
                 std::cout << "Неправильный пароль\n";
@@ -66,7 +64,17 @@ void IMEX::MainMenu()
             u.SetLogin(login);
             u.SetPassword(password);
 
-            u.SaveToFile();
+            try
+            {
+                u.SaveToFile();
+            }
+            catch (const std::exception& e)
+            {
+                std::cout << e.what() << "\n";
+                break;
+            }
+
+            std::cout << "Успешная регистрация\n";
 
             break;
         case 0:

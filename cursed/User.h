@@ -24,7 +24,8 @@ namespace IMEX
 
 		bool IsInitialized() const;
 
-		void TryLogin(std::string_view login, std::string_view password);
+		void TryLogin(std::string_view login, const std::string& password);
+		void Logout();
 
 		void SaveToFile();
 		void ReadFromFile(std::string_view login);

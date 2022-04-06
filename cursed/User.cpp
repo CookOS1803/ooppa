@@ -1,6 +1,7 @@
 #include "User.h"
 #include <fstream>
 #include "WrongLoginException.h"
+#include "DuplicateLoginException.h"
 
 using namespace IMEX;
 
@@ -39,21 +40,44 @@ bool User::IsInitialized() const
 	return isInitialized;
 }
 
-void User::TryLogin(std::string_view login, std::string_view password)
+void User::TryLogin(std::string_view login, const std::string& password)
 {
-	if (login == this->login and password == this->password)
+	if (login == this->login and MakePassword(password) == this->password)
 		isInitialized = true;
+}
+
+void User::Logout()
+{
+	isInitialized = false;
 }
 
 void User::SaveToFile()
 {
-	std::ofstream out;
+	std::fstream file;
+	std::string readLogin;
 
-	out.open(FILE_NAME, std::ios::app);
+	file.open(FILE_NAME, std::ios::in);
 
-	out << login << " " << password << "\n";
+	while (file.good())
+	{
+		file >> readLogin;
 
-	out.close();
+		if (this->login == readLogin)
+		{
+			file.close();
+			throw DuplicateLoginException();
+		}
+
+		file.ignore(99999, '\n');
+		std::ignore = file.peek();
+	}
+
+	file.close();
+	file.open(FILE_NAME, std::ios::app);
+
+	file << login << " " << password << "\n";
+
+	file.close();
 }
 
 void User::ReadFromFile(std::string_view login)

@@ -33,6 +33,9 @@
     <ClCompile Include="WrongLoginException.cpp">
       <Filter>Исходные файлы\Exceptions</Filter>
     </ClCompile>
+    <ClCompile Include="DuplicateLoginException.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UserInput.h">
@@ -46,6 +49,9 @@
     </ClInclude>
     <ClInclude Include="WrongLoginException.h">
       <Filter>Файлы заголовков\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="DuplicateLoginException.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
