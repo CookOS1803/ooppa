@@ -9,7 +9,6 @@ void IMEX::MainMenu()
 {
     int choice;
     User* user = nullptr;
-    std::string login, password;
 
     while (true)
     {

@@ -65,5 +65,8 @@
     <ClInclude Include="DuplicateLoginException.h">
       <Filter>Файлы заголовков\Exceptions</Filter>
     </ClInclude>
+    <ClInclude Include="IShowable.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
