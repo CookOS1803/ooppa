@@ -9,8 +9,10 @@ namespace IMEX
         Admin();
         Admin(std::string_view login, const std::string& password);
 
-        std::string GetFolderName() override;
-        std::string UserMenu() override;
+        void UserMenu() override;
 
+    protected:
+
+        auto GetFolderName() -> std::string override;
     };
 }

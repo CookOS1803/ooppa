@@ -33,11 +33,14 @@
     <ClCompile Include="WrongLoginException.cpp">
       <Filter>Исходные файлы\Exceptions</Filter>
     </ClCompile>
-    <ClCompile Include="DuplicateLoginException.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Admin.cpp">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="DuplicateLoginException.cpp">
+      <Filter>Исходные файлы\Exceptions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -53,11 +56,14 @@
     <ClInclude Include="WrongLoginException.h">
       <Filter>Файлы заголовков\Exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="DuplicateLoginException.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Admin.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="DuplicateLoginException.h">
+      <Filter>Файлы заголовков\Exceptions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

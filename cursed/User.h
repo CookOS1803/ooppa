@@ -32,10 +32,13 @@ namespace IMEX
 		void SaveToFile();
 		void ReadFromFile(const std::string& login);
 
-		virtual std::string GetFolderName() = 0;
-		virtual std::string UserMenu() = 0;
+		virtual void UserMenu() = 0;
 
-		static std::string MakePassword(const std::string& password);
+		static auto MakePassword(const std::string& password) -> std::string;
+
+	protected:
+
+		virtual auto GetFolderName() -> std::string = 0;
 	};
 }
 

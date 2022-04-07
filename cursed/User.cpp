@@ -105,7 +105,7 @@ void User::ReadFromFile(const std::string& login)
 	
 }
 
-std::string User::MakePassword(const std::string& password)
+auto User::MakePassword(const std::string& password) -> std::string
 {
 	return std::to_string(std::hash<std::string>()(password));
 }
