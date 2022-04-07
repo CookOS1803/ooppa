@@ -6,7 +6,7 @@
 void IMEX::MainMenu()
 {
     int choice;
-    User u;
+    User* u = nullptr;
     std::string login, password;
 
     while (true)
@@ -29,7 +29,7 @@ void IMEX::MainMenu()
 
             try
             {
-                u.ReadFromFile(login);
+                u->ReadFromFile(login);
             }
             catch (const std::exception& e)
             {
@@ -40,19 +40,23 @@ void IMEX::MainMenu()
             std::cout << "Введите пароль: ";
             std::getline(std::cin, password);
             
-            u.TryLogin(login, password);
+            u->TryLogin(login, password);
 
-            if (u.IsInitialized())
+            if (u->IsInitialized())
             {
                 std::cout << "Успешный вход\n";
-                u.Logout();
+                u->Logout();
             }
             else
                 std::cout << "Неправильный пароль\n";
 
-
+            delete u;
+            u = nullptr;
             break;
         case 2:
+
+            delete u;
+            u = nullptr;
             break;
         case 3:
             std::cout << "Введите логин: ";
@@ -61,12 +65,12 @@ void IMEX::MainMenu()
             std::cout << "Введите пароль: ";
             std::getline(std::cin, password);
 
-            u.SetLogin(login);
-            u.SetPassword(password);
+            u->SetLogin(login);
+            u->SetPassword(password);
 
             try
             {
-                u.SaveToFile();
+                u->SaveToFile();
             }
             catch (const std::exception& e)
             {
@@ -76,8 +80,11 @@ void IMEX::MainMenu()
 
             std::cout << "Успешная регистрация\n";
 
+            delete u;
+            u = nullptr;
             break;
         case 0:
+            delete u;
             return;
         }
     }

@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Admin.cpp" />
     <ClCompile Include="cursed.cpp" />
     <ClCompile Include="DuplicateLoginException.cpp" />
     <ClCompile Include="Menus.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="WrongLoginException.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Admin.h" />
     <ClInclude Include="DuplicateLoginException.h" />
     <ClInclude Include="Menus.h" />
     <ClInclude Include="User.h" />

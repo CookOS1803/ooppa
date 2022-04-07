@@ -16,6 +16,10 @@ User::User(std::string_view login, const std::string& password)
 	SetPassword(password);
 }
 
+User::~User()
+{
+}
+
 auto User::GetLogin() const -> std::string_view
 {
 	return login;
@@ -78,6 +82,7 @@ void User::SaveToFile()
 	file.close();
 }
 
+
 void User::ReadFromFile(const std::string& login)
 {
 	if (!std::filesystem::exists(GetFolderName()))
@@ -98,11 +103,6 @@ void User::ReadFromFile(const std::string& login)
 
 	in.close();
 	
-}
-
-std::string User::GetFolderName()
-{
-	return "admins\\";
 }
 
 std::string User::MakePassword(const std::string& password)

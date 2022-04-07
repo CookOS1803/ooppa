@@ -16,6 +16,7 @@ namespace IMEX
 
 		User();
 		User(std::string_view login, const std::string& password);
+		virtual ~User();
 
 		auto GetLogin() const -> std::string_view;
 		auto GetPassword() const -> std::string_view;
@@ -31,8 +32,8 @@ namespace IMEX
 		void SaveToFile();
 		void ReadFromFile(const std::string& login);
 
-		// TODO: ABSTRACT
-		virtual std::string GetFolderName();
+		virtual std::string GetFolderName() = 0;
+		virtual std::string UserMenu() = 0;
 
 		static std::string MakePassword(const std::string& password);
 	};
