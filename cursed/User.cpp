@@ -1,5 +1,6 @@
 #include "User.h"
 #include <fstream>
+#include <filesystem>
 #include "WrongLoginException.h"
 #include "DuplicateLoginException.h"
 
@@ -55,15 +56,21 @@ void User::SaveToFile()
 {
 	std::fstream file;
 
-	file.open(GetFolderName() + login + FILE_EXT, std::ios::in);
-
-	if (file.good())
+	if (std::filesystem::exists(GetFolderName()))
 	{
-		file.close();
-		throw DuplicateLoginException();
-	}
+		file.open(GetFolderName() + login + FILE_EXT, std::ios::in);
 
-	file.close();
+		if (file.good())
+		{
+			file.close();
+			throw DuplicateLoginException();
+		}
+
+		file.close();
+	}
+	else
+		std::filesystem::create_directory(GetFolderName());
+
 	file.open(GetFolderName() + login + FILE_EXT, std::ios::app);
 
 	file << login << " " << password << "\n";
@@ -73,6 +80,9 @@ void User::SaveToFile()
 
 void User::ReadFromFile(const std::string& login)
 {
+	if (!std::filesystem::exists(GetFolderName()))
+		throw WrongLoginException();
+
 	std::ifstream in;
 
 	in.open(GetFolderName() + login + FILE_EXT);
