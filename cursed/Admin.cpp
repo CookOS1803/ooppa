@@ -19,6 +19,12 @@ auto Admin::GetFolderName() -> std::string
     return "admins\\";
 }
 
+
+auto Admin::GetCredentialsFileName() -> std::string
+{
+    return GetFolderName() + login + CRED_FILE_EXT;
+}
+
 void Admin::UserMenu()
 {
     int choice;

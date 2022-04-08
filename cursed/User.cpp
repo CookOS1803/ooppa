@@ -60,22 +60,30 @@ void User::SaveCredentialsToFile()
 {
 	std::fstream file;
 
-	if (std::filesystem::exists(GetFolderName()))
+	std::string folder = GetFolderName();
+	
+	for (int i = 0; i < folder.size(); i++)
 	{
-		file.open(GetDatFile());
-
-		if (file.good())
+		if (folder[i] == '\\')
 		{
-			file.close();
-			throw DuplicateLoginException();
+			std::string f = folder.substr(0, i);
+
+			if (!std::filesystem::exists(f))
+				std::filesystem::create_directory(f);
 		}
-
-		file.close();
 	}
-	else
-		std::filesystem::create_directory(GetFolderName());
 
-	file.open(GetDatFile(), std::ios::app);
+	file.open(GetCredentialsFileName());
+
+	if (file.good())
+	{
+		file.close();
+		throw DuplicateLoginException();
+	}
+
+	file.close();
+
+	file.open(GetCredentialsFileName(), std::ios::app);
 
 	file << login << " " << password << "\n";
 
@@ -92,7 +100,7 @@ void User::ReadPasswordFromFile(const std::string& login)
 
 	this->login = login;
 
-	in.open(GetDatFile());
+	in.open(GetCredentialsFileName());
 
 	if (!in.good())
 	{
@@ -112,7 +120,3 @@ auto User::MakePassword(const std::string& password) -> std::string
 	return std::to_string(std::hash<std::string>()(password));
 }
 
-auto User::GetDatFile() -> std::string
-{
-	return GetFolderName() + login + CRED_FILE_EXT;
-}

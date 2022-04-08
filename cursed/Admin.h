@@ -21,6 +21,8 @@ namespace IMEX
     protected:
 
         auto GetFolderName() -> std::string override;
+        auto GetCredentialsFileName()->std::string override;
         void ClientsMenu();
+
     };
 }

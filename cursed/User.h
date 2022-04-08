@@ -6,8 +6,12 @@ namespace IMEX
 	class User
 	{
 	protected:
-		static inline const std::string INFO_FILE_EXT = ".inf";
-		static inline const std::string CRED_FILE_EXT = ".txt";
+		static inline const std::string INFO_FILE_EXT = ".txt";
+		static inline const std::string CRED_FILE_EXT = ".dat";
+		static inline const std::string OPER_FILE_EXT = ".txt";
+		static inline const std::string INFO_FILE_NAME = "info" + INFO_FILE_EXT;
+		static inline const std::string CRED_FILE_NAME = "credentials" + CRED_FILE_EXT;
+		static inline const std::string OPER_FILE_NAME = "operations" + OPER_FILE_EXT;
 
 		std::string login;
 		std::string password;
@@ -40,7 +44,7 @@ namespace IMEX
 	protected:
 
 		virtual auto GetFolderName() -> std::string = 0;
-		auto GetDatFile() -> std::string;
+		virtual auto GetCredentialsFileName() -> std::string = 0;
 	};
 }
 

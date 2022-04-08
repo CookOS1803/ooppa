@@ -22,8 +22,11 @@ namespace IMEX
 	protected:
 
 		auto GetFolderName() -> std::string override;
+		auto GetCredentialsFileName()->std::string override;
 		auto GetInfoFileName() -> std::string;
+		auto GetOperationsFileName() -> std::string;
 		void InfoChangeMenu();
+
 	};
 }
 

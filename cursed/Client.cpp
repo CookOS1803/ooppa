@@ -22,12 +22,23 @@ void Client::SetLogin(std::string_view login)
 
 auto Client::GetFolderName() -> std::string
 {
-	return "clients\\";
+	return "clients\\" + login + "\\";
+}
+
+
+auto Client::GetCredentialsFileName() -> std::string
+{
+    return GetFolderName() + CRED_FILE_NAME;
 }
 
 auto Client::GetInfoFileName() -> std::string
 {
-    return GetFolderName() + login + INFO_FILE_EXT;
+    return GetFolderName() + INFO_FILE_NAME;
+}
+
+auto Client::GetOperationsFileName() -> std::string
+{
+    return GetFolderName() + OPER_FILE_NAME;
 }
 
 void Client::RegistrationMenu()
