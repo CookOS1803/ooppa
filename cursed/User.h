@@ -22,7 +22,7 @@ namespace IMEX
 		auto GetLogin() const -> std::string_view;
 		auto GetPassword() const -> std::string_view;
 
-		void SetLogin(std::string_view login);
+		virtual void SetLogin(std::string_view login);
 		void SetPassword(const std::string& password);
 
 		bool IsInitialized() const;

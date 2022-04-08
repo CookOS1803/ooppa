@@ -43,6 +43,11 @@ void ClientInfo::SetPhone(std::string_view phone)
 	this->phone = phone;
 }
 
+void ClientInfo::SetFileName(std::string_view fileName)
+{
+	this->fileName = fileName;
+}
+
 void ClientInfo::ShowToConsole()
 {
 	std::cout
@@ -53,7 +58,7 @@ void ClientInfo::ShowToConsole()
 }
 
 
-void ClientInfo::SaveToFile(const std::string& fileName)
+void ClientInfo::SaveToFile()
 {
 	std::ofstream out;
 
@@ -69,7 +74,7 @@ void ClientInfo::SaveToFile(const std::string& fileName)
 	out.close();
 }
 
-void ClientInfo::ReadFromFile(const std::string& fileName)
+void ClientInfo::ReadFromFile()
 {
 	std::ifstream in;
 

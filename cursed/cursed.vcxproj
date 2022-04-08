@@ -144,9 +144,14 @@
     <ClCompile Include="Admin.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="ClientInfo.cpp" />
+    <ClCompile Include="ClientsList.cpp" />
     <ClCompile Include="cursed.cpp" />
     <ClCompile Include="DuplicateLoginException.cpp" />
     <ClCompile Include="Menus.cpp" />
+    <ClCompile Include="Operation.cpp" />
+    <ClCompile Include="OperationList.cpp" />
+    <ClCompile Include="Product.cpp" />
+    <ClCompile Include="ProductList.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="WrongLoginException.cpp" />
   </ItemGroup>
@@ -154,9 +159,14 @@
     <ClInclude Include="Admin.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="ClientInfo.h" />
+    <ClInclude Include="ClientsList.h" />
     <ClInclude Include="DuplicateLoginException.h" />
     <ClInclude Include="ISerializable.h" />
     <ClInclude Include="Menus.h" />
+    <ClInclude Include="Operation.h" />
+    <ClInclude Include="OperationList.h" />
+    <ClInclude Include="Product.h" />
+    <ClInclude Include="ProductList.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserInput.h" />
     <ClInclude Include="WrongLoginException.h" />

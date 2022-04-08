@@ -14,6 +14,12 @@ Client::Client(std::string_view login, const std::string& password)
 {
 }
 
+void Client::SetLogin(std::string_view login)
+{
+    User::SetLogin(login);
+    info.SetFileName(GetInfoFileName());
+}
+
 auto Client::GetFolderName() -> std::string
 {
 	return "clients\\";
@@ -40,12 +46,12 @@ void Client::RegistrationMenu()
     std::getline(std::cin, input);
     info.SetPhone(input);
 
-    info.SaveToFile(GetInfoFileName());
+    info.SaveToFile();
 }
 
 void Client::UserMenu()
 {
-    info.ReadFromFile(GetInfoFileName());
+    info.ReadFromFile();
 
     int choice;
 
@@ -141,6 +147,6 @@ void Client::InfoChangeMenu()
             return;
         }
 
-        info.SaveToFile(GetInfoFileName());
+        info.SaveToFile();
     }
 }

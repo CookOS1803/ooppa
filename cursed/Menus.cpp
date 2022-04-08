@@ -72,6 +72,8 @@ void IMEX::LoginMenu(User* user)
         return;
     }
 
+    user->SetLogin(login);
+
     std::cout << "¬ведите пароль: ";
     std::getline(std::cin, password);
 

@@ -10,6 +10,8 @@ namespace IMEX
 		std::string country = "*";
 		std::string phone = "*";
 
+		std::string fileName;
+
 	public:
 
 		ClientInfo();
@@ -22,10 +24,11 @@ namespace IMEX
 		void SetName(std::string_view name);
 		void SetCountry(std::string_view country);
 		void SetPhone(std::string_view phone);
+		void SetFileName(std::string_view fileName);
 
 		void ShowToConsole() override;
-		void SaveToFile(const std::string& fileName) override;
-		void ReadFromFile(const std::string& fileName) override;
+		void SaveToFile() override;
+		void ReadFromFile() override;
 	};
 }
 
