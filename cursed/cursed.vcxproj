@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="Admin.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="ClientInfo.cpp" />
     <ClCompile Include="cursed.cpp" />
     <ClCompile Include="DuplicateLoginException.cpp" />
     <ClCompile Include="Menus.cpp" />
@@ -152,13 +153,16 @@
   <ItemGroup>
     <ClInclude Include="Admin.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="ClientInfo.h" />
     <ClInclude Include="DuplicateLoginException.h" />
     <ClInclude Include="ISerializable.h" />
-    <ClInclude Include="IShowable.h" />
     <ClInclude Include="Menus.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserInput.h" />
     <ClInclude Include="WrongLoginException.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

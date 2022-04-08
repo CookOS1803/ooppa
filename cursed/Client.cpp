@@ -19,55 +19,21 @@ auto Client::GetFolderName() -> std::string
 	return "clients\\";
 }
 
-void Client::ShowToConsole()
+auto Client::GetInfoFileName() -> std::string
 {
-    std::cout
-        << "Имя: " << name << std::endl
-        << "Страна: " << country << std::endl
-        << "Телефон: " << phone << std::endl
-        << std::endl;
+    return GetFolderName() + login + INFO_FILE_EXT;
 }
 
-void Client::SaveToFile()
-{
-    std::ofstream out;
-
-    out.open(GetDatFile());
-
-    out << login << " " << password << "\n";
-    out.write(name.c_str(), name.size());
-    out << "\n";
-    out.write(country.c_str(), country.size());
-    out << "\n";
-    out.write(phone.c_str(), phone.size());
-    out << "\n";
-
-    out.close();
-}
-
-void Client::ReadFromFile()
-{
-    std::ifstream in;
-
-    in.open(GetDatFile());
-
-    in.ignore(99999, '\n');
-    std::getline(in, name);
-    std::getline(in, country);
-    std::getline(in, phone);
-
-    in.close();
-}
 
 void Client::SaveCredentialsToFile()
 {
     User::SaveCredentialsToFile();
-    SaveToFile();
+    info.SaveToFile(GetInfoFileName());
 }
 
 void Client::UserMenu()
 {
-    ReadFromFile();
+    info.ReadFromFile(GetInfoFileName());
 
     int choice;
 
@@ -89,7 +55,7 @@ void Client::UserMenu()
         switch (choice)
         {
         case 1:
-            ShowToConsole();
+            info.ShowToConsole();
             break;
         case 2:
             InfoChangeMenu();
@@ -124,21 +90,21 @@ void Client::InfoChangeMenu()
             std::cout << "Введите новое имя: ";
             std::getline(std::cin, input);
 
-            name = input;
+            info.SetName(input);
 
             break;
         case 2:
             std::cout << "Введите новую страну: ";
             std::getline(std::cin, input);
 
-            country = input;
+            info.SetCountry(input);
 
             break;
         case 3:
             std::cout << "Введите новый номер телефона: ";
             std::getline(std::cin, input);
 
-            phone = input;
+            info.SetPhone(input);
 
             break;
         case 4:
@@ -156,11 +122,13 @@ void Client::InfoChangeMenu()
 
             password = MakePassword(input);
 
+            SaveCredentialsToFile();
+
             break;
         case 0:
             return;
         }
 
-        SaveToFile();
+        info.SaveToFile(GetInfoFileName());
     }
 }

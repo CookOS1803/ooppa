@@ -1,15 +1,13 @@
 #pragma once
 #include "User.h"
-#include "IShowable.h"
+#include "ClientInfo.h"
 #include "ISerializable.h"
 
 namespace IMEX
 {
-	class Client : public User, public IShowable, public ISerializable
+	class Client : public User
 	{
-		std::string name = "*";
-		std::string country = "*";
-		std::string phone = "*";
+		ClientInfo info;
 
 	public:
 
@@ -18,14 +16,12 @@ namespace IMEX
 
 		void SaveCredentialsToFile() override;
 		void UserMenu() override;
-		void ShowToConsole() override;
-		void SaveToFile() override;
-		void ReadFromFile() override;
+		
 
 	protected:
 
 		auto GetFolderName() -> std::string override;
-
+		auto GetInfoFileName() -> std::string;
 		void InfoChangeMenu();
 	};
 }

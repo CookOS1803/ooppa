@@ -6,7 +6,8 @@ namespace IMEX
 	class User
 	{
 	protected:
-		static inline const std::string FILE_EXT = ".txt";
+		static inline const std::string INFO_FILE_EXT = ".inf";
+		static inline const std::string CRED_FILE_EXT = ".txt";
 
 		std::string login;
 		std::string password;

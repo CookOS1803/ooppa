@@ -114,5 +114,5 @@ auto User::MakePassword(const std::string& password) -> std::string
 
 auto User::GetDatFile() -> std::string
 {
-	return GetFolderName() + login + FILE_EXT;
+	return GetFolderName() + login + CRED_FILE_EXT;
 }
