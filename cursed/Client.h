@@ -14,9 +14,8 @@ namespace IMEX
 		Client();
 		Client(std::string_view login, const std::string& password);
 
-		void SaveCredentialsToFile() override;
+		void RegistrationMenu();
 		void UserMenu() override;
-		
 
 	protected:
 

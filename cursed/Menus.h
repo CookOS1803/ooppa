@@ -4,5 +4,5 @@ namespace IMEX
 {
 	void MainMenu();
 	void LoginMenu(class User* user);
-	void RegistrationMenu(class User* user);
+	void RegistrationMenu(class Client* user);
 }

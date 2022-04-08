@@ -24,10 +24,22 @@ auto Client::GetInfoFileName() -> std::string
     return GetFolderName() + login + INFO_FILE_EXT;
 }
 
-
-void Client::SaveCredentialsToFile()
+void Client::RegistrationMenu()
 {
-    User::SaveCredentialsToFile();
+    std::string input;
+
+    std::cout << "Введите имя: ";
+    std::getline(std::cin, input);
+    info.SetName(input);
+
+    std::cout << "Введите страну: ";
+    std::getline(std::cin, input);
+    info.SetCountry(input);
+
+    std::cout << "Введите номер телефона: ";
+    std::getline(std::cin, input);
+    info.SetPhone(input);
+
     info.SaveToFile(GetInfoFileName());
 }
 

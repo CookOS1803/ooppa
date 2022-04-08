@@ -43,7 +43,7 @@ void IMEX::MainMenu()
         case 3:
             user = new Client();
 
-            RegistrationMenu(user);
+            RegistrationMenu(dynamic_cast<Client*>(user));
 
             delete user;
             user = nullptr;
@@ -86,7 +86,7 @@ void IMEX::LoginMenu(User* user)
         std::cout << "Неправильный пароль\n";
 }
 
-void IMEX::RegistrationMenu(User* user)
+void IMEX::RegistrationMenu(Client* client)
 {
     std::string login, password;
 
@@ -96,12 +96,12 @@ void IMEX::RegistrationMenu(User* user)
     std::cout << "Введите пароль: ";
     std::getline(std::cin, password);
 
-    user->SetLogin(login);
-    user->SetPassword(password);
+    client->SetLogin(login);
+    client->SetPassword(password);
 
     try
     {
-        user->SaveCredentialsToFile();
+        client->SaveCredentialsToFile();
     }
     catch (const std::exception& e)
     {
@@ -110,4 +110,5 @@ void IMEX::RegistrationMenu(User* user)
     }
 
     std::cout << "Успешная регистрация\n";
+    client->RegistrationMenu();
 }
