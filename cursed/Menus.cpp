@@ -64,7 +64,7 @@ void IMEX::LoginMenu(User* user)
 
     try
     {
-        user->ReadFromFile(login);
+        user->ReadPasswordFromFile(login);
     }
     catch (const std::exception& e)
     {
@@ -101,7 +101,7 @@ void IMEX::RegistrationMenu(User* user)
 
     try
     {
-        user->SaveToFile();
+        user->SaveCredentialsToFile();
     }
     catch (const std::exception& e)
     {

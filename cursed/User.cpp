@@ -56,13 +56,13 @@ void User::Logout()
 	isInitialized = false;
 }
 
-void User::SaveToFile()
+void User::SaveCredentialsToFile()
 {
 	std::fstream file;
 
 	if (std::filesystem::exists(GetFolderName()))
 	{
-		file.open(GetFolderName() + login + FILE_EXT, std::ios::in);
+		file.open(GetDatFile());
 
 		if (file.good())
 		{
@@ -75,7 +75,7 @@ void User::SaveToFile()
 	else
 		std::filesystem::create_directory(GetFolderName());
 
-	file.open(GetFolderName() + login + FILE_EXT, std::ios::app);
+	file.open(GetDatFile(), std::ios::app);
 
 	file << login << " " << password << "\n";
 
@@ -83,14 +83,16 @@ void User::SaveToFile()
 }
 
 
-void User::ReadFromFile(const std::string& login)
+void User::ReadPasswordFromFile(const std::string& login)
 {
 	if (!std::filesystem::exists(GetFolderName()))
 		throw WrongLoginException();
 
 	std::ifstream in;
 
-	in.open(GetFolderName() + login + FILE_EXT);
+	this->login = login;
+
+	in.open(GetDatFile());
 
 	if (!in.good())
 	{
@@ -108,4 +110,9 @@ void User::ReadFromFile(const std::string& login)
 auto User::MakePassword(const std::string& password) -> std::string
 {
 	return std::to_string(std::hash<std::string>()(password));
+}
+
+auto User::GetDatFile() -> std::string
+{
+	return GetFolderName() + login + FILE_EXT;
 }

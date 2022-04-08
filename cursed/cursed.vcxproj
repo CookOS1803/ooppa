@@ -153,6 +153,7 @@
     <ClInclude Include="Admin.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="DuplicateLoginException.h" />
+    <ClInclude Include="ISerializable.h" />
     <ClInclude Include="IShowable.h" />
     <ClInclude Include="Menus.h" />
     <ClInclude Include="User.h" />

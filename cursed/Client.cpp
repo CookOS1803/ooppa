@@ -1,5 +1,6 @@
 #include "Client.h"
 #include <iostream>
+#include <fstream>
 #include "UserInput.h"
 
 using namespace IMEX;
@@ -27,9 +28,48 @@ void Client::ShowToConsole()
         << std::endl;
 }
 
+void Client::SaveToFile()
+{
+    std::ofstream out;
+
+    out.open(GetDatFile());
+
+    out << login << " " << password << "\n";
+    out.write(name.c_str(), name.size());
+    out << "\n";
+    out.write(country.c_str(), country.size());
+    out << "\n";
+    out.write(phone.c_str(), phone.size());
+    out << "\n";
+
+    out.close();
+}
+
+void Client::ReadFromFile()
+{
+    std::ifstream in;
+
+    in.open(GetDatFile());
+
+    in.ignore(99999, '\n');
+    std::getline(in, name);
+    std::getline(in, country);
+    std::getline(in, phone);
+
+    in.close();
+}
+
+void Client::SaveCredentialsToFile()
+{
+    User::SaveCredentialsToFile();
+    SaveToFile();
+}
+
 void Client::UserMenu()
 {
-	int choice;
+    ReadFromFile();
+
+    int choice;
 
     while (true)
     {
@@ -62,4 +102,65 @@ void Client::UserMenu()
 
 void Client::InfoChangeMenu()
 {
+    int choice;
+    std::string input;
+
+    while (true)
+    {
+        INPUT
+        (
+            std::cout
+            << "1. Изменить имя\n"
+            << "2. Изменить страну\n"
+            << "3. Изменить номер телефона\n"
+            << "4. Изменить пароль\n"
+            << "0. Назад\n",
+            choice
+        );
+
+        switch (choice)
+        {
+        case 1:
+            std::cout << "Введите новое имя: ";
+            std::getline(std::cin, input);
+
+            name = input;
+
+            break;
+        case 2:
+            std::cout << "Введите новую страну: ";
+            std::getline(std::cin, input);
+
+            country = input;
+
+            break;
+        case 3:
+            std::cout << "Введите новый номер телефона: ";
+            std::getline(std::cin, input);
+
+            phone = input;
+
+            break;
+        case 4:
+            std::cout << "Введите старый пароль: ";
+            std::getline(std::cin, input);
+
+            if (MakePassword(input) != password)
+            {
+                std::cout << "Введён неправильный пароль\n\n";
+                break;
+            }
+
+            std::cout << "Введите новый пароль: ";
+            std::getline(std::cin, input);
+
+            password = MakePassword(input);
+
+            break;
+        case 0:
+            return;
+        }
+
+        SaveToFile();
+    }
 }
