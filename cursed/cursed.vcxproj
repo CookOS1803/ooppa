@@ -154,6 +154,7 @@
     <ClCompile Include="ProductList.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="WrongLoginException.cpp" />
+    <ClCompile Include="WrongProductException.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Admin.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="User.h" />
     <ClInclude Include="UserInput.h" />
     <ClInclude Include="WrongLoginException.h" />
+    <ClInclude Include="WrongProductException.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

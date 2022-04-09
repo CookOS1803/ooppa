@@ -17,6 +17,7 @@ Client::Client(std::string_view login, const std::string& password)
 void Client::SetLogin(std::string_view login)
 {
     User::SetLogin(login);
+    info.SetLogin(login);
     info.SetFileName(GetInfoFileName());
 }
 
@@ -49,6 +50,10 @@ void Client::RegistrationMenu()
     std::getline(std::cin, input);
     info.SetName(input);
 
+    std::cout << "Введите юридическое лицо: ";
+    std::getline(std::cin, input);
+    info.SetLegalEntity(input);
+
     std::cout << "Введите страну: ";
     std::getline(std::cin, input);
     info.SetCountry(input);
@@ -56,6 +61,8 @@ void Client::RegistrationMenu()
     std::cout << "Введите номер телефона: ";
     std::getline(std::cin, input);
     info.SetPhone(input);
+
+    info.SetLogin(login);
 
     info.SaveToFile();
 }
@@ -107,8 +114,9 @@ void Client::InfoChangeMenu()
             std::cout
             << "1. Изменить имя\n"
             << "2. Изменить страну\n"
-            << "3. Изменить номер телефона\n"
-            << "4. Изменить пароль\n"
+            << "3. Изменить юридическое лицо\n"
+            << "4. Изменить номер телефона\n"
+            << "5. Изменить пароль\n"
             << "0. Назад\n",
             choice
         );
@@ -130,13 +138,20 @@ void Client::InfoChangeMenu()
 
             break;
         case 3:
+            std::cout << "Введите новое юридическое лицо: ";
+            std::getline(std::cin, input);
+
+            info.SetLegalEntity(input);
+
+            break;
+        case 4:
             std::cout << "Введите новый номер телефона: ";
             std::getline(std::cin, input);
 
             info.SetPhone(input);
 
             break;
-        case 4:
+        case 5:
             std::cout << "Введите старый пароль: ";
             std::getline(std::cin, input);
 
