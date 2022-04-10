@@ -73,9 +73,8 @@ void Admin::ClientsMenu()
         (
             std::cout
             << "1. Показать всех клиентов\n"
-            << "2. Найти клиентов\n"
-            << "3. Показать операции клиента\n"
-            << "4. "
+            << "2. Показать операции клиента\n"
+            << "3. Отсортировать список клиентов\n"
             << "0. Назад\n",
             choice
         );
@@ -84,11 +83,12 @@ void Admin::ClientsMenu()
         {
         case 1:
             clients.ShowToConsole();
-
             break;
         case 2:
-            FindClientsMenu();
-
+            ShowClientTask();
+            break;
+        case 3:
+            SortClientsMenu();
             break;
         case 0:
             return;
@@ -96,21 +96,88 @@ void Admin::ClientsMenu()
     }
 }
 
-void Admin::FindClientsMenu()
+void Admin::ShowClientTask()
 {
-    int choice;
+    std::string input;
+
+    std::cout << "Введите логин клиента: ";
+    std::getline(std::cin, input);
+
+    try
+    {
+        auto c = clients.GetClient(input);
+    }
+    catch (const std::exception& e)
+    {
+        std::cout << e.what() << "\n\n";
+        return;
+    }
+
+    IndividualOperationList l;
+    l.SetOperationsFileName(CLIENTS_FOLDER + input + "\\" + OPER_FILE_NAME);
+    l.ReadFromFile();
+    l.ShowToConsole();
+}
+
+void Admin::SortClientsMenu()
+{
+    int choice, order;
 
     while (true)
     {
         INPUT
         (
             std::cout
+            << "1. Сортировать по логину\n"
+            << "2. Сортировать по имени\n"
+            << "3. Сортировать по юридическому лицу\n"
+            << "4. Сортировать по стране\n"
             << "0. Назад\n",
             choice
         );
 
+        if (choice != 0)
+        {
+            INPUT_CONDITION
+            (
+                std::cout
+                << "1. По возрастанию\n"
+                << "2. По убыванию\n",
+                order,
+                order == 1 or order == 2
+            );
+        }
+
         switch (choice)
         {
+        case 1:
+            if (order == 1)
+                clients.Sort(ClientsList::ByLoginAscendingly);
+            else
+                clients.Sort(ClientsList::ByLoginDescendingly);
+
+            break;
+        case 2:
+            if (order == 1)
+                clients.Sort(ClientsList::ByNameAscendingly);
+            else
+                clients.Sort(ClientsList::ByNameDescendingly);
+
+            break;
+        case 3:
+            if (order == 1)
+                clients.Sort(ClientsList::ByLegalEntityAscendingly);
+            else
+                clients.Sort(ClientsList::ByLegalEntityDescendingly);
+
+            break;
+        case 4:
+            if (order == 1)
+                clients.Sort(ClientsList::ByCountryAscendingly);
+            else
+                clients.Sort(ClientsList::ByCountryDescendingly);
+
+            break;
         case 0:
             return;
         }

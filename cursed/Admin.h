@@ -10,6 +10,7 @@ namespace IMEX
     {
         ClientsList clients;
         ProductList products;
+        OperationList operations;
 
     public:
         Admin();
@@ -22,7 +23,8 @@ namespace IMEX
         auto GetFolderName() -> std::string override;
         auto GetCredentialsFileName()->std::string override;
         void ClientsMenu();
-        void FindClientsMenu();
+        void ShowClientTask();
+        void SortClientsMenu();
         void StorageMenu();
         void AddProductTask();
         void SortStorageMenu();

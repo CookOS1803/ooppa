@@ -3,6 +3,7 @@
 #include <iostream>
 #include <filesystem>
 #include <fstream>
+#include "WrongLoginException.h"
 
 using namespace IMEX;
 
@@ -18,6 +19,22 @@ void ClientsList::SetFolderName(std::string_view folderName)
 void ClientsList::SetInfoFileName(std::string_view infoFileName)
 {
 	this->infoFileName = infoFileName;
+}
+
+auto ClientsList::GetClient(std::string_view login) -> std::shared_ptr<ClientInfo>
+{
+	for (const auto& client : originalClients)
+	{
+		if (client->GetLogin() == login)
+			return client;
+	}
+
+	throw WrongLoginException();
+}
+
+void ClientsList::Sort(const std::function<bool(const std::shared_ptr<ClientInfo>&, const std::shared_ptr<ClientInfo>&)>& criteria)
+{
+	std::sort(copiedClients.begin(), copiedClients.end(), criteria);
 }
 
 void ClientsList::ShowToConsole()
@@ -57,4 +74,44 @@ void ClientsList::ReadFromFile()
 
 		copiedClients.push_back(originalClients.back());
 	}
+}
+
+bool ClientsList::ByLoginAscendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2)
+{
+	return c1->GetLogin()[0] < c2->GetLogin()[0];
+}
+
+bool ClientsList::ByLoginDescendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2)
+{
+	return c1->GetLogin()[0] > c2->GetLogin()[0];
+}
+
+bool ClientsList::ByNameAscendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2)
+{
+	return c1->GetName()[0] < c2->GetName()[0];
+}
+
+bool ClientsList::ByNameDescendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2)
+{
+	return c1->GetName()[0] > c2->GetName()[0];
+}
+
+bool ClientsList::ByLegalEntityAscendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2)
+{
+	return c1->GetLegalEntity()[0] < c2->GetLegalEntity()[0];
+}
+
+bool ClientsList::ByLegalEntityDescendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2)
+{
+	return c1->GetLegalEntity()[0] > c2->GetLegalEntity()[0];
+}
+
+bool ClientsList::ByCountryAscendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2)
+{
+	return c1->GetCountry()[0] < c2->GetCountry()[0];
+}
+
+bool ClientsList::ByCountryDescendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2)
+{
+	return c1->GetCountry()[0] > c2->GetCountry()[0];
 }
