@@ -33,6 +33,9 @@ namespace IMEX
 		void ShowStorageTask();
 		void SortStorageMenu();
 		void OperationsMenu();
+		void SortOperationsMenu();
+		void MakeOperationTask(Operation::Type type);
+		void CanselOperationTask();
 
 	};
 }

@@ -70,7 +70,7 @@ void Product::SetUnitPrice(int unitPrice)
 
 void Product::CalculateNewID(const ProductList& produts)
 {
-	ID = -1;
+	ID = 0;
 
 	for (const auto& p : produts)
 	{

@@ -48,7 +48,7 @@ void ClientsList::ReadFromFile()
 
 	for (auto const& dir_entry : std::filesystem::directory_iterator { path })
 	{
-		originalClients.emplace_back(std::make_unique<ClientInfo>());
+		originalClients.emplace_back(std::make_shared<ClientInfo>());
 
 		std::string login = dir_entry.path().stem().string();
 		originalClients.back()->SetLogin(login);

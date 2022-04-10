@@ -68,7 +68,8 @@ void Client::UserMenu()
     info.ReadFromFile();
     products.SetFileName(PROD_FILE_NAME);
     products.ReadFromFile();
-    operations.SetFileName(GetFolderName() + OPER_FILE_NAME);
+    operations.SetOperationsFileName(OPER_FILE_NAME);
+    operations.SetFolderName(CLIENTS_FOLDER);
     operations.ReadFromFile();
 
     int choice;
@@ -296,6 +297,9 @@ void Client::OperationsMenu()
             std::cout
             << "1. Показать операции\n"
             << "2. Отсортировать список операций\n"
+            << "3. Произвести импорт\n"
+            << "4. Произвести экспорт\n"
+            << "5. Отменить операцию\n"
             << "0. Назад\n",
             choice
         );
@@ -305,8 +309,64 @@ void Client::OperationsMenu()
         case 1:
             operations.ShowToConsole();
             break;
+        case 2:
+            SortOperationsMenu();
+            break;
+        case 3:
+            MakeOperationTask(Operation::Type::IMPORT);
+            break;
+        case 4:
+            MakeOperationTask(Operation::Type::EXPORT);
+            break;
+        case 5:
+            CanselOperationTask();
+            break;
         case 0:
             return;
         }
     }
+}
+
+void Client::SortOperationsMenu()
+{
+    
+}
+
+void Client::MakeOperationTask(Operation::Type type)
+{
+    Operation temp;
+    int choice;
+
+    INPUT
+    (
+        std::cout << "Введите идентификационный номер товара: ",
+        choice
+    );
+
+    if (!products.Contains(choice))
+    {
+        std::cout << "Нет такого товара\n\n";
+        return;
+    }
+
+    temp.SetProductID(choice);
+
+    INPUT_CONDITION
+    (
+        std::cout << "Введите количество товара: ",
+        choice,
+        choice > 0
+    );
+
+    temp.SetProductAmount(choice);
+
+    temp.SetType(type);
+    temp.SetStatus(Operation::Status::PENDING);
+    temp.SetClientLogin(login);
+    temp.CalculateNewID(operations);
+}
+
+void Client::CanselOperationTask()
+{
+
 }

@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iomanip>
 #include <algorithm>
+#include <iostream>
 #include "WrongProductException.h"
 
 using namespace IMEX;

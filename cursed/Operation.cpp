@@ -76,7 +76,7 @@ std::string Operation::TypeToString(Type type)
 
 void Operation::CalculateNewID(const OperationList& produts)
 {
-	ID = -1;
+	ID = 0;
 
 	for (const auto& p : produts)
 	{

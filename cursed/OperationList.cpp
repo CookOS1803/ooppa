@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
+#include <filesystem>
 
 using namespace IMEX;
 
@@ -9,9 +10,14 @@ OperationList::OperationList()
 {
 }
 
-void OperationList::SetFileName(std::string_view fileName)
+void OperationList::SetOperationsFileName(std::string_view operationsFileName)
 {
-	this->fileName = fileName;
+	this->operationsFileName = operationsFileName;
+}
+
+void OperationList::SetFolderName(std::string_view folderName)
+{
+	this->folderName = folderName;
 }
 
 auto OperationList::begin() -> std::vector<std::shared_ptr<Operation>>::iterator
@@ -58,31 +64,43 @@ void OperationList::ShowToConsole()
 void OperationList::SaveToFile()
 {
 	std::ofstream file;
-	file.open(fileName);
 
 	for (const auto& product : originalOperations)
-	{
+	{	
+		std::string login = product->GetClientLogin().data();
+
+		file.open(folderName + login + "\\" + operationsFileName);
+
 		file << *product;
+
+		file.close();
 	}
 
-	file.close();
 }
 
 void OperationList::ReadFromFile()
 {
+	std::filesystem::path path{ folderName };
 	std::ifstream file;
-	file.open(fileName);
 
-	while (file.good())
+	for (auto const& dir_entry : std::filesystem::directory_iterator{ path })
 	{
-		originalOperations.emplace_back(std::make_shared<Operation>());
+		std::string login = dir_entry.path().stem().string();
 
-		file >> *originalOperations.back();
+		file.open(folderName + login + "\\" + operationsFileName);
 
-		copiedOperations.push_back(originalOperations.back());
+		while (file.good())
+		{
+			originalOperations.emplace_back(std::make_shared<Operation>());
 
-		file.peek();
-	}
+			file >> *originalOperations.back();
 
-	file.close();
+			copiedOperations.push_back(originalOperations.back());
+
+			file.peek();
+		}
+
+		file.close();
+	}	
+
 }

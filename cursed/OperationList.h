@@ -11,13 +11,15 @@ namespace IMEX
 		std::vector<std::shared_ptr<Operation>> originalOperations;
 		std::vector<std::shared_ptr<Operation>> copiedOperations;
 
-		std::string fileName;
+		std::string operationsFileName;
+		std::string folderName;
 
 	public:
 
 		OperationList();
 
-		void SetFileName(std::string_view fileName);
+		void SetOperationsFileName(std::string_view operationsFileName);
+		void SetFolderName(std::string_view folderName);
 
 		auto begin() -> std::vector<std::shared_ptr<Operation>>::iterator;
 		auto begin() const -> std::vector<std::shared_ptr<Operation>>::const_iterator;
