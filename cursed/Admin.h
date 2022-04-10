@@ -25,12 +25,18 @@ namespace IMEX
         void ClientsMenu();
         void ShowClientTask();
         void SortClientsMenu();
+        void OperationsMenu();
+        void SortOperationsMenu();
+        void HandleOperationTask();
         void StorageMenu();
         void AddProductTask();
         void SortStorageMenu();
         void DeleteProductTask();
         void ChangeProductTask();
         void ChangeProductMenu(std::shared_ptr<Product> product);
+        void AdminsMenu();
+        void AddAdminTask();
+        void RemoveAdminTask();
 
     };
 }

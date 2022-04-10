@@ -328,7 +328,6 @@ void Client::OperationsMenu()
 
 void Client::SortOperationsMenu()
 {
-
     int choice, order;
 
     while (true)

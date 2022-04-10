@@ -60,6 +60,17 @@ void IndividualOperationList::Sort(const std::function<bool(const std::shared_pt
 	std::sort(copiedOperations.begin(), copiedOperations.end(), criteria);
 }
 
+auto IndividualOperationList::GetOperation(int ID) -> std::shared_ptr<Operation>
+{
+	for (const auto& o : originalOperations)
+	{
+		if (o->GetID() == ID)
+			return o;
+	}
+
+	throw std::exception("Такой операции нет");
+}
+
 auto IndividualOperationList::begin() -> std::vector<std::shared_ptr<Operation>>::iterator
 {
 	return copiedOperations.begin();

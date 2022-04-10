@@ -1,6 +1,7 @@
 #include "Admin.h"
 #include <iostream>
 #include <filesystem>
+#include <fstream>
 #include "UserInput.h"
 
 using namespace IMEX;
@@ -32,6 +33,9 @@ void Admin::UserMenu()
     clients.SetFolderName(CLIENTS_FOLDER);
     clients.SetInfoFileName(INFO_FILE_NAME);
     clients.ReadFromFile();
+    operations.SetFolderName(CLIENTS_FOLDER);
+    operations.SetOperationsFileName(OPER_FILE_NAME);
+    operations.ReadFromFile();
 
     int choice;
 
@@ -53,9 +57,14 @@ void Admin::UserMenu()
         case 1:
             ClientsMenu();
             break;
+        case 2:
+            OperationsMenu();
+            break;
         case 3:
             StorageMenu();
-
+            break;
+        case 4:
+            AdminsMenu();
             break;
         case 0:
             return;
@@ -182,6 +191,165 @@ void Admin::SortClientsMenu()
             return;
         }
     }
+}
+
+void Admin::OperationsMenu()
+{
+    int choice;
+
+    while (true)
+    {
+        INPUT
+        (
+            std::cout
+            << "1. Показать операции\n"
+            << "2. Отсортировать список операций\n"
+            << "3. Рассмотреть операцию\n"
+            << "0. Назад\n",
+            choice
+        );
+
+        switch (choice)
+        {
+        case 1:
+            operations.ShowToConsole();
+            break;
+        case 2:
+            SortOperationsMenu();
+            break;
+        case 3:
+            HandleOperationTask();
+            break;
+        case 0:
+            return;
+        }
+    }
+}
+
+void Admin::SortOperationsMenu()
+{
+    int choice, order;
+
+    while (true)
+    {
+        INPUT
+        (
+            std::cout
+            << "1. Сортировать по идентификационному номеру операции\n"
+            << "2. Сортировать по типу\n"
+            << "3. Сортировать по статусу\n"
+            << "4. Сортировать по идентификационному номеру товара\n"
+            << "5. Сортировать по количеству товара\n"
+            << "0. Назад\n",
+            choice
+        );
+
+
+        if (choice != 0)
+        {
+            INPUT_CONDITION
+            (
+                std::cout
+                << "1. По возрастанию\n"
+                << "2. По убыванию\n",
+                order,
+                order == 1 or order == 2
+            );
+        }
+
+        switch (choice)
+        {
+        case 1:
+            if (order == 1)
+                operations.Sort(OperationList::ByIDAscendingly);
+            else
+                operations.Sort(OperationList::ByIDDescendingly);
+
+            break;
+        case 2:
+            if (order == 1)
+                operations.Sort(OperationList::ByTypeAscendingly);
+            else
+                operations.Sort(OperationList::ByTypeDescendingly);
+
+            break;
+        case 3:
+            if (order == 1)
+                operations.Sort(OperationList::ByStatusAscendingly);
+            else
+                operations.Sort(OperationList::ByStatusDescendingly);
+
+            break;
+        case 4:
+            if (order == 1)
+                operations.Sort(OperationList::ByProductIDAscendingly);
+            else
+                operations.Sort(OperationList::ByProductIDDescendingly);
+
+            break;
+        case 5:
+            if (order == 1)
+                operations.Sort(OperationList::ByProductAmountAscendingly);
+            else
+                operations.Sort(OperationList::ByProductAmountDescendingly);
+
+            break;
+        case 6:
+            if (order == 1)
+                operations.Sort(OperationList::ByClientLoginAscendingly);
+            else
+                operations.Sort(OperationList::ByClientLoginDescendingly);
+
+            break;
+        case 0:
+            return;
+        }
+    }
+}
+
+void Admin::HandleOperationTask()
+{
+    int choice;
+
+    INPUT
+    (
+        std::cout << "Введите идентификационный номер операции\n",
+        choice
+    );
+
+    std::shared_ptr<Operation> o;
+
+    try
+    {
+        o = operations.GetOperation(choice);
+    }
+    catch (const std::exception& e)
+    {
+        std::cout << e.what() << "\n\n";
+        return;
+    }
+
+    if (o->GetStatus() != Operation::Status::PENDING)
+    {
+        std::cout << "Эта операция уже рассмотрена\n\n";
+        return;
+    }
+
+    INPUT
+    (
+        std::cout
+        << "1. Одобрить\n"
+        << "2. Отклонить\n",
+        choice,
+        choice == 1 and choice == 2
+    );
+
+    if (choice == 1)
+        o->SetStatus(Operation::Status::APPROVED);
+    else
+        o->SetStatus(Operation::Status::REJECTED);
+
+    operations.SaveToFile();        
 }
 
 void Admin::StorageMenu()
@@ -447,4 +615,82 @@ void Admin::ChangeProductMenu(std::shared_ptr<Product> product)
             return;
         }
     }
+}
+
+void Admin::AdminsMenu()
+{
+    int choice;
+
+    while (true)
+    {
+        INPUT
+        (
+            std::cout
+            << "1. Добавить администратора\n"
+            << "2. Удалить администратора\n"
+            << "0. Назад\n",
+            choice
+        );
+
+        switch (choice)
+        {
+        case 1:
+            AddAdminTask();
+            break;
+        case 2:
+            RemoveAdminTask();
+            break;
+        case 0:
+            return;
+        }
+    }
+}
+
+void Admin::AddAdminTask()
+{
+    std::string newLogin, newPassword;
+    std::filesystem::path path{ ADMINS_FOLDER };
+    
+    std::cout << "Введите логин: ";
+    std::getline(std::cin, newLogin);
+
+    for (auto const& dir_entry : std::filesystem::directory_iterator{ path })
+    {
+        if (newLogin == dir_entry.path().stem().string())
+        {
+            std::cout << "Логин занят";
+            return;
+        }
+    }
+
+    std::cout << "Введите пароль: ";
+    std::getline(std::cin, newPassword);
+    newPassword = MakePassword(newPassword);
+
+    std::ofstream file;
+    file.open(ADMINS_FOLDER + newLogin + CRED_FILE_EXT);
+
+    file << newLogin << " " << newPassword << "\n";
+
+    file.close();
+}
+
+void Admin::RemoveAdminTask()
+{
+    std::string newLogin;
+    std::filesystem::path path{ ADMINS_FOLDER };
+
+    std::cout << "Введите логин: ";
+    std::getline(std::cin, newLogin);
+
+    for (auto const& dir_entry : std::filesystem::directory_iterator{ path })
+    {
+        if (newLogin == dir_entry.path().stem().string())
+        {
+            std::filesystem::remove(dir_entry.path());
+            return;
+        }
+    }
+
+    std::cout << "Такого администратора нет\n\n";
 }

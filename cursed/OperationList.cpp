@@ -38,13 +38,21 @@ void OperationList::ShowToConsole()
 
 void OperationList::SaveToFile()
 {
+	std::filesystem::path path{ folderName };
 	std::ofstream file;
+
+	for (auto const& dir_entry : std::filesystem::directory_iterator{ path })
+	{
+		std::string login = dir_entry.path().stem().string();
+		file.open(folderName + login + "\\" + operationsFileName);
+		file.close();
+	}
 
 	for (const auto& product : originalOperations)
 	{
 		std::string login = product->GetClientLogin().data();
 
-		file.open(folderName + login + "\\" + operationsFileName);
+		file.open(folderName + login + "\\" + operationsFileName, std::ios::app);
 
 		file << *product;
 

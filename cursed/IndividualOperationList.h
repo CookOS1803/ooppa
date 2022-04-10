@@ -27,6 +27,7 @@ namespace IMEX
 		bool Contains(int ID);
 		void Remove(int ID);
 		void Sort(const std::function<bool(const std::shared_ptr<Operation>&, const std::shared_ptr<Operation>&)>& criteria);
+		auto GetOperation(int ID) -> std::shared_ptr<Operation>;
 
 		auto begin() -> std::vector<std::shared_ptr<Operation>>::iterator;
 		auto begin() const -> std::vector<std::shared_ptr<Operation>>::const_iterator;
