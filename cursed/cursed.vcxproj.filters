@@ -54,7 +54,7 @@
     <ClCompile Include="Product.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="OperationList.cpp">
+    <ClCompile Include="IndividualOperationList.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Operation.cpp">
@@ -62,6 +62,9 @@
     </ClCompile>
     <ClCompile Include="WrongProductException.cpp">
       <Filter>Исходные файлы\Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="OperationList.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,7 +104,7 @@
     <ClInclude Include="Product.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="OperationList.h">
+    <ClInclude Include="IndividualOperationList.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Operation.h">
@@ -109,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="WrongProductException.h">
       <Filter>Файлы заголовков\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="OperationList.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

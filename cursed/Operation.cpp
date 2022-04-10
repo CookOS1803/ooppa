@@ -74,7 +74,7 @@ std::string Operation::TypeToString(Type type)
 	}
 }
 
-void Operation::CalculateNewID(const OperationList& produts)
+void Operation::CalculateNewID(const IndividualOperationList& produts)
 {
 	ID = 0;
 

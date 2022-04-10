@@ -11,7 +11,7 @@ namespace IMEX
 	{
 		ClientInfo info;
 		ProductList products;
-		OperationList operations;
+		IndividualOperationList operations;
 
 	public:
 

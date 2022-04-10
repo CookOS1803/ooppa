@@ -68,8 +68,7 @@ void Client::UserMenu()
     info.ReadFromFile();
     products.SetFileName(PROD_FILE_NAME);
     products.ReadFromFile();
-    operations.SetOperationsFileName(OPER_FILE_NAME);
-    operations.SetFolderName(CLIENTS_FOLDER);
+    operations.SetOperationsFileName(GetFolderName() + OPER_FILE_NAME);
     operations.ReadFromFile();
 
     int choice;
@@ -363,7 +362,17 @@ void Client::MakeOperationTask(Operation::Type type)
     temp.SetType(type);
     temp.SetStatus(Operation::Status::PENDING);
     temp.SetClientLogin(login);
-    temp.CalculateNewID(operations);
+
+    OperationList l;
+    l.SetFolderName(CLIENTS_FOLDER);
+    l.SetOperationsFileName(OPER_FILE_NAME);
+    l.ReadFromFile();
+
+    temp.CalculateNewID(l);
+
+    operations.Add(temp);
+
+    operations.SaveToFile();
 }
 
 void Client::CanselOperationTask()

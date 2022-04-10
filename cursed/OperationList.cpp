@@ -1,43 +1,18 @@
 #include "OperationList.h"
-#include <fstream>
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 #include <filesystem>
 
 using namespace IMEX;
 
-OperationList::OperationList()
+OperationList::OperationList() : IndividualOperationList()
 {
-}
-
-void OperationList::SetOperationsFileName(std::string_view operationsFileName)
-{
-	this->operationsFileName = operationsFileName;
 }
 
 void OperationList::SetFolderName(std::string_view folderName)
 {
 	this->folderName = folderName;
-}
-
-auto OperationList::begin() -> std::vector<std::shared_ptr<Operation>>::iterator
-{
-	return copiedOperations.begin();
-}
-
-auto OperationList::begin() const -> std::vector<std::shared_ptr<Operation>>::const_iterator
-{
-	return copiedOperations.begin();
-}
-
-auto OperationList::end() -> std::vector<std::shared_ptr<Operation>>::iterator
-{
-	return copiedOperations.end();
-}
-
-auto OperationList::end() const -> std::vector<std::shared_ptr<Operation>>::const_iterator
-{
-	return copiedOperations.end();
 }
 
 void OperationList::ShowToConsole()
@@ -66,7 +41,7 @@ void OperationList::SaveToFile()
 	std::ofstream file;
 
 	for (const auto& product : originalOperations)
-	{	
+	{
 		std::string login = product->GetClientLogin().data();
 
 		file.open(folderName + login + "\\" + operationsFileName);
@@ -101,6 +76,6 @@ void OperationList::ReadFromFile()
 		}
 
 		file.close();
-	}	
+	}
 
 }

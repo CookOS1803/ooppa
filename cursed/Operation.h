@@ -48,7 +48,7 @@ namespace IMEX
 		void SetProductAmount(int productAmount);
 		void SetClientLogin(std::string_view clientLogin);
 		
-		void CalculateNewID(const class OperationList& produts);
+		void CalculateNewID(const class IndividualOperationList& produts);
 
 		static std::string TypeToString(Type type);
 		static std::string StatusToString(Status status);

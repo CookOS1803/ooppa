@@ -149,6 +149,7 @@
     <ClCompile Include="DuplicateLoginException.cpp" />
     <ClCompile Include="Menus.cpp" />
     <ClCompile Include="Operation.cpp" />
+    <ClCompile Include="IndividualOperationList.cpp" />
     <ClCompile Include="OperationList.cpp" />
     <ClCompile Include="Product.cpp" />
     <ClCompile Include="ProductList.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="ISerializable.h" />
     <ClInclude Include="Menus.h" />
     <ClInclude Include="Operation.h" />
+    <ClInclude Include="IndividualOperationList.h" />
     <ClInclude Include="OperationList.h" />
     <ClInclude Include="Product.h" />
     <ClInclude Include="ProductList.h" />
