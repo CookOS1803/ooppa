@@ -20,10 +20,10 @@ namespace IMEX
 
 		void SetFileName(std::string_view fileName);
 
-		bool Contains(std::string_view name, std::string_view category);
+		bool Contains(int ID);
 		void Add(const Product& product);
-		void Remove(std::string_view name, std::string_view category);
-		auto GetProduct(std::string_view name, std::string_view category) -> std::shared_ptr<Product>;
+		void Remove(int ID);
+		auto GetProduct(int ID) -> std::shared_ptr<Product>;
 		void Sort(const std::function<bool(const std::shared_ptr<Product>&, const std::shared_ptr<Product>&)>& criteria);
 
 		void ShowToConsole() override;
@@ -35,6 +35,8 @@ namespace IMEX
 		auto end() -> std::vector<std::shared_ptr<Product>>::iterator;
 		auto end() const -> std::vector<std::shared_ptr<Product>>::const_iterator;
 
+		static bool ByIDAscendingly(const std::shared_ptr<Product>& p1, const std::shared_ptr<Product>& p2);
+		static bool ByIDDescendingly(const std::shared_ptr<Product>& p1, const std::shared_ptr<Product>& p2);
 		static bool ByNameAscendingly(const std::shared_ptr<Product>& p1, const std::shared_ptr<Product>& p2);
 		static bool ByNameDescendingly(const std::shared_ptr<Product>& p1, const std::shared_ptr<Product>& p2);
 		static bool ByCategoryAscendingly(const std::shared_ptr<Product>& p1, const std::shared_ptr<Product>& p2);

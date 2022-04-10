@@ -1,4 +1,5 @@
 #include "Product.h"
+#include "ProductList.h"
 
 using namespace IMEX;
 
@@ -7,8 +8,13 @@ Product::Product()
 }
 
 Product::Product(const Product& other)
-	: name(other.name), category(other.category), amount(other.amount), unitPrice(other.unitPrice)
+	: ID(other.ID), name(other.name), category(other.category), amount(other.amount), unitPrice(other.unitPrice)
 {
+}
+
+auto Product::GetID() const -> int
+{
+	return ID;
 }
 
 auto Product::GetName() const -> std::string_view
@@ -36,6 +42,11 @@ auto Product::GetTotalPrice() const -> int
 	return amount * unitPrice;
 }
 
+void Product::SetID(int newID)
+{
+	ID = newID;
+}
+
 void Product::SetName(std::string_view name)
 {
 	this->name = name;
@@ -56,8 +67,23 @@ void Product::SetUnitPrice(int unitPrice)
 	this->unitPrice = unitPrice;
 }
 
+void Product::CalculateNewID(const ProductList& produts)
+{
+	ID = -1;
+
+	for (const auto& p : produts)
+	{
+		if (ID <= p->GetID())
+			ID = p->GetID();
+	}
+
+	ID++;
+}
+
 std::istream& IMEX::operator>>(std::istream& in, Product& p)
 {
+	in >> p.ID;
+	std::ignore = in.get();
 	std::getline(in, p.name, '_');
 	std::getline(in, p.category, '_');
 	in >> p.amount;
@@ -70,6 +96,7 @@ std::istream& IMEX::operator>>(std::istream& in, Product& p)
 
 std::ostream& IMEX::operator<<(std::ostream& out, const Product& p)
 {
+	out << p.GetID() << "_";
 	out.write(p.GetName().data(), p.GetName().size());
 	out << "_";
 	out.write(p.GetCategory().data(), p.GetCategory().size());

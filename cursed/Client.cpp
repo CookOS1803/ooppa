@@ -218,13 +218,13 @@ void Client::ShowStorageTask()
     std::cout << std::left;
 
     std::cout
-        << std::setw(30) << "Наименование" << std::setw(30) << "Категория"
+        << std::setw(30) << "Идентификационный номер" << std::setw(30) << "Наименование" << std::setw(30) << "Категория"
         << std::setw(30) << "Цена за штуку" << std::endl;
 
     for (const auto& product : products)
     {
         std::cout
-            << std::setw(30) << product->GetName() << std::setw(30) << product->GetCategory()
+            << std::setw(30) << product->GetID() << std::setw(30) << product->GetName() << std::setw(30) << product->GetCategory()
             << std::setw(30) << product->GetUnitPrice() << std::endl;
     }
 

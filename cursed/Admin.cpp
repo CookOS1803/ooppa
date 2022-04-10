@@ -161,23 +161,18 @@ void Admin::StorageMenu()
 void Admin::AddProductTask()
 {
     Product tempProduct;
-    std::string pName, pCategory;
+    std::string input;
     int choice;
 
     std::cout << "Введите название продукта: ";
-    std::getline(std::cin, pName);
+    std::getline(std::cin, input);
+
+    tempProduct.SetName(input);
 
     std::cout << "Введите категорию продукта: ";
-    std::getline(std::cin, pCategory);
+    std::getline(std::cin, input);
 
-    if (products.Contains(pName, pCategory))
-    {
-        std::cout << "Такой продукт уже есть\n\n";
-        return;
-    }
-
-    tempProduct.SetName(pName);
-    tempProduct.SetCategory(pCategory);
+    tempProduct.SetCategory(input);
 
     INPUT_CONDITION
     (
@@ -197,6 +192,8 @@ void Admin::AddProductTask()
 
     tempProduct.SetUnitPrice(choice);
 
+    tempProduct.CalculateNewID(products);
+
     products.Add(tempProduct);
 
     products.SaveToFile();
@@ -211,11 +208,12 @@ void Admin::SortStorageMenu()
         INPUT
         (
             std::cout
-            << "1. Сортировать по имени\n"
-            << "2. Сортировать по категории\n"
-            << "3. Сортировать по количеству\n"
-            << "4. Сортировать по цене за штуку\n"
-            << "5. Сортировать по стоимости\n"
+            << "1. Сортировать по идентификационному номеру\n"
+            << "2. Сортировать по имени\n"
+            << "3. Сортировать по категории\n"
+            << "4. Сортировать по количеству\n"
+            << "5. Сортировать по цене за штуку\n"
+            << "6. Сортировать по стоимости\n"
             << "0. Назад\n",
             choice
         );
@@ -236,33 +234,40 @@ void Admin::SortStorageMenu()
         {
         case 1:
             if (order == 1)
+                products.Sort(ProductList::ByIDAscendingly);
+            else
+                products.Sort(ProductList::ByIDDescendingly);
+
+            break;
+        case 2:
+            if (order == 1)
                 products.Sort(ProductList::ByNameAscendingly);
             else
                 products.Sort(ProductList::ByNameDescendingly);
 
             break;
-        case 2:
+        case 3:
             if (order == 1)
                 products.Sort(ProductList::ByCategoryAscendingly);
             else
                 products.Sort(ProductList::ByCategoryDescendingly);
 
             break;
-        case 3:
+        case 4:
             if (order == 1)
                 products.Sort(ProductList::ByAmountAscendingly);
             else
                 products.Sort(ProductList::ByAmountDescendingly);
 
             break;
-        case 4:
+        case 5:
             if (order == 1)
                 products.Sort(ProductList::ByUnitPriceAscendingly);
             else
                 products.Sort(ProductList::ByUnitPriceDescendingly);
 
             break;
-        case 5:
+        case 6:
             if (order == 1)
                 products.Sort(ProductList::ByTotalPriceAscendingly);
             else
@@ -277,40 +282,39 @@ void Admin::SortStorageMenu()
 
 void Admin::DeleteProductTask()
 {
-    Product tempProduct;
-    std::string pName, pCategory;
+    int ID;
 
-    std::cout << "Введите название продукта: ";
-    std::getline(std::cin, pName);
+    INPUT
+    (
+        std::cout << "Введите идентификационный номер продукта\n",
+        ID
+    );
 
-    std::cout << "Введите категорию продукта: ";
-    std::getline(std::cin, pCategory);
 
-    if (!products.Contains(pName, pCategory))
+    if (!products.Contains(ID))
     {
         std::cout << "Такого продукта нет\n\n";
         return;
     }
 
-    products.Remove(pName, pCategory);
+    products.Remove(ID);
 
     products.SaveToFile();
 }
 
 void Admin::ChangeProductTask()
 {
-    std::string pName, pCategory;
+    int ID;
 
-    std::cout << "Введите название продукта: ";
-    std::getline(std::cin, pName);
-
-    std::cout << "Введите категорию продукта: ";
-    std::getline(std::cin, pCategory);
-
+    INPUT
+    (
+        std::cout << "Введите идентификационный номер продукта\n",
+        ID
+    );
 
     try
     {
-        auto tempProduct = products.GetProduct(pName, pCategory);
+        auto tempProduct = products.GetProduct(ID);
         ChangeProductMenu(tempProduct);
         products.SaveToFile();
     }
@@ -344,23 +348,11 @@ void Admin::ChangeProductMenu(std::shared_ptr<Product> product)
             std::cout << "Введите новое название продукта: ";
             std::getline(std::cin, input);
 
-            if (products.Contains(input, product->GetCategory()))
-            {
-                std::cout << "Такой продукт уже есть\n\n";
-                break;
-            }
-
             product->SetName(input);
             break;
         case 2:
             std::cout << "Введите новую категорию продукта: ";
             std::getline(std::cin, input);
-
-            if (products.Contains(product->GetName(), input))
-            {
-                std::cout << "Такой продукт уже есть\n\n";
-                break;
-            }
 
             product->SetCategory(input);
             break;

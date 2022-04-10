@@ -15,11 +15,11 @@ void ProductList::SetFileName(std::string_view fileName)
 	this->fileName = fileName;
 }
 
-bool ProductList::Contains(std::string_view name, std::string_view category)
+bool ProductList::Contains(int ID)
 {
 	for (const auto& product : originalProducts)
 	{
-		if (product->GetName() == name and product->GetCategory() == category)
+		if (product->GetID() == ID)
 			return true;
 	}
 
@@ -34,10 +34,10 @@ void ProductList::Add(const Product& product)
 	copiedProducts.push_back(ptr);
 }
 
-void ProductList::Remove(std::string_view name, std::string_view category)
+void IMEX::ProductList::Remove(int ID)
 {
 	auto it = std::find_if(originalProducts.begin(), originalProducts.end(),
-		[name, category](const std::shared_ptr<Product>& p) { return p->GetName() == name and p->GetCategory() == category; });
+		[ID](const std::shared_ptr<Product>& p) { return p->GetID() == ID; });
 
 	const Product* ptr = it->get();
 
@@ -51,11 +51,11 @@ void ProductList::Remove(std::string_view name, std::string_view category)
 		copiedProducts.erase(it);
 }
 
-auto ProductList::GetProduct(std::string_view name, std::string_view category) -> std::shared_ptr<Product>
+auto ProductList::GetProduct(int ID) -> std::shared_ptr<Product>
 {
 	for (const auto& product : originalProducts)
 	{
-		if (product->GetName() == name and product->GetCategory() == category)
+		if (product->GetID() == ID)
 			return product;
 	}
 
@@ -72,14 +72,14 @@ void ProductList::ShowToConsole()
 	std::cout << std::left;
 
 	std::cout
-		<< std::setw(30) << "Наименование" << std::setw(30) << "Категория"
+		<< std::setw(30) << "Идентификационный номер" << std::setw(30) << "Наименование" << std::setw(30) << "Категория"
 		<< std::setw(30) << "Количество" << std::setw(30) << "Цена за штуку"
 		<< std::setw(30) << "Стоимость" << std::endl;
 
 	for (const auto& product : copiedProducts)
 	{
 		std::cout
-			<< std::setw(30) << product->GetName() << std::setw(30) << product->GetCategory()
+			<< std::setw(30) << product->GetID() << std::setw(30) <<  product->GetName() << std::setw(30) << product->GetCategory()
 			<< std::setw(30) << product->GetAmount() << std::setw(30) << product->GetUnitPrice()
 			<< std::setw(30) << product->GetTotalPrice() << std::endl;
 	}
@@ -136,6 +136,16 @@ auto ProductList::end() -> std::vector<std::shared_ptr<Product>>::iterator
 auto ProductList::end() const -> std::vector<std::shared_ptr<Product>>::const_iterator
 {
 	return copiedProducts.end();
+}
+
+bool ProductList::ByIDAscendingly(const std::shared_ptr<Product>& p1, const std::shared_ptr<Product>& p2)
+{
+	return p1->GetID() < p2->GetID();
+}
+
+bool ProductList::ByIDDescendingly(const std::shared_ptr<Product>& p1, const std::shared_ptr<Product>& p2)
+{
+	return p1->GetID() > p2->GetID();
 }
 
 bool ProductList::ByNameAscendingly(const std::shared_ptr<Product>& p1, const std::shared_ptr<Product>& p2)
