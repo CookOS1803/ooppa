@@ -27,6 +27,39 @@ void IndividualOperationList::Add(const Operation& op)
 	copiedOperations.push_back(ptr);
 }
 
+bool IndividualOperationList::Contains(int ID)
+{
+	for (const auto& product : originalOperations)
+	{
+		if (product->GetID() == ID)
+			return true;
+	}
+
+	return false;
+}
+
+void IndividualOperationList::Remove(int ID)
+{
+	auto it = std::find_if(originalOperations.begin(), originalOperations.end(),
+		[ID](const std::shared_ptr<Operation>& p) { return p->GetID() == ID; });
+
+	const Operation* ptr = it->get();
+
+	if (it != originalOperations.end())
+		originalOperations.erase(it);
+
+	it = std::find_if(copiedOperations.begin(), copiedOperations.end(),
+		[ptr](const std::shared_ptr<Operation>& p) { return p.get() == ptr; });
+
+	if (it != copiedOperations.end())
+		copiedOperations.erase(it);
+}
+
+void IndividualOperationList::Sort(const std::function<bool(const std::shared_ptr<Operation>&, const std::shared_ptr<Operation>&)>& criteria)
+{
+	std::sort(copiedOperations.begin(), copiedOperations.end(), criteria);
+}
+
 auto IndividualOperationList::begin() -> std::vector<std::shared_ptr<Operation>>::iterator
 {
 	return copiedOperations.begin();
@@ -100,3 +133,62 @@ void IndividualOperationList::ReadFromFile()
 	file.close();
 }
 
+bool IndividualOperationList::ByIDAscendingly(const std::shared_ptr<Operation>& o1, const std::shared_ptr<Operation>& o2)
+{
+	return o1->GetID() < o2->GetID();
+}
+
+bool IndividualOperationList::ByIDDescendingly(const std::shared_ptr<Operation>& o1, const std::shared_ptr<Operation>& o2)
+{
+	return o1->GetID() > o2->GetID();
+}
+
+bool IndividualOperationList::ByTypeAscendingly(const std::shared_ptr<Operation>& o1, const std::shared_ptr<Operation>& o2)
+{
+	return o1->GetType() < o2->GetType();
+}
+
+bool IndividualOperationList::ByTypeDescendingly(const std::shared_ptr<Operation>& o1, const std::shared_ptr<Operation>& o2)
+{
+	return o1->GetType() > o2->GetType();
+}
+
+bool IndividualOperationList::ByStatusAscendingly(const std::shared_ptr<Operation>& o1, const std::shared_ptr<Operation>& o2)
+{
+	return o1->GetStatus() < o2->GetStatus();
+}
+
+bool IndividualOperationList::ByStatusDescendingly(const std::shared_ptr<Operation>& o1, const std::shared_ptr<Operation>& o2)
+{
+	return o1->GetStatus() > o2->GetStatus();
+}
+
+bool IndividualOperationList::ByProductIDAscendingly(const std::shared_ptr<Operation>& o1, const std::shared_ptr<Operation>& o2)
+{
+	return o1->GetProductID() < o2->GetProductID();
+}
+
+bool IndividualOperationList::ByProductIDDescendingly(const std::shared_ptr<Operation>& o1, const std::shared_ptr<Operation>& o2)
+{
+	return o1->GetProductID() > o2->GetProductID();
+}
+
+bool IndividualOperationList::ByProductAmountAscendingly(const std::shared_ptr<Operation>& o1, const std::shared_ptr<Operation>& o2)
+{
+	return o1->GetProductAmount() < o2->GetProductAmount();
+}
+
+bool IndividualOperationList::ByProductAmountDescendingly(const std::shared_ptr<Operation>& o1, const std::shared_ptr<Operation>& o2)
+{
+	return o1->GetProductAmount() > o2->GetProductAmount();
+}
+
+bool IndividualOperationList::ByClientLoginAscendingly(const std::shared_ptr<Operation>& o1, const std::shared_ptr<Operation>& o2)
+{
+	return o1->GetClientLogin()[0] < o2->GetClientLogin()[0];
+}
+
+bool IndividualOperationList::ByClientLoginDescendingly(const std::shared_ptr<Operation>& o1, const std::shared_ptr<Operation>& o2)
+{
+	return o1->GetClientLogin()[0] > o2->GetClientLogin()[0];
+}

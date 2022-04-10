@@ -35,7 +35,7 @@ void ProductList::Add(const Product& product)
 	copiedProducts.push_back(ptr);
 }
 
-void IMEX::ProductList::Remove(int ID)
+void ProductList::Remove(int ID)
 {
 	auto it = std::find_if(originalProducts.begin(), originalProducts.end(),
 		[ID](const std::shared_ptr<Product>& p) { return p->GetID() == ID; });

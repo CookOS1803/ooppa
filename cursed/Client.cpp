@@ -328,6 +328,77 @@ void Client::OperationsMenu()
 
 void Client::SortOperationsMenu()
 {
+
+    int choice, order;
+
+    while (true)
+    {
+        INPUT
+        (
+            std::cout
+            << "1. Сортировать по идентификационному номеру операции\n"
+            << "2. Сортировать по типу\n"
+            << "3. Сортировать по статусу\n"
+            << "4. Сортировать по идентификационному номеру товара\n"
+            << "5. Сортировать по количеству товара\n"
+            << "0. Назад\n",
+            choice
+        );
+
+
+        if (choice != 0)
+        {
+            INPUT_CONDITION
+            (
+                std::cout
+                << "1. По возрастанию\n"
+                << "2. По убыванию\n",
+                order,
+                order == 1 or order == 2
+            );
+        }
+
+        switch (choice)
+        {
+        case 1:
+            if (order == 1)
+                operations.Sort(IndividualOperationList::ByIDAscendingly);
+            else
+                operations.Sort(IndividualOperationList::ByIDDescendingly);
+
+            break;
+        case 2:
+            if (order == 1)
+                operations.Sort(OperationList::ByTypeAscendingly);
+            else
+                operations.Sort(OperationList::ByTypeDescendingly);
+
+            break;
+        case 3:
+            if (order == 1)
+                operations.Sort(OperationList::ByStatusAscendingly);
+            else
+                operations.Sort(OperationList::ByStatusDescendingly);
+
+            break;
+        case 4:
+            if (order == 1)
+                operations.Sort(OperationList::ByProductIDAscendingly);
+            else
+                operations.Sort(OperationList::ByProductIDDescendingly);
+
+            break;
+        case 5:
+            if (order == 1)
+                operations.Sort(OperationList::ByProductAmountAscendingly);
+            else
+                operations.Sort(OperationList::ByProductAmountDescendingly);
+
+            break;
+        case 0:
+            return;
+        }
+    }
     
 }
 
@@ -377,5 +448,21 @@ void Client::MakeOperationTask(Operation::Type type)
 
 void Client::CanselOperationTask()
 {
+    int choice;
 
+    INPUT
+    (
+        std::cout << "Введите идентификационный номер операции: ",
+        choice
+    );
+
+    if (!operations.Contains(choice))
+    {
+        std::cout << "Нет такой операции\n\n";
+        return;
+    }
+
+    operations.Remove(choice);
+
+    operations.SaveToFile();
 }
