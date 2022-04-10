@@ -9,9 +9,13 @@ namespace IMEX
 		static inline const std::string INFO_FILE_EXT = ".txt";
 		static inline const std::string CRED_FILE_EXT = ".dat";
 		static inline const std::string OPER_FILE_EXT = ".txt";
+		static inline const std::string PROD_FILE_EXT = ".txt";
 		static inline const std::string INFO_FILE_NAME = "info" + INFO_FILE_EXT;
 		static inline const std::string CRED_FILE_NAME = "credentials" + CRED_FILE_EXT;
 		static inline const std::string OPER_FILE_NAME = "operations" + OPER_FILE_EXT;
+		static inline const std::string PROD_FILE_NAME = "products" + PROD_FILE_EXT;
+		static inline const std::string ADMINS_FOLDER = "admins\\";
+		static inline const std::string CLIENTS_FOLDER = "clients\\";
 
 		std::string login;
 		std::string password;

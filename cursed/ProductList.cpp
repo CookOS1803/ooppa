@@ -118,6 +118,26 @@ void ProductList::ReadFromFile()
 	file.close();
 }
 
+auto ProductList::begin() -> std::vector<std::shared_ptr<Product>>::iterator
+{
+	return copiedProducts.begin();
+}
+
+auto ProductList::begin() const -> std::vector<std::shared_ptr<Product>>::const_iterator
+{
+	return copiedProducts.begin();
+}
+
+auto ProductList::end() -> std::vector<std::shared_ptr<Product>>::iterator
+{
+	return copiedProducts.end();
+}
+
+auto ProductList::end() const -> std::vector<std::shared_ptr<Product>>::const_iterator
+{
+	return copiedProducts.end();
+}
+
 bool ProductList::ByNameAscendingly(const std::shared_ptr<Product>& p1, const std::shared_ptr<Product>& p2)
 {
 	return p1->GetName()[0] < p2->GetName()[0];

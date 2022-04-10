@@ -30,6 +30,11 @@ namespace IMEX
 		void SaveToFile() override;
 		void ReadFromFile() override;
 
+		auto begin() -> std::vector<std::shared_ptr<Product>>::iterator;
+		auto begin() const -> std::vector<std::shared_ptr<Product>>::const_iterator;
+		auto end() -> std::vector<std::shared_ptr<Product>>::iterator;
+		auto end() const -> std::vector<std::shared_ptr<Product>>::const_iterator;
+
 		static bool ByNameAscendingly(const std::shared_ptr<Product>& p1, const std::shared_ptr<Product>& p2);
 		static bool ByNameDescendingly(const std::shared_ptr<Product>& p1, const std::shared_ptr<Product>& p2);
 		static bool ByCategoryAscendingly(const std::shared_ptr<Product>& p1, const std::shared_ptr<Product>& p2);

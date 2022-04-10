@@ -16,7 +16,7 @@ Admin::Admin(std::string_view login, const std::string& password)
 
 auto Admin::GetFolderName() -> std::string
 {
-    return "admins\\";
+    return ADMINS_FOLDER;
 }
 
 
@@ -27,8 +27,11 @@ auto Admin::GetCredentialsFileName() -> std::string
 
 void Admin::UserMenu()
 {
-    products.SetFileName("products.txt");
+    products.SetFileName(PROD_FILE_NAME);
     products.ReadFromFile();
+    clients.SetFolderName(CLIENTS_FOLDER);
+    clients.SetInfoFileName(INFO_FILE_NAME);
+    clients.ReadFromFile();
 
     int choice;
 
@@ -47,6 +50,9 @@ void Admin::UserMenu()
 
         switch (choice)
         {
+        case 1:
+            ClientsMenu();
+            break;
         case 3:
             StorageMenu();
 
@@ -214,14 +220,17 @@ void Admin::SortStorageMenu()
             choice
         );
 
-        INPUT_CONDITION
-        (
-            std::cout
-            << "1. По возрастанию\n"
-            << "2. По убыванию\n",
-            order,
-            order == 1 or order == 2
-        );
+        if (choice != 0)
+        {
+            INPUT_CONDITION
+            (
+                std::cout
+                << "1. По возрастанию\n"
+                << "2. По убыванию\n",
+                order,
+                order == 1 or order == 2
+            );
+        }
 
         switch (choice)
         {

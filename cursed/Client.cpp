@@ -1,6 +1,7 @@
 #include "Client.h"
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 #include "UserInput.h"
 
 using namespace IMEX;
@@ -23,7 +24,7 @@ void Client::SetLogin(std::string_view login)
 
 auto Client::GetFolderName() -> std::string
 {
-	return "clients\\" + login + "\\";
+	return CLIENTS_FOLDER + login + "\\";
 }
 
 
@@ -70,6 +71,8 @@ void Client::RegistrationMenu()
 void Client::UserMenu()
 {
     info.ReadFromFile();
+    products.SetFileName(PROD_FILE_NAME);
+    products.ReadFromFile();
 
     int choice;
 
@@ -80,10 +83,8 @@ void Client::UserMenu()
             std::cout
             << "1. Показать персональную информацию\n"
             << "2. Изменить персональную информацию\n"
-            << "3. Показать текущие операции\n"
-            << "4. Отменить операцию\n"
-            << "5. Экспорт\n"
-            << "6. Импорт\n"
+            << "3. Товары\n"
+            << "4. Операции\n"
             << "0. Выход\n",
             choice
         );
@@ -95,6 +96,12 @@ void Client::UserMenu()
             break;
         case 2:
             InfoChangeMenu();
+            break;
+        case 3:
+            StorageMenu();
+            break;
+        case 4:
+            OperationsMenu();
             break;
         case 0:
             return;
@@ -174,5 +181,131 @@ void Client::InfoChangeMenu()
         }
 
         info.SaveToFile();
+    }
+}
+
+void Client::StorageMenu()
+{
+    int choice;
+
+    while (true)
+    {
+        INPUT
+        (
+            std::cout
+            << "1. Просмотреть склад\n"
+            << "2. Отсортировать список товаров\n"
+            << "0. Выход\n",
+            choice
+        );
+
+        switch (choice)
+        {
+        case 1:
+            ShowStorageTask();
+            break;
+        case 2:
+            SortStorageMenu();
+            break;
+        case 0:
+            return;
+        }
+    }
+}
+
+void Client::ShowStorageTask()
+{
+    std::cout << std::left;
+
+    std::cout
+        << std::setw(30) << "Наименование" << std::setw(30) << "Категория"
+        << std::setw(30) << "Цена за штуку" << std::endl;
+
+    for (const auto& product : products)
+    {
+        std::cout
+            << std::setw(30) << product->GetName() << std::setw(30) << product->GetCategory()
+            << std::setw(30) << product->GetUnitPrice() << std::endl;
+    }
+
+}
+
+void Client::SortStorageMenu()
+{
+    int choice, order;
+
+    while (true)
+    {
+        INPUT
+        (
+            std::cout
+            << "1. Сортировать по имени\n"
+            << "2. Сортировать по категории\n"
+            << "3. Сортировать по цене за штуку\n"
+            << "0. Назад\n",
+            choice
+        );
+
+
+        if (choice != 0)
+        {
+            INPUT_CONDITION
+            (
+                std::cout
+                << "1. По возрастанию\n"
+                << "2. По убыванию\n",
+                order,
+                order == 1 or order == 2
+            );
+        }
+
+        switch (choice)
+        {
+        case 1:
+            if (order == 1)
+                products.Sort(ProductList::ByNameAscendingly);
+            else
+                products.Sort(ProductList::ByNameDescendingly);
+
+            break;
+        case 2:
+            if (order == 1)
+                products.Sort(ProductList::ByCategoryAscendingly);
+            else
+                products.Sort(ProductList::ByCategoryDescendingly);
+
+            break;
+        case 3:
+            if (order == 1)
+                products.Sort(ProductList::ByUnitPriceAscendingly);
+            else
+                products.Sort(ProductList::ByUnitPriceDescendingly);
+
+            break;
+        case 0:
+            return;
+        }
+    }
+}
+
+void Client::OperationsMenu()
+{
+    int choice;
+
+    while (true)
+    {
+        INPUT
+        (
+            std::cout
+            << ""
+            << "0. Выход\n",
+            choice
+        );
+
+        switch (choice)
+        {
+        case 0:
+            return;
+        }
     }
 }

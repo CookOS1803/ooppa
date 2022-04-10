@@ -111,3 +111,4 @@ void ClientInfo::ReadFromFile()
 
 	in.close();
 }
+

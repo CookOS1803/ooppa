@@ -11,9 +11,15 @@ namespace IMEX
 		std::vector<std::shared_ptr<ClientInfo>> originalClients;
 		std::vector<std::shared_ptr<ClientInfo>> copiedClients;
 
+		std::string folderName;
+		std::string infoFileName;
+
 	public:
 
 		ClientsList();
+
+		void SetFolderName(std::string_view folderName);
+		void SetInfoFileName(std::string_view infoFileName);
 
 		void ShowToConsole() override;
 		void SaveToFile() override;

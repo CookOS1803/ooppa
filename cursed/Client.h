@@ -2,12 +2,14 @@
 #include "User.h"
 #include "ClientInfo.h"
 #include "ISerializable.h"
+#include "ProductList.h"
 
 namespace IMEX
 {
 	class Client : public User
 	{
 		ClientInfo info;
+		ProductList products;
 
 	public:
 
@@ -26,6 +28,10 @@ namespace IMEX
 		auto GetInfoFileName() -> std::string;
 		auto GetOperationsFileName() -> std::string;
 		void InfoChangeMenu();
+		void StorageMenu();
+		void ShowStorageTask();
+		void SortStorageMenu();
+		void OperationsMenu();
 
 	};
 }
