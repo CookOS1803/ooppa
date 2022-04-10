@@ -38,11 +38,6 @@ auto Client::GetInfoFileName() -> std::string
     return GetFolderName() + INFO_FILE_NAME;
 }
 
-auto Client::GetOperationsFileName() -> std::string
-{
-    return GetFolderName() + OPER_FILE_NAME;
-}
-
 void Client::RegistrationMenu()
 {
     std::string input;
@@ -73,6 +68,8 @@ void Client::UserMenu()
     info.ReadFromFile();
     products.SetFileName(PROD_FILE_NAME);
     products.ReadFromFile();
+    operations.SetFileName(GetFolderName() + OPER_FILE_NAME);
+    operations.ReadFromFile();
 
     int choice;
 
@@ -297,13 +294,17 @@ void Client::OperationsMenu()
         INPUT
         (
             std::cout
-            << ""
-            << "0. Выход\n",
+            << "1. Показать операции\n"
+            << "2. Отсортировать список операций\n"
+            << "0. Назад\n",
             choice
         );
 
         switch (choice)
         {
+        case 1:
+            operations.ShowToConsole();
+            break;
         case 0:
             return;
         }

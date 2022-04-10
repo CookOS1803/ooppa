@@ -3,6 +3,7 @@
 #include "ClientInfo.h"
 #include "ISerializable.h"
 #include "ProductList.h"
+#include "OperationList.h"
 
 namespace IMEX
 {
@@ -10,6 +11,7 @@ namespace IMEX
 	{
 		ClientInfo info;
 		ProductList products;
+		OperationList operations;
 
 	public:
 
@@ -26,7 +28,6 @@ namespace IMEX
 		auto GetFolderName() -> std::string override;
 		auto GetCredentialsFileName()->std::string override;
 		auto GetInfoFileName() -> std::string;
-		auto GetOperationsFileName() -> std::string;
 		void InfoChangeMenu();
 		void StorageMenu();
 		void ShowStorageTask();

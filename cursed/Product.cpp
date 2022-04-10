@@ -1,5 +1,6 @@
 #include "Product.h"
 #include "ProductList.h"
+#include <iostream>
 
 using namespace IMEX;
 
