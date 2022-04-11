@@ -103,7 +103,7 @@ void IMEX::RegistrationMenu(Client* client)
 
     try
     {
-        client->SaveCredentialsToFile();
+        client->SaveCredentialsToFile(true);
     }
     catch (const std::exception& e)
     {

@@ -38,7 +38,7 @@ namespace IMEX
 		void TryLogin(std::string_view login, const std::string& password);
 		void Logout();
 
-		void SaveCredentialsToFile();
+		void SaveCredentialsToFile(bool newUser);
 		void ReadPasswordFromFile(const std::string& login);
 
 		virtual void UserMenu() = 0;

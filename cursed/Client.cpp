@@ -170,7 +170,7 @@ void Client::InfoChangeMenu()
 
             password = MakePassword(input);
 
-            SaveCredentialsToFile();
+            SaveCredentialsToFile(false);
 
             break;
         case 0:

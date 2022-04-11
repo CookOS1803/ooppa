@@ -48,13 +48,13 @@ void OperationList::SaveToFile()
 		file.close();
 	}
 
-	for (const auto& product : originalOperations)
+	for (const auto& operation : originalOperations)
 	{
-		std::string login = product->GetClientLogin().data();
+		std::string login = operation->GetClientLogin().data();
 
 		file.open(folderName + login + "\\" + operationsFileName, std::ios::app);
 
-		file << *product;
+		file << *operation;
 
 		file.close();
 	}

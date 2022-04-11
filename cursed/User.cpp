@@ -56,7 +56,7 @@ void User::Logout()
 	isInitialized = false;
 }
 
-void User::SaveCredentialsToFile()
+void User::SaveCredentialsToFile(bool newUser)
 {
 	std::fstream file;
 
@@ -75,15 +75,11 @@ void User::SaveCredentialsToFile()
 
 	file.open(GetCredentialsFileName());
 
-	if (file.good())
+	if (newUser and file.good())
 	{
 		file.close();
 		throw DuplicateLoginException();
 	}
-
-	file.close();
-
-	file.open(GetCredentialsFileName(), std::ios::app);
 
 	file << login << " " << password << "\n";
 
