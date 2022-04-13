@@ -7,23 +7,8 @@
       <FileName>Admin.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMEX::ClientInfo">
-    <Position X="23.5" Y="3" Width="1.5" />
-    <InheritanceLine Type="IMEX::ISerializable" ManuallyRouted="true" FixedFromPoint="true">
-      <Path>
-        <Point X="17" Y="0.688" />
-        <Point X="17.218" Y="0.647" />
-        <Point X="24.25" Y="0.647" />
-        <Point X="24.25" Y="3" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>ABAAAQQigAAICQQAAAAAAAAAAAAEAgAiAMCAQAAAFAA=</HashCode>
-      <FileName>ClientInfo.h</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="IMEX::ClientsList">
-    <Position X="21.5" Y="0.75" Width="1.5" />
+    <Position X="19.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAIAgAAQAAQABgAAQCACAQACAAARgAIAEAQBAAAA=</HashCode>
       <FileName>ClientsList.h</FileName>
@@ -37,9 +22,21 @@
     </TypeIdentifier>
   </Class>
   <Class Name="IMEX::Operation">
-    <Position X="19.25" Y="1" Width="1.5" />
+    <Position X="17.5" Y="10.25" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="IMEX::Operation::Type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Operation.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="IMEX::Operation::Status" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Operation.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>ABQIEBAAgQAAgAAAEAEAgAAFQAABAAEQFAEQAAAAAAE=</HashCode>
+      <HashCode>ABQAABAggQAAgQAAEAEAAAABAAABAAEAEIEQAAAAAAE=</HashCode>
       <FileName>Operation.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -51,7 +48,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="IMEX::Product">
-    <Position X="11.25" Y="2.75" Width="1.75" />
+    <Position X="13.75" Y="9.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAKACAAgAAIgAAAAAAAiACAAgAEgAAAAAAIQCBABAA=</HashCode>
       <FileName>Product.h</FileName>
@@ -72,11 +69,11 @@
     </TypeIdentifier>
   </Class>
   <Class Name="IMEX::OperationList">
-    <Position X="19.25" Y="7" Width="1.5" />
+    <Position X="15.75" Y="10.25" Width="1.5" />
     <InheritanceLine Type="IMEX::IndividualOperationList" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="18.75" Y="7.438" />
-        <Point X="19.25" Y="7.438" />
+        <Point X="16.5" Y="9.434" />
+        <Point X="16.5" Y="10.25" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -110,6 +107,22 @@
     <TypeIdentifier>
       <HashCode>AAACAQAAAAIAApAAAAAAAARAAAAgAgCAQhwABAAAAAQ=</HashCode>
       <FileName>Client.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMEX::ClientInfo">
+    <Position X="19.5" Y="8.25" Width="1.5" />
+    <InheritanceLine Type="IMEX::ISerializable" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="16.25" Y="1.988" />
+        <Point X="16.25" Y="2.375" />
+        <Point X="21.375" Y="2.375" />
+        <Point X="21.375" Y="9.328" />
+        <Point X="21" Y="9.328" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>ABAAAQQigAAICQQAAAAAAAAAAAAEAgAiAMCAQAAAFAA=</HashCode>
+      <FileName>ClientInfo.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
