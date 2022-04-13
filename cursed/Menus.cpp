@@ -59,8 +59,7 @@ void IMEX::LoginMenu(User* user)
 {
     std::string login, password;
 
-    std::cout << "¬ведите логин: ";
-    std::getline(std::cin, login);
+    login = StringInput("¬ведите логин: ");
 
     try
     {
@@ -74,8 +73,7 @@ void IMEX::LoginMenu(User* user)
 
     user->SetLogin(login);
 
-    std::cout << "¬ведите пароль: ";
-    std::getline(std::cin, password);
+    password = StringInput("¬ведите пароль: ");
 
     user->TryLogin(login, password);
 
@@ -92,11 +90,8 @@ void IMEX::RegistrationMenu(Client* client)
 {
     std::string login, password;
 
-    std::cout << "¬ведите логин: ";
-    std::getline(std::cin, login);
-
-    std::cout << "¬ведите пароль: ";
-    std::getline(std::cin, password);
+    login = StringInput("¬ведите логин: ");
+    login = StringInput("¬ведите пароль: ");
 
     client->SetLogin(login);
     client->SetPassword(password);

@@ -109,8 +109,7 @@ void Admin::ShowClientTask()
 {
     std::string input;
 
-    std::cout << "¬ведите логин клиента: ";
-    std::getline(std::cin, input);
+    input = StringInput("¬ведите логин клиента: ");
 
     try
     {
@@ -399,14 +398,10 @@ void Admin::AddProductTask()
     std::string input;
     int choice;
 
-    std::cout << "¬ведите название продукта: ";
-    std::getline(std::cin, input);
-
+    input = StringInput("¬ведите название продукта: ");
     tempProduct.SetName(input);
 
-    std::cout << "¬ведите категорию продукта: ";
-    std::getline(std::cin, input);
-
+    input = StringInput("¬ведите категорию продукта: ");
     tempProduct.SetCategory(input);
 
     INPUT_CONDITION
@@ -580,14 +575,12 @@ void Admin::ChangeProductMenu(std::shared_ptr<Product> product)
         switch (choice)
         {
         case 1:
-            std::cout << "¬ведите новое название продукта: ";
-            std::getline(std::cin, input);
+            input = StringInput("¬ведите новое название продукта: ");
 
             product->SetName(input);
             break;
         case 2:
-            std::cout << "¬ведите новую категорию продукта: ";
-            std::getline(std::cin, input);
+            input = StringInput("¬ведите новую категорию продукта: ");
 
             product->SetCategory(input);
             break;
@@ -651,8 +644,7 @@ void Admin::AddAdminTask()
     std::string newLogin, newPassword;
     std::filesystem::path path{ ADMINS_FOLDER };
     
-    std::cout << "¬ведите логин: ";
-    std::getline(std::cin, newLogin);
+    newLogin = StringInput("¬ведите логин: ");
 
     for (auto const& dir_entry : std::filesystem::directory_iterator{ path })
     {
@@ -663,9 +655,7 @@ void Admin::AddAdminTask()
         }
     }
 
-    std::cout << "¬ведите пароль: ";
-    std::getline(std::cin, newPassword);
-    newPassword = MakePassword(newPassword);
+    newPassword = MakePassword(StringInput("¬ведите пароль: "));
 
     std::ofstream file;
     file.open(ADMINS_FOLDER + newLogin + CRED_FILE_EXT);
@@ -680,8 +670,7 @@ void Admin::RemoveAdminTask()
     std::string newLogin;
     std::filesystem::path path{ ADMINS_FOLDER };
 
-    std::cout << "¬ведите логин: ";
-    std::getline(std::cin, newLogin);
+    newLogin = StringInput("¬ведите логин: ");
 
     for (auto const& dir_entry : std::filesystem::directory_iterator{ path })
     {

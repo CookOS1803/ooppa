@@ -154,6 +154,7 @@
     <ClCompile Include="Product.cpp" />
     <ClCompile Include="ProductList.cpp" />
     <ClCompile Include="User.cpp" />
+    <ClCompile Include="UserInput.cpp" />
     <ClCompile Include="WrongLoginException.cpp" />
     <ClCompile Include="WrongProductException.cpp" />
   </ItemGroup>

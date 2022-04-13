@@ -24,3 +24,5 @@
     while (!(condition))
 
 #define INPUT(command, value) INPUT_CONDITION(command, value, true)
+
+std::string StringInput(std::string_view message);

@@ -66,6 +66,9 @@
     <ClCompile Include="OperationList.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="UserInput.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UserInput.h">
@@ -81,9 +84,6 @@
       <Filter>Файлы заголовков\Exceptions</Filter>
     </ClInclude>
     <ClInclude Include="Admin.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Client.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="DuplicateLoginException.h">
@@ -114,6 +114,9 @@
       <Filter>Файлы заголовков\Exceptions</Filter>
     </ClInclude>
     <ClInclude Include="OperationList.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
