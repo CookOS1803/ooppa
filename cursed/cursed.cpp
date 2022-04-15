@@ -13,7 +13,7 @@ int main()
     RECT r;
     GetWindowRect(console, &r); //stores the console's current dimensions
 
-    MoveWindow(console, r.left, r.top, 1250, 700, TRUE); // 800 width, 100 height
+    MoveWindow(console, r.left, r.top, 1350, 700, TRUE); // 800 width, 100 height
 
 
     IMEX::MainMenu();
