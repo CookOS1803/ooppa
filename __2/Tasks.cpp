@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <fstream>
 #include "Tasks.h"
 #include "Util.h"
 
@@ -15,6 +16,8 @@ void Menu(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matche
 			<< "1. Команда\n"
 			<< "2. Состав для следующего матча\n"
 			<< "3. Матчи\n"
+			<< "4. Считать информацию из файлов\n"
+			<< "5. Сохранить информацию в файл\n"
 			<< "0. Выход\n",
 			choice
 		);
@@ -29,6 +32,12 @@ void Menu(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matche
 			break;
 		case 3:
 			MenuForMatches(team, matches);
+			break;
+		case 4:
+			ReadAllTask(team, current, matches);
+			break;
+		case 5:
+			SaveAllTask(team, current, matches);
 			break;
 		case 0:
 			exit = true;
@@ -855,6 +864,48 @@ void MenuForMatchChange(std::shared_ptr<Match>& match)
 			break;
 		}
 	}
+}
+
+void SaveAllTask(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches)
+{
+	SaveToFile(matches);
+	team.SaveToFile(Team::MAIN_TEAM_FILE);
+	current.SaveToFile(Team::CURRENT_TEAM_FILE);
+}
+
+void SaveToFile(std::vector<std::shared_ptr<Match>>& matches)
+{
+	std::ofstream out;
+
+	out.open(Match::FILE_NAME);
+
+	if (!out.is_open())
+		throw std::exception("Ошибка открытия файла");
+
+	out << matches;
+
+	out.close();
+}
+
+void ReadAllTask(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches)
+{
+	ReadFromFile(matches);
+	team.ReadFromFile(matches);
+	current.ReadFromFile(team);
+}
+
+void ReadFromFile(std::vector<std::shared_ptr<Match>>& matches)
+{
+	std::ifstream in;
+
+	in.open(Match::FILE_NAME);
+
+	if (!in.is_open())
+		throw std::exception("Ошибка открытия файла");
+
+	in >> matches;
+
+	in.close();
 }
 
 void CreateMatches_Task(std::vector<std::shared_ptr<Match>>& matches)

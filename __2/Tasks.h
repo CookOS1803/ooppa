@@ -15,6 +15,14 @@ void MenuForMatchesFind(const std::vector<std::shared_ptr<Match>>& matches);
 void MenuForMatchesSort(std::vector<std::shared_ptr<Match>>& matches);
 void MenuForMatchChange(std::shared_ptr<Match>& match);
 
+void SaveAllTask(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches);
+
+void SaveToFile(std::vector<std::shared_ptr<Match>>& matches);
+
+void ReadAllTask(Team& team, Team& current, std::vector<std::shared_ptr<Match>>& matches);
+
+void ReadFromFile(std::vector<std::shared_ptr<Match>>& matches);
+
 void CreateMatches_Task(std::vector<std::shared_ptr<Match>>& matches);
 
 void CreateTeam_Task(Team& team, const std::vector<std::shared_ptr<Match>>& matches);

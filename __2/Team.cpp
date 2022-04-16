@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <fstream>
 #include "Team.h"
 #include "WrongMemberNameException.h"
 #include "DuplicateMatchException.h"
@@ -109,6 +110,97 @@ auto Team::end() const -> std::vector<std::shared_ptr<Sportsman>>::const_iterato
 void Team::Sort(const std::function<bool(const std::shared_ptr<Sportsman>&, const std::shared_ptr<Sportsman>&)>& criteria)
 {
 	std::sort(members.begin(), members.end(), criteria);
+}
+
+void Team::SaveToFile(const std::string& fileName)
+{
+	std::ofstream out;
+
+	out.open(fileName);
+
+	if (!out.is_open())
+		throw std::exception("Ошибка открытия файла");
+
+	for (const auto& s : members)
+	{
+		out << *s;
+	}
+
+	out.close();
+}
+
+void Team::ReadFromFile(const std::vector<std::shared_ptr<Match>>& matches)
+{
+	std::ifstream in;
+
+	in.open(MAIN_TEAM_FILE);
+
+	if (!in.is_open())
+		throw std::exception("Ошибка открытия файла");
+
+	members.clear();
+
+	while (in.good())
+	{
+		members.emplace_back(std::make_shared<Sportsman>());
+		in >> *members.back();
+		std::ignore = in.get();
+		
+		while (in.peek() != '&')
+		{
+			Match tempMatch;
+			in >> tempMatch;
+			std::ignore = in.get();
+
+			for (const auto& m : matches)
+			{
+				if (*m == tempMatch)
+				{
+					members.back()->AddMatch(m);
+					break;
+				}
+			}
+		}
+
+		std::ignore = in.get();
+		std::ignore = in.get();
+		std::ignore = in.peek();
+	}
+
+	in.close();
+}
+
+void Team::ReadFromFile(const Team& main)
+{
+	std::ifstream in;
+
+	in.open(CURRENT_TEAM_FILE);
+
+	if (!in.is_open())
+		throw std::exception("Ошибка открытия файла");
+
+	members.clear();
+
+	while (in.good())
+	{
+		Sportsman tempSp;
+		in >> tempSp;
+
+		for (const auto& s : main)
+		{
+			if (s->GetPersonalInfo().name == tempSp.GetPersonalInfo().name)
+			{
+				members.push_back(s);
+				break;
+			}
+		}
+
+		while (in.get() != '&');
+		std::ignore = in.get();
+		std::ignore = in.peek();
+	}
+
+	in.close();
 }
 
 bool Team::ByNameAscendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2)

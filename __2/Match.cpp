@@ -121,6 +121,11 @@ void Match::SetTeamTwoScoreAmount(int amount)
 	teamTwo.amount = amount;
 }
 
+bool Match::operator==(const Match& other) const
+{
+	return tournament == other.tournament and GetDate() == other.GetDate();
+}
+
 bool Match::ByTournamentAscendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2)
 {
 	return m1->GetTournament()[0] < m2->GetTournament()[0];
@@ -179,4 +184,53 @@ bool Match::ByTeamTwoNameAscendingly(const std::shared_ptr<Match>& m1, const std
 bool Match::ByTeamTwoNameDescendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2)
 {
 	return m1->GetTeamTwoScore().name[0] > m2->GetTeamTwoScore().name[0];
+}
+
+std::istream& operator>>(std::istream& in, Match& match)
+{
+	in >> match.tournament;
+
+	std::string d;
+	in >> d;
+	match.SetDate(d);
+
+	in >> match.teamOne.name >> match.teamOne.amount >> match.teamTwo.name >> match.teamTwo.amount;
+
+	return in;
+}
+
+std::ostream& operator<<(std::ostream& out, const std::vector<std::shared_ptr<Match>>& matches)
+{
+	for (const auto& m : matches)
+	{
+		out << *m;
+	}
+
+	out << "&\n";
+
+	return out;
+}
+
+std::istream& operator>>(std::istream& in, std::vector<std::shared_ptr<Match>>& matches)
+{
+	matches.clear();
+
+	while (in.peek() != '&')
+	{
+		matches.emplace_back(std::make_shared<Match>());
+		in >> *matches.back();
+		
+		std::ignore = in.get();
+	}
+
+	return in;
+}
+
+std::ostream& operator<<(std::ostream& out, const Match& match)
+{
+	out << match.GetTournament() << ' ' << match.GetDate() << ' '
+		<< match.GetTeamOneScore().name << ' ' << match.GetTeamOneScore().amount << ' '
+		<< match.GetTeamTwoScore().name << ' ' << match.GetTeamTwoScore().amount << "\n";
+
+	return out;
 }

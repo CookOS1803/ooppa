@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include <iostream>
 #include "Match.h"
 
 struct PersonalInfo
@@ -58,4 +59,8 @@ public:
 
 	void AddMatch(const std::shared_ptr<Match>& match);
 	void RemoveMatch(const Match* matchAddress);
+
+	friend std::istream& operator>>(std::istream& in, Sportsman& sportsman);
 };
+
+std::ostream& operator<<(std::ostream& out, const Sportsman& sportsman);

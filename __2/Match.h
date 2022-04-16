@@ -3,6 +3,8 @@
 #include <string_view>
 #include <ctime>
 #include <memory>
+#include <iostream>
+#include <vector>
 
 struct Score
 {
@@ -41,6 +43,8 @@ public:
 	void SetTeamTwoScore(const Score& team);
 	void SetTeamTwoName(std::string_view name);
 	void SetTeamTwoScoreAmount(int amount);
+
+	bool operator==(const Match& other) const;
 	
 	static bool ByTournamentAscendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2);
 	static bool ByTournamentDescendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2);
@@ -53,5 +57,11 @@ public:
 	static bool ByTeamTwoNameAscendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2);
 	static bool ByTeamTwoNameDescendingly(const std::shared_ptr<Match>& m1, const std::shared_ptr<Match>& m2);
 
+	static inline const std::string FILE_NAME = "matches.txt";
+
+	friend std::istream& operator>>(std::istream& in, Match& match);
 };
 
+std::ostream& operator<<(std::ostream& out, const std::vector<std::shared_ptr<Match>>& matches);
+std::istream& operator>>(std::istream& in, std::vector<std::shared_ptr<Match>>& matches);
+std::ostream& operator<<(std::ostream& out, const Match& match);

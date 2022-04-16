@@ -1,0 +1,7 @@
+napadayuschiy nikita 19 180 80 4 3
+turik 22.01.2022 komanda 1 team 2
+turik 24.01.2022 komanda 3 ktoto 0
+&
+zashitnik andryuha 20 170 75 1 2
+turik 24.01.2022 komanda 3 ktoto 0
+&

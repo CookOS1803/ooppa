@@ -146,3 +146,23 @@ void Sportsman::RemoveMatch(const Match* matchAddress)
 	if (it != previousMatches.end())
 		previousMatches.erase(it);
 }
+
+std::istream& operator>>(std::istream& in, Sportsman& sportsman)
+{
+	in >> sportsman.role >> sportsman.info.name >> sportsman.info.age
+		>> sportsman.info.height >> sportsman.info.weight
+		>> sportsman.results.goals >> sportsman.results.assists;
+
+	return in;
+}
+
+std::ostream& operator<<(std::ostream& out, const Sportsman& sportsman)
+{
+	out << sportsman.GetRole() << ' ' << sportsman.GetPersonalInfo().name << ' '
+		<< sportsman.GetPersonalInfo().age << ' ' << sportsman.GetPersonalInfo().height << ' '
+		<< sportsman.GetPersonalInfo().weight << ' ' << sportsman.GetResults().goals << ' '
+		<< sportsman.GetResults().assists << '\n'
+		<< sportsman.GetPreviousMatches();
+
+	return out;
+}

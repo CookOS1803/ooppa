@@ -9,6 +9,9 @@ class Team
 
 public:
 
+	static inline const std::string MAIN_TEAM_FILE = "team.txt";
+	static inline const std::string CURRENT_TEAM_FILE = "current.txt";
+
 	Team(std::string_view name);
 
 	auto GetName() const -> std::string_view;
@@ -29,6 +32,10 @@ public:
 	auto end() const -> std::vector<std::shared_ptr<Sportsman>>::const_iterator;
 
 	void Sort(const std::function<bool(const std::shared_ptr<Sportsman>&,const std::shared_ptr<Sportsman>&)>& criteria);
+
+	void SaveToFile(const std::string& fileName);
+	void ReadFromFile(const std::vector<std::shared_ptr<Match>>& matches);
+	void ReadFromFile(const Team& main);
 
 	static bool ByNameAscendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2);
 	static bool ByNameDescendingly(const std::shared_ptr<Sportsman>& s1, const std::shared_ptr<Sportsman>& s2);
