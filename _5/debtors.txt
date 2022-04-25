@@ -1,8 +1,0 @@
-Name: Ilya
-Faculty: FITU
-Group: 4
-
-Name: Pashgen
-Faculty: FITU
-Group: 1
-

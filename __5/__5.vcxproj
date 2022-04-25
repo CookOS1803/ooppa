@@ -140,7 +140,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Menus.cpp" />
     <ClCompile Include="__5.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Menus.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

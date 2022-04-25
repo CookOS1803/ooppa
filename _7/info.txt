@@ -1,3 +1,0 @@
-Integer list: 1 2 3 
-Double list:  0.1 
-
