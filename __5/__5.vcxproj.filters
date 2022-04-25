@@ -9,8 +9,13 @@
   <ItemGroup>
     <ClCompile Include="__5.cpp" />
     <ClCompile Include="Menus.cpp" />
+    <ClCompile Include="Worker.cpp" />
+    <ClCompile Include="WorkerList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Menus.h" />
+    <ClInclude Include="Worker.h" />
+    <ClInclude Include="WorkerList.h" />
+    <ClInclude Include="UserInput.h" />
   </ItemGroup>
 </Project>
