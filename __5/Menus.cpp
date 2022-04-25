@@ -10,10 +10,10 @@ void MainMenu(WorkerList& workers)
 
 	while (true)
 	{
-		system("CLS");
 
 		INPUT
 		(
+			system("CLS");
 			std::cout
 				<< "1. Показать сотрудников\n"
 				<< "2. Показать конкретного сотрудника\n"
