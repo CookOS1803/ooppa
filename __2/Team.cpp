@@ -195,7 +195,7 @@ void Team::ReadFromFile(const Team& main)
 			}
 		}
 
-		while (in.get() != '&');
+		while (in.get() != '&' and in.good());
 		std::ignore = in.get();
 		std::ignore = in.peek();
 	}

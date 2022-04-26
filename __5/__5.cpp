@@ -8,8 +8,8 @@ int main()
     SetConsoleOutputCP(1251);
 
     WorkerList workers;
-    workers.Add("Kirill", "+", 1000, 5);
-    workers.Add("Toha", "-", 900, 3);
+    workers.Add("Kirill", "55-55-555", 1000, 5);
+    workers.Add("Toha", "12-34-567", 900, 3);
     
     MainMenu(workers);
 

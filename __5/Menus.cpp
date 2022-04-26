@@ -1,5 +1,4 @@
 #include "Menus.h"
-#include <iostream>
 #include <fstream>
 #include "WorkerList.h"
 #include "UserInput.h"
@@ -59,16 +58,6 @@ void MainMenu(WorkerList& workers)
 			return;
 		}
 	}
-}
-
-void ShowWorkersTask(const WorkerList& workers)
-{
-	for (const auto& w : workers)
-	{
-		std::cout << w->GetID() << ": " << w->GetName() << std::endl;
-	}
-
-	std::ignore = std::cin.get();
 }
 
 void ShowOneWorkerTask(const WorkerList& workers)
@@ -325,7 +314,8 @@ void FindWorkerTask(const WorkerList& workers)
 		<< "1. По имени\n"
 		<< "2. По номеру телефона\n"
 		<< "3. По зарплате\n"
-		<< "4. По стажу\n",
+		<< "4. По стажу\n"
+		<< "0. Назад\n",
 		choice,
 		choice >= 0 and choice <= 4
 	);
@@ -386,21 +376,21 @@ void FindWorkerTask(const WorkerList& workers)
 		}
 
 		break;
+	case 0:
+		return;
 	}
 
 	system("cls");
 
 	if (temp.empty())
+	{
 		std::cout << "Таких сотрудников нет\n";
+		std::ignore = std::cin.get();
+	}
 	else
 	{
-		for (const auto& w : temp)
-		{
-			std::cout << w->GetID() << ": " << w->GetName() << std::endl;
-		}
+		ShowWorkersTask(temp);
 	}
-
-	std::ignore = std::cin.get();
 }
 
 void SaveWorkersToFile(const WorkerList& workers)
