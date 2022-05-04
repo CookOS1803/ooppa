@@ -60,4 +60,19 @@ public class Matrix
         matrix = newMatrix.matrix;
     }
 
+    public Matrix SubMatrix(int x, int y, int rows, int columns)
+    {
+        var result = new Matrix(rows, columns);
+
+        for (int i = 0; i < result.Rows(); i++)
+        {
+            for (int j = 0; j < result.Columns(); j++)
+            {
+                result.Set(i, j, Get(i + x, j + y));
+            }
+        }
+
+        return result;
+    }
+
 }
