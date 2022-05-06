@@ -147,6 +147,7 @@
     <ClCompile Include="ClientsList.cpp" />
     <ClCompile Include="cursed.cpp" />
     <ClCompile Include="DuplicateLoginException.cpp" />
+    <ClCompile Include="List.cpp" />
     <ClCompile Include="Menus.cpp" />
     <ClCompile Include="Operation.cpp" />
     <ClCompile Include="IndividualOperationList.cpp" />
@@ -164,7 +165,9 @@
     <ClInclude Include="ClientInfo.h" />
     <ClInclude Include="ClientsList.h" />
     <ClInclude Include="DuplicateLoginException.h" />
+    <ClInclude Include="Identifiable.h" />
     <ClInclude Include="ISerializable.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="Menus.h" />
     <ClInclude Include="Operation.h" />
     <ClInclude Include="IndividualOperationList.h" />

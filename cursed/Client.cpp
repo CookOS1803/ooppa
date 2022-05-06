@@ -438,7 +438,7 @@ void Client::MakeOperationTask(Operation::Type type)
     l.SetOperationsFileName(OPER_FILE_NAME);
     l.ReadFromFile();
 
-    temp.CalculateNewID(l);
+    l.CalculateNewID(temp);
 
     operations.Add(temp);
 

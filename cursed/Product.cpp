@@ -1,21 +1,15 @@
 #include "Product.h"
-#include "ProductList.h"
 #include <iostream>
 
 using namespace IMEX;
 
-Product::Product()
+Product::Product() : Identifiable()
 {
 }
 
 Product::Product(const Product& other)
-	: ID(other.ID), name(other.name), category(other.category), amount(other.amount), unitPrice(other.unitPrice)
+	: Identifiable(other), name(other.name), category(other.category), amount(other.amount), unitPrice(other.unitPrice)
 {
-}
-
-auto Product::GetID() const -> int
-{
-	return ID;
 }
 
 auto Product::GetName() const -> std::string_view
@@ -43,11 +37,6 @@ auto Product::GetTotalPrice() const -> int
 	return amount * unitPrice;
 }
 
-void Product::SetID(int newID)
-{
-	ID = newID;
-}
-
 void Product::SetName(std::string_view name)
 {
 	this->name = name;
@@ -66,19 +55,6 @@ void Product::SetAmount(int amount)
 void Product::SetUnitPrice(int unitPrice)
 {
 	this->unitPrice = unitPrice;
-}
-
-void Product::CalculateNewID(const ProductList& produts)
-{
-	ID = 0;
-
-	for (const auto& p : produts)
-	{
-		if (ID <= p->GetID())
-			ID = p->GetID();
-	}
-
-	ID++;
 }
 
 std::istream& IMEX::operator>>(std::istream& in, Product& p)

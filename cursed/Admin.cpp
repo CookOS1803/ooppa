@@ -320,7 +320,7 @@ void Admin::HandleOperationTask()
 
     try
     {
-        o = operations.GetOperation(choice);
+        o = operations.GetElement(choice);
     }
     catch (const std::exception& e)
     {
@@ -334,7 +334,7 @@ void Admin::HandleOperationTask()
         return;
     }
 
-    INPUT
+    INPUT_CONDITION
     (
         std::cout
         << "1. Одобрить\n"
@@ -422,7 +422,7 @@ void Admin::AddProductTask()
 
     tempProduct.SetUnitPrice(choice);
 
-    tempProduct.CalculateNewID(products);
+    products.CalculateNewID(tempProduct);
 
     products.Add(tempProduct);
 
@@ -544,7 +544,7 @@ void Admin::ChangeProductTask()
 
     try
     {
-        auto tempProduct = products.GetProduct(ID);
+        auto tempProduct = products.GetElement(ID);
         ChangeProductMenu(tempProduct);
         products.SaveToFile();
     }

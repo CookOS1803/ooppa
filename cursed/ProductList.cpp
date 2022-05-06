@@ -16,58 +16,6 @@ void ProductList::SetFileName(std::string_view fileName)
 	this->fileName = fileName;
 }
 
-bool ProductList::Contains(int ID)
-{
-	for (const auto& product : originalProducts)
-	{
-		if (product->GetID() == ID)
-			return true;
-	}
-
-	return false;
-}
-
-void ProductList::Add(const Product& product)
-{
-	std::shared_ptr<Product> ptr = std::make_unique<Product>(product);
-
-	originalProducts.push_back(ptr);
-	copiedProducts.push_back(ptr);
-}
-
-void ProductList::Remove(int ID)
-{
-	auto it = std::find_if(originalProducts.begin(), originalProducts.end(),
-		[ID](const std::shared_ptr<Product>& p) { return p->GetID() == ID; });
-
-	const Product* ptr = it->get();
-
-	if (it != originalProducts.end())
-		originalProducts.erase(it);
-
-	it = std::find_if(copiedProducts.begin(), copiedProducts.end(),
-		[ptr](const std::shared_ptr<Product>& p) { return p.get() == ptr; });
-
-	if (it != copiedProducts.end())
-		copiedProducts.erase(it);
-}
-
-auto ProductList::GetProduct(int ID) -> std::shared_ptr<Product>
-{
-	for (const auto& product : originalProducts)
-	{
-		if (product->GetID() == ID)
-			return product;
-	}
-
-	throw WrongProductException();
-}
-
-void ProductList::Sort(const std::function<bool(const std::shared_ptr<Product>&, const std::shared_ptr<Product>&)>& criteria)
-{
-	std::sort(copiedProducts.begin(), copiedProducts.end(), criteria);
-}
-
 void ProductList::ShowToConsole()
 {
 	std::cout << std::left;
@@ -77,7 +25,7 @@ void ProductList::ShowToConsole()
 		<< std::setw(30) << "Количество" << std::setw(30) << "Цена за штуку"
 		<< std::setw(30) << "Стоимость" << std::endl;
 
-	for (const auto& product : copiedProducts)
+	for (const auto& product : copiedElements)
 	{
 		std::cout
 			<< std::setw(30) << product->GetID() << std::setw(30) <<  product->GetName() << std::setw(30) << product->GetCategory()
@@ -92,7 +40,7 @@ void ProductList::SaveToFile()
 	std::ofstream file;
 	file.open(fileName);
 
-	for (const auto& product : originalProducts)
+	for (const auto& product : originalElements)
 	{
 		file << *product;
 	}
@@ -107,36 +55,16 @@ void ProductList::ReadFromFile()
 
 	while (file.good())
 	{
-		originalProducts.emplace_back(std::make_shared<Product>());
+		originalElements.emplace_back(std::make_shared<Product>());
 		
-		file >> *originalProducts.back();
+		file >> *originalElements.back();
 
-		copiedProducts.push_back(originalProducts.back());
+		copiedElements.push_back(originalElements.back());
 
 		file.peek();
 	}
 
 	file.close();
-}
-
-auto ProductList::begin() -> std::vector<std::shared_ptr<Product>>::iterator
-{
-	return copiedProducts.begin();
-}
-
-auto ProductList::begin() const -> std::vector<std::shared_ptr<Product>>::const_iterator
-{
-	return copiedProducts.begin();
-}
-
-auto ProductList::end() -> std::vector<std::shared_ptr<Product>>::iterator
-{
-	return copiedProducts.end();
-}
-
-auto ProductList::end() const -> std::vector<std::shared_ptr<Product>>::const_iterator
-{
-	return copiedProducts.end();
 }
 
 bool ProductList::ByIDAscendingly(const std::shared_ptr<Product>& p1, const std::shared_ptr<Product>& p2)

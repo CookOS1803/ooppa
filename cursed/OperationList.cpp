@@ -25,13 +25,13 @@ void OperationList::ShowToConsole()
 		<< std::setw(30) << "Количество товара"
 		<< std::setw(30) << "Логин клиента" << std::endl;
 
-	for (const auto& operation : copiedOperations)
+	for (const auto& operation : originalElements)
 	{
 		std::cout
 			<< std::setw(30) << operation->GetID()
 			<< std::setw(30) << Operation::TypeToString(operation->GetType())
 			<< std::setw(30) << Operation::StatusToString(operation->GetStatus())
-			<< std::setw(30) << operation->GetProductID() << std::setw(30) << operation->GetProductAmount()
+			<< std::setw(30) << operation->GetElementID() << std::setw(30) << operation->GetElementAmount()
 			<< std::setw(30) << operation->GetClientLogin() << std::endl;
 	}
 }
@@ -48,7 +48,7 @@ void OperationList::SaveToFile()
 		file.close();
 	}
 
-	for (const auto& operation : originalOperations)
+	for (const auto& operation : originalElements)
 	{
 		std::string login = operation->GetClientLogin().data();
 
@@ -71,14 +71,15 @@ void OperationList::ReadFromFile()
 		std::string login = dir_entry.path().stem().string();
 
 		file.open(folderName + login + "\\" + operationsFileName);
+		std::ignore = file.peek();
 
 		while (file.good())
 		{
-			originalOperations.emplace_back(std::make_shared<Operation>());
+			originalElements.emplace_back(std::make_shared<Operation>());
 
-			file >> *originalOperations.back();
+			file >> *originalElements.back();
 
-			copiedOperations.push_back(originalOperations.back());
+			copiedElements.push_back(originalElements.back());
 
 			file.peek();
 		}

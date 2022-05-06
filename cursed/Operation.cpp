@@ -1,21 +1,15 @@
 #include "Operation.h"
-#include "OperationList.h"
 #include <iostream>
 
 using namespace IMEX;
 
-Operation::Operation()
+Operation::Operation() : Identifiable()
 {
 }
 
 Operation::Operation(const Operation& other)
-	: ID(other.ID), type(other.type), status(other.status), productID(other.productID), productAmount(other.productAmount), clientLogin(other.clientLogin)
+	: Identifiable(other), type(other.type), status(other.status), productID(other.productID), productAmount(other.productAmount), clientLogin(other.clientLogin)
 {
-}
-
-auto Operation::GetID() const -> int
-{
-	return ID;
 }
 
 auto Operation::GetType() const -> Operation::Type
@@ -28,12 +22,12 @@ auto Operation::GetStatus() const -> Operation::Status
 	return status;
 }
 
-auto Operation::GetProductID() const -> int
+auto Operation::GetElementID() const -> int
 {
 	return productID;
 }
 
-auto Operation::GetProductAmount() const -> int
+auto Operation::GetElementAmount() const -> int
 {
 	return productAmount;
 }
@@ -41,11 +35,6 @@ auto Operation::GetProductAmount() const -> int
 auto Operation::GetClientLogin() const -> std::string_view
 {
 	return clientLogin;
-}
-
-void Operation::SetID(int newID)
-{
-	this->ID = ID;
 }
 
 void Operation::SetType(Type type)
@@ -73,20 +62,6 @@ std::string Operation::TypeToString(Type type)
 		return "Ёкспорт";
 	}
 }
-
-void Operation::CalculateNewID(const IndividualOperationList& produts)
-{
-	ID = 0;
-
-	for (const auto& p : produts)
-	{
-		if (ID <= p->GetID())
-			ID = p->GetID();
-	}
-
-	ID++;
-}
-
 
 std::string Operation::StatusToString(Status status)
 {
@@ -133,7 +108,7 @@ std::istream& IMEX::operator>>(std::istream& in, Operation& p)
 std::ostream& IMEX::operator<<(std::ostream& out, const Operation& p)
 {
 	out << p.GetID() << "_" << (int)p.GetType() << "_" << (int)p.GetStatus() << "_"
-		<< p.GetProductID() << "_" << p.GetProductAmount() << "_";
+		<< p.GetElementID() << "_" << p.GetElementAmount() << "_";
 
 	out.write(p.GetClientLogin().data(), p.GetClientLogin().size());
 	out << "\n";
