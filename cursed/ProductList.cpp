@@ -16,6 +16,20 @@ void ProductList::SetFileName(std::string_view fileName)
 	this->fileName = fileName;
 }
 
+void IMEX::ProductList::CalculateNewID(Product& e)
+{
+	int newID = 0;
+
+	for (const auto& p : originalElements)
+	{
+		if (newID <= p->GetID())
+			newID = p->GetID();
+	}
+
+	newID++;
+	e.SetID(newID);
+}
+
 void ProductList::ShowToConsole()
 {
 	std::cout << std::left;

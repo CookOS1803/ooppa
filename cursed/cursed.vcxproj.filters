@@ -1,132 +1,100 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Исходные файлы">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Файлы заголовков">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Файлы ресурсов">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Файлы заголовков\Exceptions">
-      <UniqueIdentifier>{c706143d-589a-42eb-b815-8246567bac0c}</UniqueIdentifier>
+    <Filter Include="Lists">
+      <UniqueIdentifier>{f56c3e7f-8810-47af-a205-65dbcd588405}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\Exceptions">
+    <Filter Include="Exceptions">
       <UniqueIdentifier>{e97d8484-0752-4c17-a1c6-34928897ca79}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Identifiables">
+      <UniqueIdentifier>{f1914d19-7ff9-40d5-96d5-d0cfbf93f04a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cursed.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="User.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Menus.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="WrongLoginException.cpp">
-      <Filter>Исходные файлы\Exceptions</Filter>
-    </ClCompile>
-    <ClCompile Include="Admin.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Client.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Exceptions</Filter>
     </ClCompile>
     <ClCompile Include="DuplicateLoginException.cpp">
-      <Filter>Исходные файлы\Exceptions</Filter>
-    </ClCompile>
-    <ClCompile Include="ClientInfo.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="ClientsList.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="ProductList.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Product.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="IndividualOperationList.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Operation.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Exceptions</Filter>
     </ClCompile>
     <ClCompile Include="WrongProductException.cpp">
-      <Filter>Исходные файлы\Exceptions</Filter>
+      <Filter>Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="ProductList.cpp">
+      <Filter>Lists</Filter>
     </ClCompile>
     <ClCompile Include="OperationList.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Lists</Filter>
     </ClCompile>
-    <ClCompile Include="UserInput.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="ClientsList.cpp">
+      <Filter>Lists</Filter>
     </ClCompile>
-    <ClCompile Include="List.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="IndividualOperationList.cpp">
+      <Filter>Lists</Filter>
     </ClCompile>
+    <ClCompile Include="Product.cpp">
+      <Filter>Identifiables</Filter>
+    </ClCompile>
+    <ClCompile Include="Operation.cpp">
+      <Filter>Identifiables</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientInfo.cpp">
+      <Filter>Identifiables</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInput.cpp" />
+    <ClCompile Include="User.cpp" />
+    <ClCompile Include="Menus.cpp" />
+    <ClCompile Include="cursed.cpp" />
+    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="Admin.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="UserInput.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="User.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Menus.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="WrongLoginException.h">
-      <Filter>Файлы заголовков\Exceptions</Filter>
-    </ClInclude>
-    <ClInclude Include="Admin.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="DuplicateLoginException.h">
-      <Filter>Файлы заголовков\Exceptions</Filter>
-    </ClInclude>
-    <ClInclude Include="ISerializable.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="ClientInfo.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="ClientsList.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="ProductList.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Product.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="IndividualOperationList.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Operation.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="WrongProductException.h">
-      <Filter>Файлы заголовков\Exceptions</Filter>
+      <Filter>Lists</Filter>
     </ClInclude>
     <ClInclude Include="OperationList.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Lists</Filter>
     </ClInclude>
-    <ClInclude Include="Client.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="ClientsList.h">
+      <Filter>Lists</Filter>
     </ClInclude>
     <ClInclude Include="List.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="WrongProductException.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="DuplicateLoginException.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="WrongLoginException.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="IndividualOperationList.h">
+      <Filter>Lists</Filter>
     </ClInclude>
     <ClInclude Include="Identifiable.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Identifiables</Filter>
+    </ClInclude>
+    <ClInclude Include="Operation.h">
+      <Filter>Identifiables</Filter>
+    </ClInclude>
+    <ClInclude Include="Product.h">
+      <Filter>Identifiables</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInput.h" />
+    <ClInclude Include="Admin.h" />
+    <ClInclude Include="ISerializable.h" />
+    <ClInclude Include="Menus.h" />
+    <ClInclude Include="User.h" />
+    <ClInclude Include="Client.h" />
+    <ClInclude Include="ClientInfo.h">
+      <Filter>Identifiables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

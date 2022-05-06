@@ -8,7 +8,7 @@
 
 namespace IMEX
 {
-	class ProductList : public List<Product>, public ISerializable
+	class ProductList : public List<Product, int>, public ISerializable
 	{
 		std::string fileName;
 
@@ -17,6 +17,8 @@ namespace IMEX
 		ProductList();
 
 		void SetFileName(std::string_view fileName);
+
+		void CalculateNewID(Product& e);
 
 		void ShowToConsole() override;
 		void SaveToFile() override;

@@ -113,7 +113,7 @@ void Admin::ShowClientTask()
 
     try
     {
-        auto c = clients.GetClient(input);
+        auto c = clients.GetElement(input);
     }
     catch (const std::exception& e)
     {
@@ -340,7 +340,7 @@ void Admin::HandleOperationTask()
         << "1. Одобрить\n"
         << "2. Отклонить\n",
         choice,
-        choice == 1 and choice == 2
+        choice == 1 or choice == 2
     );
 
     if (choice == 1)

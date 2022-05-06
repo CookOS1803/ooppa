@@ -1,12 +1,12 @@
 #pragma once
 #include "ISerializable.h"
+#include "Identifiable.h"
 #include <string>
 
 namespace IMEX
 {
-	class ClientInfo : public ISerializable
+	class ClientInfo : public Identifiable<std::string>, public ISerializable
 	{
-		std::string login;
 		std::string name = "*";
 		std::string legalEntity;
 		std::string country = "*";

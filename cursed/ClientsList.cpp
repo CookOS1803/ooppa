@@ -3,7 +3,6 @@
 #include <iostream>
 #include <filesystem>
 #include <fstream>
-#include "WrongLoginException.h"
 
 using namespace IMEX;
 
@@ -21,22 +20,6 @@ void ClientsList::SetInfoFileName(std::string_view infoFileName)
 	this->infoFileName = infoFileName;
 }
 
-auto ClientsList::GetClient(std::string_view login) -> std::shared_ptr<ClientInfo>
-{
-	for (const auto& client : originalClients)
-	{
-		if (client->GetLogin() == login)
-			return client;
-	}
-
-	throw WrongLoginException();
-}
-
-void ClientsList::Sort(const std::function<bool(const std::shared_ptr<ClientInfo>&, const std::shared_ptr<ClientInfo>&)>& criteria)
-{
-	std::sort(copiedClients.begin(), copiedClients.end(), criteria);
-}
-
 void ClientsList::ShowToConsole()
 {
 	std::cout << std::left;
@@ -46,7 +29,7 @@ void ClientsList::ShowToConsole()
 		<< std::setw(30) << "Страна" << std::setw(30) << "Телефон"
 		<< std::setw(30) << "Логин" << std::endl;
 
-	for (const auto& client : copiedClients)
+	for (const auto& client : copiedElements)
 	{
 		std::cout
 			<< std::setw(30) << client->GetName() << std::setw(30) << client->GetLegalEntity()
@@ -65,14 +48,14 @@ void ClientsList::ReadFromFile()
 
 	for (auto const& dir_entry : std::filesystem::directory_iterator { path })
 	{
-		originalClients.emplace_back(std::make_shared<ClientInfo>());
+		originalElements.emplace_back(std::make_shared<ClientInfo>());
 
 		std::string login = dir_entry.path().stem().string();
-		originalClients.back()->SetLogin(login);
-		originalClients.back()->SetFileName(folderName + login + "\\" + infoFileName);
-		originalClients.back()->ReadFromFile();
+		originalElements.back()->SetLogin(login);
+		originalElements.back()->SetFileName(folderName + login + "\\" + infoFileName);
+		originalElements.back()->ReadFromFile();
 
-		copiedClients.push_back(originalClients.back());
+		copiedElements.push_back(originalElements.back());
 	}
 }
 

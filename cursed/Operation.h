@@ -4,7 +4,7 @@
 
 namespace IMEX
 {
-	class Operation : public Identifiable
+	class Operation : public Identifiable<int>
 	{		
 	public:
 

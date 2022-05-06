@@ -19,6 +19,20 @@ void IndividualOperationList::SetOperationsFileName(std::string_view operationsF
 	this->operationsFileName = operationsFileName;
 }
 
+void IMEX::IndividualOperationList::CalculateNewID(Operation& e)
+{
+	int newID = 0;
+
+	for (const auto& p : originalElements)
+	{
+		if (newID <= p->GetID())
+			newID = p->GetID();
+	}
+
+	newID++;
+	e.SetID(newID);
+}
+
 void IndividualOperationList::ShowToConsole()
 {
 	std::cout << std::left;

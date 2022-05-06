@@ -4,19 +4,19 @@
 
 using namespace IMEX;
 
-ClientInfo::ClientInfo()
+ClientInfo::ClientInfo() : Identifiable()
 {
 }
 
 
 ClientInfo::ClientInfo(std::string login, std::string_view name, std::string legalEntity, std::string_view country, std::string_view phone)
-	: login(login), name(name), legalEntity(legalEntity), country(country), phone(phone)
+	: Identifiable(login), name(name), legalEntity(legalEntity), country(country), phone(phone)
 {
 }
 
 auto ClientInfo::GetLogin() const -> std::string_view
 {
-	return login;
+	return ID;
 }
 
 auto ClientInfo::GetName() const -> std::string_view
@@ -41,7 +41,7 @@ auto ClientInfo::GetPhone() const -> std::string_view
 
 void ClientInfo::SetLogin(std::string_view login)
 {
-	this->login = login;
+	ID = login;
 }
 
 void ClientInfo::SetName(std::string_view name)

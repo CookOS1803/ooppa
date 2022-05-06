@@ -4,14 +4,12 @@
 #include <functional>
 #include "ISerializable.h"
 #include "ClientInfo.h"
+#include "List.h"
 
 namespace IMEX
 {
-	class ClientsList : public ISerializable
+	class ClientsList : public List<ClientInfo, std::string>, public ISerializable
 	{
-		std::vector<std::shared_ptr<ClientInfo>> originalClients;
-		std::vector<std::shared_ptr<ClientInfo>> copiedClients;
-
 		std::string folderName;
 		std::string infoFileName;
 
@@ -21,9 +19,6 @@ namespace IMEX
 
 		void SetFolderName(std::string_view folderName);
 		void SetInfoFileName(std::string_view infoFileName);
-
-		auto GetClient(std::string_view login) -> std::shared_ptr<ClientInfo>;
-		void Sort(const std::function<bool(const std::shared_ptr<ClientInfo>&, const std::shared_ptr<ClientInfo>&)>& criteria);
 
 		void ShowToConsole() override;
 		void SaveToFile() override;

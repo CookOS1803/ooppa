@@ -7,14 +7,12 @@
 #include <algorithm>
 #include "Identifiable.h"
 
-//#include "Operation.h"
-
 namespace IMEX
 {
-	template <class ElementType>
+	template <class ElementType, class IDType>
 	class List
 	{
-		static_assert(std::is_base_of<Identifiable, ElementType>::value, "List must contain only Identifiable elements");
+		static_assert(std::is_base_of<Identifiable<IDType>, ElementType>::value, "List must contain only Identifiable elements");
 
 	protected:
 
@@ -33,7 +31,7 @@ namespace IMEX
 			copiedElements.push_back(newElement);
 		}
 
-		bool Contains(int ID)
+		bool Contains(IDType ID)
 		{
 			for (const auto& e : originalElements)
 			{
@@ -44,7 +42,7 @@ namespace IMEX
 			return false;
 		}
 
-		void Remove(int ID)
+		void Remove(IDType ID)
 		{
 			auto it = std::find_if(originalElements.begin(), originalElements.end(),
 				[ID](const std::shared_ptr<ElementType>& p) { return p->GetID() == ID; });
@@ -61,7 +59,7 @@ namespace IMEX
 				copiedElements.erase(it);
 		}
 
-		auto GetElement(int ID) -> std::shared_ptr<ElementType>
+		auto GetElement(IDType ID) -> std::shared_ptr<ElementType>
 		{
 			for (const auto& e : originalElements)
 			{
@@ -69,21 +67,7 @@ namespace IMEX
 					return e;
 			}
 
-			throw std::exception("Такой операции нет");
-		}
-
-		void CalculateNewID(ElementType& e)
-		{
-			int newID = 0;
-
-			for (const auto& p : originalElements)
-			{
-				if (newID <= p->GetID())
-					newID = p->GetID();
-			}
-
-			newID++;
-			e.SetID(newID);
+			throw std::exception("Такой записи нет");
 		}
 
 		void Sort(const std::function<bool(const std::shared_ptr<ElementType>&, const std::shared_ptr<ElementType>&)>& criteria)

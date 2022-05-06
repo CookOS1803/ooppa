@@ -2,19 +2,20 @@
 
 namespace IMEX
 {
+	template <class T>
 	class Identifiable
 	{
 	protected:
 
-		int ID = 0;
+		T ID;
 
 	public:
 
-		Identifiable() {}
-		Identifiable(int newID) : ID(newID) {}
-		Identifiable(const Identifiable& other) : ID(other.ID) {}
+		Identifiable() : ID() {}
+		Identifiable(T newID) : ID(newID) {}
+		Identifiable(const Identifiable<T>& other) : ID(other.ID) {}
 
-		int GetID() const { return ID; }
-		void SetID(int newID) { ID = newID; }
+		T GetID() const { return ID; }
+		void SetID(T newID) { ID = newID; }
 	};
 }

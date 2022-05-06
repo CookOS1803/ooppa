@@ -4,7 +4,7 @@
 
 namespace IMEX
 {
-	class Product : public Identifiable
+	class Product : public Identifiable<int>
 	{
 		std::string name;
 		std::string category;

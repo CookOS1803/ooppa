@@ -8,7 +8,7 @@
 
 namespace IMEX
 {
-	class IndividualOperationList : public List<Operation>, public ISerializable
+	class IndividualOperationList : public List<Operation, int>, public ISerializable
 	{
 	protected:
 
@@ -20,6 +20,8 @@ namespace IMEX
 		virtual ~IndividualOperationList();
 
 		void SetOperationsFileName(std::string_view operationsFileName);
+
+		void CalculateNewID(Operation& e);
 
 		virtual void ShowToConsole() override;
 		virtual void SaveToFile() override;
