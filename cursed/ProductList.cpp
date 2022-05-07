@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <algorithm>
 #include <iostream>
-#include "WrongProductException.h"
+#include "SortHelper.h"
 
 using namespace IMEX;
 
@@ -93,22 +93,22 @@ bool ProductList::ByIDDescendingly(const std::shared_ptr<Product>& p1, const std
 
 bool ProductList::ByNameAscendingly(const std::shared_ptr<Product>& p1, const std::shared_ptr<Product>& p2)
 {
-	return p1->GetName()[0] < p2->GetName()[0];
+	return SortHelper::CompareStrings(p1->GetName(), p2->GetName());
 }
 
 bool ProductList::ByNameDescendingly(const std::shared_ptr<Product>& p1, const std::shared_ptr<Product>& p2)
 {
-	return p1->GetName()[0] > p2->GetName()[0];
+	return !ByNameAscendingly(p1, p2);
 }
 
 bool ProductList::ByCategoryAscendingly(const std::shared_ptr<Product>& p1, const std::shared_ptr<Product>& p2)
 {
-	return p1->GetCategory()[0] < p2->GetCategory()[0];
+	return SortHelper::CompareStrings(p1->GetCategory(), p2->GetCategory());
 }
 
 bool ProductList::ByCategoryDescendingly(const std::shared_ptr<Product>& p1, const std::shared_ptr<Product>& p2)
 {
-	return p1->GetCategory()[0] > p2->GetCategory()[0];
+	return !ByCategoryAscendingly(p1, p2);
 }
 
 bool ProductList::ByAmountAscendingly(const std::shared_ptr<Product>& p1, const std::shared_ptr<Product>& p2)

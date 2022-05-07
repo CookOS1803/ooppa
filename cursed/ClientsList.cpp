@@ -3,6 +3,7 @@
 #include <iostream>
 #include <filesystem>
 #include <fstream>
+#include "SortHelper.h"
 
 using namespace IMEX;
 
@@ -61,40 +62,40 @@ void ClientsList::ReadFromFile()
 
 bool ClientsList::ByLoginAscendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2)
 {
-	return c1->GetLogin()[0] < c2->GetLogin()[0];
+	return SortHelper::CompareStrings(c1->GetLogin(), c2->GetLogin());
 }
 
 bool ClientsList::ByLoginDescendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2)
 {
-	return c1->GetLogin()[0] > c2->GetLogin()[0];
+	return !ByLoginAscendingly(c1, c2);
 }
 
 bool ClientsList::ByNameAscendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2)
 {
-	return c1->GetName()[0] < c2->GetName()[0];
+	return SortHelper::CompareStrings(c1->GetName(), c2->GetName());
 }
 
 bool ClientsList::ByNameDescendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2)
 {
-	return c1->GetName()[0] > c2->GetName()[0];
+	return !ByNameAscendingly(c1, c2);
 }
 
 bool ClientsList::ByLegalEntityAscendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2)
 {
-	return c1->GetLegalEntity()[0] < c2->GetLegalEntity()[0];
+	return SortHelper::CompareStrings(c1->GetLegalEntity(), c2->GetLegalEntity());
 }
 
 bool ClientsList::ByLegalEntityDescendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2)
 {
-	return c1->GetLegalEntity()[0] > c2->GetLegalEntity()[0];
+	return !ByLegalEntityAscendingly(c1, c2);
 }
 
 bool ClientsList::ByCountryAscendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2)
 {
-	return c1->GetCountry()[0] < c2->GetCountry()[0];
+	return SortHelper::CompareStrings(c1->GetCountry(), c2->GetCountry());
 }
 
 bool ClientsList::ByCountryDescendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2)
 {
-	return c1->GetCountry()[0] > c2->GetCountry()[0];
+	return !ByCountryAscendingly(c1, c2);
 }

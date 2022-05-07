@@ -60,6 +60,8 @@ std::string Operation::TypeToString(Type type)
 		return "Импорт";
 	case Type::EXPORT:
 		return "Экспорт";
+	default:
+		return "***";
 	}
 }
 
@@ -74,7 +76,7 @@ std::string Operation::StatusToString(Status status)
 	case Status::APPROVED:
 		return "Одобрена";
 	default:
-		break;
+		return "***";
 	}
 }
 

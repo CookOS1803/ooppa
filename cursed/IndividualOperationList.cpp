@@ -3,6 +3,7 @@
 #include <iostream>
 #include <iomanip>
 #include <filesystem>
+#include "SortHelper.h"
 
 using namespace IMEX;
 
@@ -138,10 +139,10 @@ bool IndividualOperationList::ByProductAmountDescendingly(const std::shared_ptr<
 
 bool IndividualOperationList::ByClientLoginAscendingly(const std::shared_ptr<Operation>& o1, const std::shared_ptr<Operation>& o2)
 {
-	return o1->GetClientLogin()[0] < o2->GetClientLogin()[0];
+	return SortHelper::CompareStrings(o1->GetClientLogin(), o2->GetClientLogin());
 }
 
 bool IndividualOperationList::ByClientLoginDescendingly(const std::shared_ptr<Operation>& o1, const std::shared_ptr<Operation>& o2)
 {
-	return o1->GetClientLogin()[0] > o2->GetClientLogin()[0];
+	return !ByClientLoginAscendingly(o1, o2);
 }
