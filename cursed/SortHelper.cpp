@@ -1,7 +1,7 @@
 #include "SortHelper.h"
 #include <algorithm>
 
-bool SortHelper::CompareStrings(std::string_view first, std::string_view second)
+bool IMEX::SortHelper::CompareStrings(std::string_view first, std::string_view second)
 {
     auto len = std::min(first.size(), second.size());
 
