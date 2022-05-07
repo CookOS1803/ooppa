@@ -25,7 +25,7 @@ void OperationList::ShowToConsole()
 		<< std::setw(30) << "Количество товара"
 		<< std::setw(30) << "Логин клиента" << std::endl;
 
-	for (const auto& operation : originalElements)
+	for (const auto& operation : copiedElements)
 	{
 		std::cout
 			<< std::setw(30) << operation->GetID()
@@ -50,11 +50,11 @@ void OperationList::SaveToFile()
 
 	for (const auto& operation : originalElements)
 	{
-		std::string login = operation->GetClientLogin().data();
+		std::string login = operation.second->GetClientLogin().data();
 
 		file.open(folderName + login + "\\" + operationsFileName, std::ios::app);
 
-		file << *operation;
+		file << *operation.second;
 
 		file.close();
 	}
@@ -75,11 +75,12 @@ void OperationList::ReadFromFile()
 
 		while (file.good())
 		{
-			originalElements.emplace_back(std::make_shared<Operation>());
+			auto newElement = std::make_shared<Operation>();
 
-			file >> *originalElements.back();
+			file >> *newElement;
 
-			copiedElements.push_back(originalElements.back());
+			originalElements[newElement->GetID()] = newElement;
+			copiedElements.push_back(newElement);
 
 			file.peek();
 		}

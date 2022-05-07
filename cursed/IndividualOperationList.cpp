@@ -22,16 +22,13 @@ void IndividualOperationList::SetOperationsFileName(std::string_view operationsF
 
 void IMEX::IndividualOperationList::CalculateNewID(Operation& e)
 {
-	int newID = 0;
+	if (originalElements.empty())
+		return;
 
-	for (const auto& p : originalElements)
-	{
-		if (newID <= p->GetID())
-			newID = p->GetID();
-	}
+	auto it = originalElements.end();
+	--it;
 
-	newID++;
-	e.SetID(newID);
+	e.SetID(it->first + 1);
 }
 
 void IndividualOperationList::ShowToConsole()
@@ -62,7 +59,7 @@ void IndividualOperationList::SaveToFile()
 
 	for (const auto& product : originalElements)
 	{
-		file << *product;
+		file << *product.second;
 	}
 
 	file.close();
@@ -75,11 +72,12 @@ void IndividualOperationList::ReadFromFile()
 
 	while (file.good())
 	{
-		originalElements.emplace_back(std::make_shared<Operation>());
+		auto newElement = std::make_shared<Operation>();
 
-		file >> *originalElements.back();
+		file >> *newElement;
 
-		copiedElements.push_back(originalElements.back());
+		originalElements[newElement->GetID()] = newElement;
+		copiedElements.push_back(newElement);
 
 		file.peek();
 	}

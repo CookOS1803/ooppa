@@ -18,16 +18,13 @@ void ProductList::SetFileName(std::string_view fileName)
 
 void IMEX::ProductList::CalculateNewID(Product& e)
 {
-	int newID = 0;
+	if (originalElements.empty())
+		return;
 
-	for (const auto& p : originalElements)
-	{
-		if (newID <= p->GetID())
-			newID = p->GetID();
-	}
+	auto it = originalElements.end();
+	--it;
 
-	newID++;
-	e.SetID(newID);
+	e.SetID(it->first + 1);
 }
 
 void ProductList::ShowToConsole()
@@ -56,7 +53,7 @@ void ProductList::SaveToFile()
 
 	for (const auto& product : originalElements)
 	{
-		file << *product;
+		file << *product.second;
 	}
 
 	file.close();
@@ -69,11 +66,12 @@ void ProductList::ReadFromFile()
 
 	while (file.good())
 	{
-		originalElements.emplace_back(std::make_shared<Product>());
+		auto newElement = std::make_shared<Product>();
 		
-		file >> *originalElements.back();
+		file >> *newElement;
 
-		copiedElements.push_back(originalElements.back());
+		originalElements[newElement->GetID()] = newElement;
+		copiedElements.push_back(newElement);
 
 		file.peek();
 	}

@@ -49,14 +49,15 @@ void ClientsList::ReadFromFile()
 
 	for (auto const& dir_entry : std::filesystem::directory_iterator { path })
 	{
-		originalElements.emplace_back(std::make_shared<ClientInfo>());
+		auto newElement = std::make_shared<ClientInfo>();
 
 		std::string login = dir_entry.path().stem().string();
-		originalElements.back()->SetLogin(login);
-		originalElements.back()->SetFileName(folderName + login + "\\" + infoFileName);
-		originalElements.back()->ReadFromFile();
+		newElement->SetLogin(login);
+		newElement->SetFileName(folderName + login + "\\" + infoFileName);
+		newElement->ReadFromFile();
 
-		copiedElements.push_back(originalElements.back());
+		originalElements[login] = newElement;
+		copiedElements.push_back(newElement);
 	}
 }
 
