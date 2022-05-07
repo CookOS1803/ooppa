@@ -84,6 +84,7 @@ void Admin::ClientsMenu()
             << "1. Показать всех клиентов\n"
             << "2. Показать операции клиента\n"
             << "3. Отсортировать список клиентов\n"
+            << "4. Применить фильтры поиска\n"
             << "0. Назад\n",
             choice
         );
@@ -98,6 +99,9 @@ void Admin::ClientsMenu()
             break;
         case 3:
             SortClientsMenu();
+            break;
+        case 4:
+            FilterClientsMenu();
             break;
         case 0:
             return;
@@ -140,6 +144,7 @@ void Admin::SortClientsMenu()
             << "2. Сортировать по имени\n"
             << "3. Сортировать по юридическому лицу\n"
             << "4. Сортировать по стране\n"
+            << "5. Сортировать по телефону\n"
             << "0. Назад\n",
             choice
         );
@@ -186,6 +191,71 @@ void Admin::SortClientsMenu()
                 clients.Sort(ClientsList::ByCountryDescendingly);
 
             break;
+        case 5:
+            if (order == 1)
+                clients.Sort(ClientsList::ByPhoneAscendingly);
+            else
+                clients.Sort(ClientsList::ByPhoneDescendingly);
+
+            break;
+        case 0:
+            return;
+        }
+    }
+}
+
+void Admin::FilterClientsMenu()
+{
+    int choice;
+    std::string s;
+
+    while (true)
+    {
+        INPUT
+        (
+            std::cout
+            << "1. Фильтровать по логину\n"
+            << "2. Фильтровать по имени\n"
+            << "3. Фильтровать по юридическому лицу\n"
+            << "4. Фильтровать по стране\n"
+            << "5. Фильтровать по телефону\n"
+            << "6. Убрать фильтры\n"
+            << "0. Назад\n",
+            choice
+        );
+
+        if (choice != 0 and choice != 6)
+        {
+            std::cout << "Введите строку фильтр: ";
+            std::getline(std::cin, s);
+        }
+
+        switch (choice)
+        {
+        case 1:
+            clients.SetLoginFilter(s);
+
+            break;
+        case 2:
+            clients.SetNameFilter(s);
+
+            break;
+        case 3:
+            clients.SetLegalEntityFilter(s);
+
+            break;
+        case 4:
+            clients.SetCountryFilter(s);
+
+            break;
+        case 5:
+            clients.SetPhoneFilter(s);
+
+            break;
+        case 6:
+            clients.ClearFilters();
+
+            break;
         case 0:
             return;
         }
@@ -203,7 +273,8 @@ void Admin::OperationsMenu()
             std::cout
             << "1. Показать операции\n"
             << "2. Отсортировать список операций\n"
-            << "3. Рассмотреть операцию\n"
+            << "3. Применить фильтры поиска\n"
+            << "4. Рассмотреть операцию\n"
             << "0. Назад\n",
             choice
         );
@@ -217,6 +288,9 @@ void Admin::OperationsMenu()
             SortOperationsMenu();
             break;
         case 3:
+            FilterOperationsMenu();
+            break;
+        case 4:
             HandleOperationTask();
             break;
         case 0:
@@ -239,6 +313,7 @@ void Admin::SortOperationsMenu()
             << "3. Сортировать по статусу\n"
             << "4. Сортировать по идентификационному номеру товара\n"
             << "5. Сортировать по количеству товара\n"
+            << "6. Сортировать по логину клиента\n"
             << "0. Назад\n",
             choice
         );
@@ -306,6 +381,169 @@ void Admin::SortOperationsMenu()
     }
 }
 
+void Admin::FilterOperationsMenu()
+{
+    int choice, bound;
+    std::string s;
+
+    while (true)
+    {
+        INPUT_CONDITION
+        (
+            std::cout
+            << "1. Фильтровать по типу\n"
+            << "2. Фильтровать по статусу\n"
+            << "3. Фильтровать по идентификационному номеру операции\n"
+            << "4. Фильтровать по идентификационному номеру товара\n"
+            << "5. Фильтровать по количеству товара\n"
+            << "6. Фильтровать по логину клиента\n"
+            << "7. Убрать все фильтры\n"
+            << "0. Назад\n",
+            choice,
+            choice >= 0 and choice <= 7
+        );
+
+        if (choice != 0 and choice >= 3 and choice <= 5)
+        {
+            INPUT_CONDITION
+            (
+                std::cout
+                << "1. Добавить минимум\n"
+                << "2. Добавить максимум\n",
+                bound,
+                bound == 1 or bound == 2
+            );
+        }
+
+        switch (choice)
+        {
+        case 1:
+            INPUT_CONDITION
+            (
+                std::cout
+                << "1. Импорт\n"
+                << "2. Экспорт\n",
+                choice,
+                choice == 1 or choice == 2
+            );
+
+            if (choice == 1)
+                operations.SetTypeFilter(Operation::Type::IMPORT);
+            else
+                operations.SetTypeFilter(Operation::Type::EXPORT);
+
+            break;
+        case 2:
+            INPUT_CONDITION
+            (
+                std::cout
+                << "1. Рассматривается\n"
+                << "2. Отклонено\n"
+                << "3. Одобрено\n",
+                choice,
+                choice >= 1 and choice <= 3
+            );
+
+            switch (choice)
+            {
+            case 1:
+                operations.SetStatusFilter(Operation::Status::PENDING);
+                break;
+            case 2:
+                operations.SetStatusFilter(Operation::Status::REJECTED);
+                break;
+            case 3:
+                operations.SetStatusFilter(Operation::Status::APPROVED);
+                break;
+            }
+
+            break;
+        case 3:
+            if (bound == 1)
+            {
+                INPUT
+                (
+                    std::cout << "Введите минимум: ",
+                    choice
+                );
+
+                operations.SetIDFilterMin(choice);
+            }
+            else
+            {
+                INPUT
+                (
+                    std::cout << "Введите максимум: ",
+                    choice
+                );
+
+                operations.SetIDFilterMax(choice);
+            }
+
+            break;
+        case 4:
+            if (bound == 1)
+            {
+                INPUT
+                (
+                    std::cout << "Введите минимум: ",
+                    choice
+                );
+
+                operations.SetProductIDFilterMin(choice);
+            }
+            else
+            {
+                INPUT
+                (
+                    std::cout << "Введите максимум: ",
+                    choice
+                );
+
+                operations.SetProductIDFilterMax(choice);
+            }
+
+            break;
+        case 5:
+            if (bound == 1)
+            {
+                INPUT
+                (
+                    std::cout << "Введите минимум: ",
+                    choice
+                );
+
+                operations.SetProductAmountFilterMin(choice);
+            }
+            else
+            {
+                INPUT
+                (
+                    std::cout << "Введите максимум: ",
+                    choice
+                );
+
+                operations.SetProductAmountFilterMax(choice);
+            }
+
+            break;
+        case 6:
+            std::cout << "Введите строку-фильтр: ";
+            std::getline(std::cin, s);
+
+            operations.SetClientLoginFilter(s);
+
+            break;
+        case 7:
+            products.ClearFilters();
+
+            break;
+        case 0:
+            return;
+        }
+    }
+}
+
 void Admin::HandleOperationTask()
 {
     int choice;
@@ -363,8 +601,9 @@ void Admin::StorageMenu()
             << "1. Просмотреть склад\n"
             << "2. Добавить продукт\n"
             << "3. Отсортировать список продуктов\n"
-            << "4. Удалить продукт\n"
-            << "5. Изменить продукт\n"
+            << "4. Применить фильтры поиска\n"
+            << "5. Удалить продукт\n"
+            << "6. Изменить продукт\n"
             << "0. Назад\n",
             choice
         );
@@ -381,9 +620,12 @@ void Admin::StorageMenu()
             SortStorageMenu();
             break;
         case 4:
-            DeleteProductTask();
+            FilterStorageMenu();
             break;
         case 5:
+            DeleteProductTask();
+            break;
+        case 6:
             ChangeProductTask();
             break;
         case 0:
@@ -502,6 +744,161 @@ void Admin::SortStorageMenu()
                 products.Sort(ProductList::ByTotalPriceAscendingly);
             else
                 products.Sort(ProductList::ByTotalPriceDescendingly);
+
+            break;
+        case 0:
+            return;
+        }
+    }
+}
+
+void Admin::FilterStorageMenu()
+{
+    int choice, bound;
+    std::string s;
+
+    while (true)
+    {
+        INPUT_CONDITION
+        (
+            std::cout
+            << "1. Фильтровать по имени\n"
+            << "2. Фильтровать по категории\n"
+            << "3. Фильтровать по идентификационному номеру\n"
+            << "4. Фильтровать по количеству\n"
+            << "5. Фильтровать по цене за штуку\n"
+            << "6. Фильтровать по стоимости\n"
+            << "7. Убрать все фильтры\n"
+            << "0. Назад\n",
+            choice,
+            choice >= 0 and choice <= 7
+        );
+
+        if (choice != 0)
+        {
+            if (choice >= 3 and choice <= 6)
+            {
+                INPUT_CONDITION
+                (
+                    std::cout
+                    << "1. Добавить минимум\n"
+                    << "2. Добавить максимум\n",
+                    bound,
+                    bound == 1 or bound == 2
+                );
+            }
+            else if (choice != 7)
+            {
+                std::cout << "Введите строку-фильтр: ";
+                std::getline(std::cin, s);
+            }
+        }
+
+        switch (choice)
+        {
+        case 1:
+            products.SetNameFilter(s);
+
+            break;
+        case 2:
+            products.SetCategoryFilter(s);
+
+            break;
+        case 3:
+            if (bound == 1)
+            {
+                INPUT
+                (
+                    std::cout << "Введите минимум: ",
+                    choice
+                );
+
+                products.SetIDFilterMin(choice);
+            }
+            else
+            {
+                INPUT
+                (
+                    std::cout << "Введите максимум: ",
+                    choice
+                );
+
+                products.SetIDFilterMax(choice);
+            }
+
+            break;
+
+        case 4:
+            if (bound == 1)
+            {
+                INPUT
+                (
+                    std::cout << "Введите минимум: ",
+                    choice
+                );
+
+                products.SetAmountFilterMin(choice);
+            }
+            else
+            {
+                INPUT
+                (
+                    std::cout << "Введите максимум: ",
+                    choice
+                );
+
+                products.SetAmountFilterMax(choice);
+            }
+
+            break;
+        case 5:
+            if (bound == 1)
+            {
+                INPUT
+                (
+                    std::cout << "Введите минимум: ",
+                    choice
+                );
+
+                products.SetUnitPriceFilterMin(choice);
+            }
+            else
+            {
+                INPUT
+                (
+                    std::cout << "Введите максимум: ",
+                    choice
+                );
+
+                products.SetUnitPriceFilterMax(choice);
+            }
+
+            break;
+        case 6:
+            if (bound == 1)
+            {
+                INPUT
+                (
+                    std::cout << "Введите минимум: ",
+                    choice
+                );
+
+                products.SetTotalPriceFilterMin(choice);
+            }
+            else
+            {
+                INPUT
+                (
+                    std::cout << "Введите максимум: ",
+                    choice
+                );
+
+                products.SetTotalPriceFilterMax(choice);
+            }
+
+            break;
+        case 7:
+            products.ClearFilters();
 
             break;
         case 0:

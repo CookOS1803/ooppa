@@ -22,13 +22,16 @@ namespace IMEX
 	public:
 
 		List() {};
+		virtual ~List() {};
 
 		void Add(const ElementType& op)
 		{
 			auto newElement = std::make_shared<ElementType>(op);
 
 			originalElements[newElement->GetID()] = newElement;
-			copiedElements.push_back(newElement);
+
+			if (DoesMatchFilters(newElement))
+				copiedElements.push_back(newElement);
 		}
 
 		bool Contains(IDType ID)
@@ -54,6 +57,26 @@ namespace IMEX
 		void Sort(const std::function<bool(const std::shared_ptr<ElementType>&, const std::shared_ptr<ElementType>&)>& criteria)
 		{
 			std::sort(copiedElements.begin(), copiedElements.end(), criteria);
+		}
+
+		virtual bool DoesMatchFilters(const std::shared_ptr<ElementType>& e) const
+		{
+			return true;
+		}
+
+		void ApplyFilters()
+		{
+			copiedElements.clear();
+
+			for (const auto& tuple : originalElements)
+			{
+				const auto& e = tuple.second;
+
+				if (DoesMatchFilters(e))
+				{
+					copiedElements.push_back(e);
+				}
+			}
 		}
 
 		auto begin() -> class std::vector<std::shared_ptr<ElementType>>::iterator

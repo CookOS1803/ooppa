@@ -117,7 +117,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,6 +147,7 @@
     <ClCompile Include="ClientsList.cpp" />
     <ClCompile Include="cursed.cpp" />
     <ClCompile Include="DuplicateLoginException.cpp" />
+    <ClCompile Include="Filter.cpp" />
     <ClCompile Include="Menus.cpp" />
     <ClCompile Include="Operation.cpp" />
     <ClCompile Include="IndividualOperationList.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="ClientInfo.h" />
     <ClInclude Include="ClientsList.h" />
     <ClInclude Include="DuplicateLoginException.h" />
+    <ClInclude Include="Filter.h" />
     <ClInclude Include="Identifiable.h" />
     <ClInclude Include="ISerializable.h" />
     <ClInclude Include="List.h" />

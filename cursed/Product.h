@@ -10,6 +10,7 @@ namespace IMEX
 		std::string category;
 		int amount = 0;
 		int unitPrice = 0;
+
 	public:
 
 		Product();

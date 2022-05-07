@@ -1,10 +1,8 @@
 #pragma once
-#include <vector>
-#include <memory>
-#include <functional>
 #include "ISerializable.h"
 #include "ClientInfo.h"
 #include "List.h"
+#include "Filter.h"
 
 namespace IMEX
 {
@@ -13,12 +11,28 @@ namespace IMEX
 		std::string folderName;
 		std::string infoFileName;
 
+		StringFilter nameFilter;
+		StringFilter legalEntityFilter;
+		StringFilter countryFilter;
+		StringFilter phoneFilter;
+		StringFilter loginFilter;
+
 	public:
 
 		ClientsList();
 
 		void SetFolderName(std::string_view folderName);
 		void SetInfoFileName(std::string_view infoFileName);
+
+		bool DoesMatchFilters(const std::shared_ptr<ClientInfo>& e) const override;
+
+		void SetNameFilter(std::string_view s);
+		void SetLegalEntityFilter(std::string_view s);
+		void SetCountryFilter(std::string_view s);
+		void SetPhoneFilter(std::string_view s);
+		void SetLoginFilter(std::string_view s);
+
+		void ClearFilters();
 
 		void ShowToConsole() override;
 		void SaveToFile() override;
@@ -32,6 +46,8 @@ namespace IMEX
 		static bool ByLegalEntityDescendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2);
 		static bool ByCountryAscendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2);
 		static bool ByCountryDescendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2);
+		static bool ByPhoneAscendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2);
+		static bool ByPhoneDescendingly(const std::shared_ptr<ClientInfo>& c1, const std::shared_ptr<ClientInfo>& c2);
 	};
 }
 

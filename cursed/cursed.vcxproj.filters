@@ -49,6 +49,7 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Admin.cpp" />
     <ClCompile Include="SortHelper.cpp" />
+    <ClCompile Include="Filter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProductList.h">
@@ -94,6 +95,7 @@
       <Filter>Identifiables</Filter>
     </ClInclude>
     <ClInclude Include="SortHelper.h" />
+    <ClInclude Include="Filter.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

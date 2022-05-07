@@ -27,6 +27,84 @@ void IMEX::ProductList::CalculateNewID(Product& e)
 	e.SetID(it->first + 1);
 }
 
+
+bool IMEX::ProductList::DoesMatchFilters(const std::shared_ptr<Product>& e) const
+{
+	return amountFilter(e->GetAmount()) and unitPriceFilter(e->GetUnitPrice()) and totalPriceFilter(e->GetTotalPrice())
+		and nameFilter(e->GetName()) and categoryFilter(e->GetCategory()) and IDFilter(e->GetID());
+}
+
+void IMEX::ProductList::SetIDFilterMin(int min)
+{
+	IDFilter.SetMin(min);
+	ApplyFilters();
+}
+
+void IMEX::ProductList::SetIDFilterMax(int max)
+{
+	IDFilter.SetMax(max);
+	ApplyFilters();
+}
+
+void IMEX::ProductList::SetNameFilter(std::string_view s)
+{
+	nameFilter.SetSubstring(s);
+	ApplyFilters();
+}
+
+void IMEX::ProductList::SetCategoryFilter(std::string_view s)
+{
+	categoryFilter.SetSubstring(s);
+	ApplyFilters();
+}
+
+void IMEX::ProductList::SetAmountFilterMin(int min)
+{
+	amountFilter.SetMin(min);
+	ApplyFilters();
+}
+
+void IMEX::ProductList::SetAmountFilterMax(int max)
+{
+	amountFilter.SetMax(max);
+	ApplyFilters();
+}
+
+void IMEX::ProductList::SetUnitPriceFilterMin(int min)
+{
+	unitPriceFilter.SetMin(min);
+	ApplyFilters();
+}
+
+void IMEX::ProductList::SetUnitPriceFilterMax(int max)
+{
+	unitPriceFilter.SetMax(max);
+	ApplyFilters();
+}
+
+void IMEX::ProductList::SetTotalPriceFilterMin(int min)
+{
+	totalPriceFilter.SetMin(min);
+	ApplyFilters();
+}
+
+void IMEX::ProductList::SetTotalPriceFilterMax(int max)
+{
+	totalPriceFilter.SetMax(max);
+	ApplyFilters();
+}
+
+void IMEX::ProductList::ClearFilters()
+{
+	IDFilter.Clear();
+	nameFilter.Clear();
+	categoryFilter.Clear();
+	amountFilter.Clear();
+	unitPriceFilter.Clear();
+	totalPriceFilter.Clear();
+	ApplyFilters();
+}
+
 void ProductList::ShowToConsole()
 {
 	std::cout << std::left;
@@ -138,3 +216,4 @@ bool ProductList::ByTotalPriceDescendingly(const std::shared_ptr<Product>& p1, c
 {
 	return p1->GetTotalPrice() > p2->GetTotalPrice();
 }
+

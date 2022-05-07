@@ -20,6 +20,78 @@ void IndividualOperationList::SetOperationsFileName(std::string_view operationsF
 	this->operationsFileName = operationsFileName;
 }
 
+bool IMEX::IndividualOperationList::DoesMatchFilters(const std::shared_ptr<Operation>& e) const
+{
+	return IDFilter(e->GetID()) and typeFilter((int)e->GetType()) and statusFilter((int)e->GetStatus())
+		and productIDFilter(e->GetElementID()) and productAmountFilter(e->GetElementAmount()) and clientLoginFilter(e->GetClientLogin());
+}
+
+void IMEX::IndividualOperationList::SetIDFilterMin(int min)
+{
+	IDFilter.SetMin(min);
+	ApplyFilters();
+}
+
+void IMEX::IndividualOperationList::SetIDFilterMax(int max)
+{
+	IDFilter.SetMax(max);
+	ApplyFilters();
+}
+
+void IMEX::IndividualOperationList::SetTypeFilter(Operation::Type value)
+{
+	typeFilter.SetValue((int)value);
+	ApplyFilters();
+}
+
+void IMEX::IndividualOperationList::SetStatusFilter(Operation::Status value)
+{
+	statusFilter.SetValue((int)value);
+	ApplyFilters();
+}
+
+void IMEX::IndividualOperationList::SetProductIDFilterMin(int min)
+{
+	productIDFilter.SetMin(min);
+	ApplyFilters();
+}
+
+void IMEX::IndividualOperationList::SetProductIDFilterMax(int max)
+{
+	productIDFilter.SetMax(max);
+	ApplyFilters();
+}
+
+void IMEX::IndividualOperationList::SetProductAmountFilterMin(int min)
+{
+	productAmountFilter.SetMin(min);
+	ApplyFilters();
+}
+
+void IMEX::IndividualOperationList::SetProductAmountFilterMax(int max)
+{
+	productAmountFilter.SetMax(max);
+	ApplyFilters();
+}
+
+void IMEX::IndividualOperationList::SetClientLoginFilter(std::string_view s)
+{
+	clientLoginFilter.SetSubstring(s);
+	ApplyFilters();
+}
+
+void IMEX::IndividualOperationList::ClearFilters()
+{
+	IDFilter.Clear();
+	typeFilter.Clear();
+	statusFilter.Clear();
+	productIDFilter.Clear();
+	productAmountFilter.Clear();
+	clientLoginFilter.Clear();
+
+	ApplyFilters();
+}
+
 void IMEX::IndividualOperationList::CalculateNewID(Operation& e)
 {
 	if (originalElements.empty())
