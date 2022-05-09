@@ -73,13 +73,21 @@ void User::SaveCredentialsToFile(bool newUser)
 		}
 	}
 
-	file.open(GetCredentialsFileName());
-
-	if (newUser and file.good())
+	if (newUser)
 	{
-		file.close();
-		throw DuplicateLoginException();
+		file.open(GetCredentialsFileName(), std::ios::in);
+
+		if (file.is_open())
+		{
+			file.close();
+			throw DuplicateLoginException();
+		}
 	}
+
+	file.close();
+
+	file.open(GetCredentialsFileName(), std::ios::out | std::ios::trunc);
+
 
 	file << login << " " << password << "\n";
 

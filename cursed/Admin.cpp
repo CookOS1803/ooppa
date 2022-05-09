@@ -43,6 +43,7 @@ void Admin::UserMenu()
     {
         INPUT
         (
+            system("cls");
             std::cout
             << "1. Работа с клиентами\n"
             << "2. Работа с операциями\n"
@@ -51,6 +52,8 @@ void Admin::UserMenu()
             << "0. Выход\n",
             choice
         );
+
+        system("cls");
 
         switch (choice)
         {
@@ -80,6 +83,7 @@ void Admin::ClientsMenu()
     {
         INPUT
         (
+            system("cls");
             std::cout
             << "1. Показать всех клиентов\n"
             << "2. Показать операции клиента\n"
@@ -89,10 +93,13 @@ void Admin::ClientsMenu()
             choice
         );
 
+        system("cls");
+
         switch (choice)
         {
         case 1:
             clients.ShowToConsole();
+            std::cin.get();
             break;
         case 2:
             ShowClientTask();
@@ -122,6 +129,7 @@ void Admin::ShowClientTask()
     catch (const std::exception& e)
     {
         std::cout << e.what() << "\n\n";
+        std::cin.get();
         return;
     }
 
@@ -129,6 +137,7 @@ void Admin::ShowClientTask()
     l.SetOperationsFileName(CLIENTS_FOLDER + input + "\\" + OPER_FILE_NAME);
     l.ReadFromFile();
     l.ShowToConsole();
+    std::cin.get();
 }
 
 void Admin::SortClientsMenu()
@@ -137,8 +146,9 @@ void Admin::SortClientsMenu()
 
     while (true)
     {
-        INPUT
+        INPUT_CONDITION
         (
+            system("cls");
             std::cout
             << "1. Сортировать по логину\n"
             << "2. Сортировать по имени\n"
@@ -146,13 +156,15 @@ void Admin::SortClientsMenu()
             << "4. Сортировать по стране\n"
             << "5. Сортировать по телефону\n"
             << "0. Назад\n",
-            choice
+            choice,
+            choice >= 0 and choice <= 5
         );
 
         if (choice != 0)
         {
             INPUT_CONDITION
             (
+                system("cls");
                 std::cout
                 << "1. По возрастанию\n"
                 << "2. По убыванию\n",
@@ -201,6 +213,10 @@ void Admin::SortClientsMenu()
         case 0:
             return;
         }
+
+        system("cls");
+        clients.ShowToConsole();
+        std::cin.get();
     }
 }
 
@@ -213,6 +229,7 @@ void Admin::FilterClientsMenu()
     {
         INPUT
         (
+            system("cls");
             std::cout
             << "1. Фильтровать по логину\n"
             << "2. Фильтровать по имени\n"
@@ -224,10 +241,11 @@ void Admin::FilterClientsMenu()
             choice
         );
 
+        system("cls");
+
         if (choice != 0 and choice != 6)
         {
-            std::cout << "Введите строку фильтр: ";
-            std::getline(std::cin, s);
+            s = StringInput("Введите строку фильтр: ");
         }
 
         switch (choice)
@@ -259,6 +277,10 @@ void Admin::FilterClientsMenu()
         case 0:
             return;
         }
+
+        system("cls");
+        clients.ShowToConsole();
+        std::cin.get();
     }
 }
 
@@ -270,6 +292,7 @@ void Admin::OperationsMenu()
     {
         INPUT
         (
+            system("cls");
             std::cout
             << "1. Показать операции\n"
             << "2. Отсортировать список операций\n"
@@ -279,10 +302,13 @@ void Admin::OperationsMenu()
             choice
         );
 
+        system("cls");
+
         switch (choice)
         {
         case 1:
             operations.ShowToConsole();
+            std::cin.get();
             break;
         case 2:
             SortOperationsMenu();
@@ -307,6 +333,7 @@ void Admin::SortOperationsMenu()
     {
         INPUT
         (
+            system("cls");
             std::cout
             << "1. Сортировать по идентификационному номеру операции\n"
             << "2. Сортировать по типу\n"
@@ -318,11 +345,13 @@ void Admin::SortOperationsMenu()
             choice
         );
 
+        system("cls");
 
         if (choice != 0)
         {
             INPUT_CONDITION
             (
+                system("cls");
                 std::cout
                 << "1. По возрастанию\n"
                 << "2. По убыванию\n",
@@ -378,6 +407,10 @@ void Admin::SortOperationsMenu()
         case 0:
             return;
         }
+
+        system("cls");
+        operations.ShowToConsole();
+        std::cin.get();
     }
 }
 
@@ -390,6 +423,7 @@ void Admin::FilterOperationsMenu()
     {
         INPUT_CONDITION
         (
+            system("cls");
             std::cout
             << "1. Фильтровать по типу\n"
             << "2. Фильтровать по статусу\n"
@@ -403,10 +437,13 @@ void Admin::FilterOperationsMenu()
             choice >= 0 and choice <= 7
         );
 
+        system("cls");
+
         if (choice != 0 and choice >= 3 and choice <= 5)
         {
             INPUT_CONDITION
             (
+                system("cls");
                 std::cout
                 << "1. Добавить минимум\n"
                 << "2. Добавить максимум\n",
@@ -420,6 +457,7 @@ void Admin::FilterOperationsMenu()
         case 1:
             INPUT_CONDITION
             (
+                system("cls");
                 std::cout
                 << "1. Импорт\n"
                 << "2. Экспорт\n",
@@ -436,6 +474,7 @@ void Admin::FilterOperationsMenu()
         case 2:
             INPUT_CONDITION
             (
+                system("cls");
                 std::cout
                 << "1. Рассматривается\n"
                 << "2. Отклонено\n"
@@ -463,6 +502,7 @@ void Admin::FilterOperationsMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите минимум: ",
                     choice
                 );
@@ -473,6 +513,7 @@ void Admin::FilterOperationsMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите максимум: ",
                     choice
                 );
@@ -486,6 +527,7 @@ void Admin::FilterOperationsMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите минимум: ",
                     choice
                 );
@@ -496,6 +538,7 @@ void Admin::FilterOperationsMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите максимум: ",
                     choice
                 );
@@ -509,6 +552,7 @@ void Admin::FilterOperationsMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите минимум: ",
                     choice
                 );
@@ -519,6 +563,7 @@ void Admin::FilterOperationsMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите максимум: ",
                     choice
                 );
@@ -528,19 +573,22 @@ void Admin::FilterOperationsMenu()
 
             break;
         case 6:
-            std::cout << "Введите строку-фильтр: ";
-            std::getline(std::cin, s);
+            s = StringInput("Введите строку-фильтр: ");
 
             operations.SetClientLoginFilter(s);
 
             break;
         case 7:
-            products.ClearFilters();
+            operations.ClearFilters();
 
             break;
         case 0:
             return;
         }
+
+        system("cls");
+        operations.ShowToConsole();
+        std::cin.get();
     }
 }
 
@@ -550,6 +598,7 @@ void Admin::HandleOperationTask()
 
     INPUT
     (
+        system("cls");
         std::cout << "Введите идентификационный номер операции\n",
         choice
     );
@@ -563,17 +612,20 @@ void Admin::HandleOperationTask()
     catch (const std::exception& e)
     {
         std::cout << e.what() << "\n\n";
+        std::cin.get();
         return;
     }
 
     if (o->GetStatus() != Operation::Status::PENDING)
     {
         std::cout << "Эта операция уже рассмотрена\n\n";
+        std::cin.get();
         return;
     }
 
     INPUT_CONDITION
     (
+        system("cls");
         std::cout
         << "1. Одобрить\n"
         << "2. Отклонить\n",
@@ -597,6 +649,7 @@ void Admin::StorageMenu()
     {
         INPUT
         (
+            system("cls");
             std::cout
             << "1. Просмотреть склад\n"
             << "2. Добавить продукт\n"
@@ -608,10 +661,13 @@ void Admin::StorageMenu()
             choice
         );
 
+        system("cls");
+
         switch (choice)
         {
         case 1:
             products.ShowToConsole();
+            std::cin.get();
             break;
         case 2:
             AddProductTask();
@@ -679,6 +735,7 @@ void Admin::SortStorageMenu()
     {
         INPUT
         (
+            system("cls");
             std::cout
             << "1. Сортировать по идентификационному номеру\n"
             << "2. Сортировать по имени\n"
@@ -694,6 +751,7 @@ void Admin::SortStorageMenu()
         {
             INPUT_CONDITION
             (
+                system("cls");
                 std::cout
                 << "1. По возрастанию\n"
                 << "2. По убыванию\n",
@@ -701,6 +759,8 @@ void Admin::SortStorageMenu()
                 order == 1 or order == 2
             );
         }
+
+        system("cls");
 
         switch (choice)
         {
@@ -749,6 +809,10 @@ void Admin::SortStorageMenu()
         case 0:
             return;
         }
+
+        system("cls");
+        products.ShowToConsole();
+        std::cin.get();
     }
 }
 
@@ -761,6 +825,7 @@ void Admin::FilterStorageMenu()
     {
         INPUT_CONDITION
         (
+            system("cls");
             std::cout
             << "1. Фильтровать по имени\n"
             << "2. Фильтровать по категории\n"
@@ -774,12 +839,15 @@ void Admin::FilterStorageMenu()
             choice >= 0 and choice <= 7
         );
 
+        system("cls");
+
         if (choice != 0)
         {
             if (choice >= 3 and choice <= 6)
             {
                 INPUT_CONDITION
                 (
+                    system("cls");
                     std::cout
                     << "1. Добавить минимум\n"
                     << "2. Добавить максимум\n",
@@ -789,10 +857,11 @@ void Admin::FilterStorageMenu()
             }
             else if (choice != 7)
             {
-                std::cout << "Введите строку-фильтр: ";
-                std::getline(std::cin, s);
+                s = StringInput("Введите строку-фильтр: ");
             }
         }
+
+        system("cls");
 
         switch (choice)
         {
@@ -809,6 +878,7 @@ void Admin::FilterStorageMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите минимум: ",
                     choice
                 );
@@ -819,6 +889,7 @@ void Admin::FilterStorageMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите максимум: ",
                     choice
                 );
@@ -833,6 +904,7 @@ void Admin::FilterStorageMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите минимум: ",
                     choice
                 );
@@ -843,6 +915,7 @@ void Admin::FilterStorageMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите максимум: ",
                     choice
                 );
@@ -856,6 +929,7 @@ void Admin::FilterStorageMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите минимум: ",
                     choice
                 );
@@ -866,6 +940,7 @@ void Admin::FilterStorageMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите максимум: ",
                     choice
                 );
@@ -879,6 +954,7 @@ void Admin::FilterStorageMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите минимум: ",
                     choice
                 );
@@ -889,6 +965,7 @@ void Admin::FilterStorageMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите максимум: ",
                     choice
                 );
@@ -904,6 +981,10 @@ void Admin::FilterStorageMenu()
         case 0:
             return;
         }
+
+        system("cls");
+        products.ShowToConsole();
+        std::cin.get();
     }
 }
 
@@ -913,6 +994,7 @@ void Admin::DeleteProductTask()
 
     INPUT
     (
+        system("cls");
         std::cout << "Введите идентификационный номер продукта\n",
         ID
     );
@@ -921,6 +1003,7 @@ void Admin::DeleteProductTask()
     if (!products.Contains(ID))
     {
         std::cout << "Такого продукта нет\n\n";
+        std::cin.get();
         return;
     }
 
@@ -935,6 +1018,7 @@ void Admin::ChangeProductTask()
 
     INPUT
     (
+        system("cls");
         std::cout << "Введите идентификационный номер продукта\n",
         ID
     );
@@ -948,6 +1032,7 @@ void Admin::ChangeProductTask()
     catch (const std::exception& e)
     {
         std::cout << e.what() << std::endl << std::endl;
+        std::cin.get();
     }
 }
 
@@ -960,6 +1045,7 @@ void Admin::ChangeProductMenu(std::shared_ptr<Product> product)
     {
         INPUT
         (
+            system("cls");
             std::cout
             << "1. Изменить название\n"
             << "2. Изменить категорию\n"
@@ -968,6 +1054,8 @@ void Admin::ChangeProductMenu(std::shared_ptr<Product> product)
             << "0. Назад\n",
             choice
         );
+
+        system("cls");
 
         switch (choice)
         {
@@ -984,6 +1072,7 @@ void Admin::ChangeProductMenu(std::shared_ptr<Product> product)
         case 3:
             INPUT_CONDITION
             (
+                system("cls");
                 std::cout << "Введите количество: ",
                 choice,
                 choice >= 0
@@ -994,6 +1083,7 @@ void Admin::ChangeProductMenu(std::shared_ptr<Product> product)
         case 4:
             INPUT_CONDITION
             (
+                system("cls");
                 std::cout << "Введите новую цену за штуку: ",
                 choice,
                 choice >= 0
@@ -1015,12 +1105,15 @@ void Admin::AdminsMenu()
     {
         INPUT
         (
+            system("cls");
             std::cout
             << "1. Добавить администратора\n"
             << "2. Удалить администратора\n"
             << "0. Назад\n",
             choice
         );
+
+        system("cls");
 
         switch (choice)
         {
@@ -1048,6 +1141,7 @@ void Admin::AddAdminTask()
         if (newLogin == dir_entry.path().stem().string())
         {
             std::cout << "Логин занят";
+            std::cin.get();
             return;
         }
     }
@@ -1079,4 +1173,5 @@ void Admin::RemoveAdminTask()
     }
 
     std::cout << "Такого администратора нет\n\n";
+    std::cin.get();
 }

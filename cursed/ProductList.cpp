@@ -107,6 +107,7 @@ void IMEX::ProductList::ClearFilters()
 
 void ProductList::ShowToConsole()
 {
+	// Контролирование работы потока
 	std::cout << std::left;
 
 	std::cout

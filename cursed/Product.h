@@ -14,6 +14,7 @@ namespace IMEX
 	public:
 
 		Product();
+		// Передача параметра по ссылке
 		Product(const Product& other);
 
 		auto GetName() const -> std::string_view;
@@ -24,13 +25,15 @@ namespace IMEX
 
 		void SetName(std::string_view name);
 		void SetCategory(std::string_view category);
-		void SetAmount(int amount);
+		void SetAmount(int amount); // Передача параметра по значению
 		void SetUnitPrice(int unitPrice);
 
+		// Дружественная функция
 		friend std::istream& operator>>(std::istream& in, Product& p);
 
 	};
 
+	// Перегрузка операторов ввода/вывода
 	std::ostream& operator<<(std::ostream& out, const Product& p);
 }
 

@@ -1,11 +1,13 @@
 #pragma once
 #include <string>
 
-namespace IMEX
+namespace IMEX // Использование пространства имён
 {
-	class User
+	class User // Абстрактный класс
 	{
-	protected:
+	protected: // Инкапсуляция
+
+		// Статические поля
 		static inline const std::string INFO_FILE_EXT = ".txt";
 		static inline const std::string CRED_FILE_EXT = ".dat";
 		static inline const std::string OPER_FILE_EXT = ".txt";
@@ -30,7 +32,8 @@ namespace IMEX
 		auto GetLogin() const -> std::string_view;
 		auto GetPassword() const -> std::string_view;
 
-		virtual void SetLogin(std::string_view login);
+		// Полиморфизм
+		virtual void SetLogin(std::string_view login); // Виртуальный метод
 		void SetPassword(const std::string& password);
 
 		bool IsInitialized() const;
@@ -43,6 +46,7 @@ namespace IMEX
 
 		virtual void UserMenu() = 0;
 
+		// Статический метод
 		static auto MakePassword(const std::string& password) -> std::string;
 
 	protected:

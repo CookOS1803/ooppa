@@ -7,7 +7,7 @@
 
 namespace IMEX
 {
-	class Client : public User
+	class Client : public User // Наследование
 	{
 		ClientInfo info;
 		ProductList products;
@@ -21,7 +21,7 @@ namespace IMEX
 		void SetLogin(std::string_view login) override;
 
 		void RegistrationMenu();
-		void UserMenu() override;
+		void UserMenu() override; // Переопределение
 
 	protected:
 

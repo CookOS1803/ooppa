@@ -42,20 +42,16 @@ void Client::RegistrationMenu()
 {
     std::string input;
 
-    std::cout << "Введите имя: ";
-    std::getline(std::cin, input);
+    input = StringInput("Введите имя: ");
     info.SetName(input);
 
-    std::cout << "Введите юридическое лицо: ";
-    std::getline(std::cin, input);
+    input = StringInput("Введите юридическое лицо: ");
     info.SetLegalEntity(input);
 
-    std::cout << "Введите страну: ";
-    std::getline(std::cin, input);
+    input = StringInput("Введите страну: ");
     info.SetCountry(input);
 
-    std::cout << "Введите номер телефона: ";
-    std::getline(std::cin, input);
+    input = StringInput("Введите номер телефона: ");
     info.SetPhone(input);
 
     info.SetLogin(login);
@@ -77,6 +73,7 @@ void Client::UserMenu()
     {
         INPUT
         (
+            system("cls");
             std::cout
             << "1. Показать персональную информацию\n"
             << "2. Изменить персональную информацию\n"
@@ -86,10 +83,13 @@ void Client::UserMenu()
             choice
         );
 
+        system("cls");
+
         switch (choice)
         {
         case 1:
             info.ShowToConsole();
+            std::cin.get();
             break;
         case 2:
             InfoChangeMenu();
@@ -115,6 +115,7 @@ void Client::InfoChangeMenu()
     {
         INPUT
         (
+            system("cls");
             std::cout
             << "1. Изменить имя\n"
             << "2. Изменить страну\n"
@@ -125,48 +126,45 @@ void Client::InfoChangeMenu()
             choice
         );
 
+        system("cls");
+
         switch (choice)
         {
         case 1:
-            std::cout << "Введите новое имя: ";
-            std::getline(std::cin, input);
+            input = StringInput("Введите новое имя: ");
 
             info.SetName(input);
 
             break;
         case 2:
-            std::cout << "Введите новую страну: ";
-            std::getline(std::cin, input);
+            input = StringInput("Введите новую страну: ");
 
             info.SetCountry(input);
 
             break;
         case 3:
-            std::cout << "Введите новое юридическое лицо: ";
-            std::getline(std::cin, input);
+            input = StringInput("Введите новое юридическое лицо: ");
 
             info.SetLegalEntity(input);
 
             break;
         case 4:
-            std::cout << "Введите новый номер телефона: ";
-            std::getline(std::cin, input);
+            input = StringInput("Введите новый номер телефона: ");
 
             info.SetPhone(input);
 
             break;
         case 5:
-            std::cout << "Введите старый пароль: ";
-            std::getline(std::cin, input);
+            input = StringInput("Введите старый пароль: ");
 
             if (MakePassword(input) != password)
             {
                 std::cout << "Введён неправильный пароль\n\n";
+                std::cin.get();
                 break;
             }
 
-            std::cout << "Введите новый пароль: ";
-            std::getline(std::cin, input);
+            input = StringInput("Введите новый пароль: ");
 
             password = MakePassword(input);
 
@@ -189,6 +187,7 @@ void Client::StorageMenu()
     {
         INPUT
         (
+            system("cls");
             std::cout
             << "1. Просмотреть склад\n"
             << "2. Отсортировать список товаров\n"
@@ -197,10 +196,13 @@ void Client::StorageMenu()
             choice
         );
 
+        system("cls");
+
         switch (choice)
         {
         case 1:
             ShowStorageTask();
+            std::cin.get();
             break;
         case 2:
             SortStorageMenu();
@@ -237,22 +239,24 @@ void Client::SortStorageMenu()
 
     while (true)
     {
-        INPUT
+        INPUT_CONDITION
         (
+            system("cls");
             std::cout
             << "1. Сортировать по имени\n"
             << "2. Сортировать по категории\n"
             << "3. Сортировать по идентификационному номеру\n"
             << "4. Сортировать по цене за штуку\n"
             << "0. Назад\n",
-            choice
+            choice,
+            choice >= 0 or choice <= 4
         );
-
 
         if (choice != 0)
         {
             INPUT_CONDITION
             (
+                system("cls");
                 std::cout
                 << "1. По возрастанию\n"
                 << "2. По убыванию\n",
@@ -260,6 +264,8 @@ void Client::SortStorageMenu()
                 order == 1 or order == 2
             );
         }
+
+        system("cls");
 
         switch (choice)
         {
@@ -294,6 +300,10 @@ void Client::SortStorageMenu()
         case 0:
             return;
         }
+
+        system("cls");
+        products.ShowToConsole();
+        std::cin.get();
     }
 }
 
@@ -304,8 +314,9 @@ void Client::FilterStorageMenu()
 
     while (true)
     {
-        INPUT
+        INPUT_CONDITION
         (
+            system("cls");
             std::cout
             << "1. Фильтровать по имени\n"
             << "2. Фильтровать по категории\n"
@@ -313,21 +324,22 @@ void Client::FilterStorageMenu()
             << "4. Фильтровать по цене за штуку\n"
             << "5. Убрать фильтры\n"
             << "0. Назад\n",
-            choice
+            choice,
+            choice >= 0 and choice <= 5
         );
+
+        system("cls");
 
         switch (choice)
         {
         case 1:
-            std::cout << "Введите строку-фильтр: ";
-            std::getline(std::cin, s);
+            s = StringInput("Введите строку-фильтр: ");
 
             products.SetNameFilter(s);
 
             break;
         case 2:
-            std::cout << "Введите строку-фильтр: ";
-            std::getline(std::cin, s);
+            s = StringInput("Введите строку-фильтр: ");
 
             products.SetCategoryFilter(s);
 
@@ -335,6 +347,7 @@ void Client::FilterStorageMenu()
         case 3:
             INPUT_CONDITION
             (
+                system("cls");
                 std::cout
                 << "1. Добавить минимум\n"
                 << "2. Добавить максимум\n",
@@ -342,10 +355,13 @@ void Client::FilterStorageMenu()
                 choice == 1 or choice == 2
             );
 
+            system("cls");
+
             if (choice == 1)
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите минимум: ",
                     choice
                 );
@@ -356,6 +372,7 @@ void Client::FilterStorageMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите максимум: ",
                     choice
                 );
@@ -367,6 +384,7 @@ void Client::FilterStorageMenu()
         case 4:
             INPUT_CONDITION
             (
+                system("cls");
                 std::cout
                 << "1. Добавить минимум\n"
                 << "2. Добавить максимум\n",
@@ -374,10 +392,13 @@ void Client::FilterStorageMenu()
                 choice == 1 or choice == 2
             );
 
+            system("cls");
+
             if (choice == 1)
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите минимум: ",
                     choice
                 );
@@ -388,6 +409,7 @@ void Client::FilterStorageMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите максимум: ",
                     choice
                 );
@@ -403,6 +425,10 @@ void Client::FilterStorageMenu()
         case 0:
             return;
         }
+
+        system("cls");
+        products.ShowToConsole();
+        std::cin.get();
     }
 }
 
@@ -414,6 +440,7 @@ void Client::OperationsMenu()
     {
         INPUT
         (
+            system("cls");
             std::cout
             << "1. Показать операции\n"
             << "2. Отсортировать список операций\n"
@@ -425,10 +452,13 @@ void Client::OperationsMenu()
             choice
         );
 
+        system("cls");
+
         switch (choice)
         {
         case 1:
             operations.ShowToConsole();
+            std::cin.get();
             break;
         case 2:
             SortOperationsMenu();
@@ -459,6 +489,7 @@ void Client::SortOperationsMenu()
     {
         INPUT
         (
+            system("cls");
             std::cout
             << "1. Сортировать по идентификационному номеру операции\n"
             << "2. Сортировать по типу\n"
@@ -469,11 +500,11 @@ void Client::SortOperationsMenu()
             choice
         );
 
-
         if (choice != 0)
         {
             INPUT_CONDITION
             (
+                system("cls");
                 std::cout
                 << "1. По возрастанию\n"
                 << "2. По убыванию\n",
@@ -481,6 +512,8 @@ void Client::SortOperationsMenu()
                 order == 1 or order == 2
             );
         }
+
+        system("cls");
 
         switch (choice)
         {
@@ -522,6 +555,10 @@ void Client::SortOperationsMenu()
         case 0:
             return;
         }
+
+        system("cls");
+        products.ShowToConsole();
+        std::cin.get();
     }
     
 }
@@ -535,6 +572,7 @@ void Client::FilterOperationsMenu()
     {
         INPUT_CONDITION
         (
+            system("cls");
             std::cout
             << "1. Фильтровать по типу\n"
             << "2. Фильтровать по статусу\n"
@@ -544,13 +582,14 @@ void Client::FilterOperationsMenu()
             << "6. Убрать все фильтры\n"
             << "0. Назад\n",
             choice,
-            choice >= 0 and choice <= 7
+            choice >= 0 and choice <= 6
         );
 
         if (choice != 0 and choice >= 3 and choice <= 5)
         {
             INPUT_CONDITION
             (
+                system("cls");
                 std::cout
                 << "1. Добавить минимум\n"
                 << "2. Добавить максимум\n",
@@ -559,11 +598,14 @@ void Client::FilterOperationsMenu()
             );
         }
 
+        system("cls");
+
         switch (choice)
         {
         case 1:
             INPUT_CONDITION
             (
+                system("cls");
                 std::cout
                 << "1. Импорт\n"
                 << "2. Экспорт\n",
@@ -580,6 +622,7 @@ void Client::FilterOperationsMenu()
         case 2:
             INPUT_CONDITION
             (
+                system("cls");
                 std::cout
                 << "1. Рассматривается\n"
                 << "2. Отклонено\n"
@@ -587,6 +630,8 @@ void Client::FilterOperationsMenu()
                 choice,
                 choice >= 1 and choice <= 3
             );
+
+            system("cls");
 
             switch (choice)
             {
@@ -607,6 +652,7 @@ void Client::FilterOperationsMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите минимум: ",
                     choice
                 );
@@ -617,6 +663,7 @@ void Client::FilterOperationsMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите максимум: ",
                     choice
                 );
@@ -630,6 +677,7 @@ void Client::FilterOperationsMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите минимум: ",
                     choice
                 );
@@ -640,6 +688,7 @@ void Client::FilterOperationsMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите максимум: ",
                     choice
                 );
@@ -653,6 +702,7 @@ void Client::FilterOperationsMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите минимум: ",
                     choice
                 );
@@ -663,6 +713,7 @@ void Client::FilterOperationsMenu()
             {
                 INPUT
                 (
+                    system("cls");
                     std::cout << "Введите максимум: ",
                     choice
                 );
@@ -678,6 +729,10 @@ void Client::FilterOperationsMenu()
         case 0:
             return;
         }
+
+        system("cls");
+        products.ShowToConsole();
+        std::cin.get();
     }
 }
 
@@ -688,13 +743,17 @@ void Client::MakeOperationTask(Operation::Type type)
 
     INPUT
     (
+        system("cls");
         std::cout << "Введите идентификационный номер товара: ",
         choice
     );
 
+    system("cls");
+
     if (!products.Contains(choice))
     {
         std::cout << "Нет такого товара\n\n";
+        std::cin.get();
         return;
     }
 
@@ -702,6 +761,7 @@ void Client::MakeOperationTask(Operation::Type type)
 
     INPUT_CONDITION
     (
+        system("cls");
         std::cout << "Введите количество товара: ",
         choice,
         choice > 0
@@ -731,6 +791,7 @@ void Client::CanselOperationTask()
 
     INPUT
     (
+        system("cls");
         std::cout << "Введите идентификационный номер операции: ",
         choice
     );
@@ -738,6 +799,7 @@ void Client::CanselOperationTask()
     if (!operations.Contains(choice))
     {
         std::cout << "Нет такой операции\n\n";
+        std::cin.get();
         return;
     }
 

@@ -5,6 +5,7 @@
 #include "Admin.h"
 #include "Client.h"
 
+// Пользовательская функция
 void IMEX::MainMenu()
 {
     int choice;
@@ -14,6 +15,10 @@ void IMEX::MainMenu()
     {
         INPUT
         (
+            // Стандартная функция
+            system("cls");
+
+            // Использование потоков
             std::cout
             << "1. Войти как администратор\n"
             << "2. Войти как клиент\n"
@@ -22,9 +27,12 @@ void IMEX::MainMenu()
             choice
         );
 
+        system("cls");
+
         switch (choice)
         {
         case 1:
+            // Динамическое выделение памяти
             user = new Admin();
 
             LoginMenu(user);
@@ -61,6 +69,7 @@ void IMEX::LoginMenu(User* user)
 
     login = StringInput("Введите логин: ");
 
+    // Обработка ошибок
     try
     {
         user->ReadPasswordFromFile(login);
@@ -68,6 +77,8 @@ void IMEX::LoginMenu(User* user)
     catch (const std::exception& e)
     {
         std::cout << e.what() << "\n";
+        std::cin.get();
+
         return;
     }
 
@@ -83,7 +94,10 @@ void IMEX::LoginMenu(User* user)
         user->Logout();
     }
     else
+    {
         std::cout << "Неправильный пароль\n";
+        std::cin.get();
+    }
 }
 
 void IMEX::RegistrationMenu(Client* client)
@@ -91,7 +105,7 @@ void IMEX::RegistrationMenu(Client* client)
     std::string login, password;
 
     login = StringInput("Введите логин: ");
-    login = StringInput("Введите пароль: ");
+    password = StringInput("Введите пароль: ");
 
     client->SetLogin(login);
     client->SetPassword(password);
@@ -103,9 +117,13 @@ void IMEX::RegistrationMenu(Client* client)
     catch (const std::exception& e)
     {
         std::cout << e.what() << "\n";
+        std::cin.get();
+
         return;
     }
 
     std::cout << "Успешная регистрация\n";
+    std::cin.get();
+    system("cls");
     client->RegistrationMenu();
 }

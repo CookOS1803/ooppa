@@ -26,3 +26,4 @@
 #define INPUT(command, value) INPUT_CONDITION(command, value, true)
 
 std::string StringInput(std::string_view message);
+std::string StringInput(std::string_view message, std::string_view invalidChars);

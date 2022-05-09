@@ -1,115 +1,143 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="IMEX::ProductList" Collapsed="true">
-    <Position X="14.5" Y="8" Width="1.5" />
+  <Class Name="IMEX::ClientsList" Collapsed="true">
+    <Position X="6.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgQAgAYgAAQAAQAAABAAAAIAAAEAAAAAAMAGAAQAAAI=</HashCode>
-      <FileName>ProductList.h</FileName>
+      <HashCode>AMAMEIAgIAQAAQABcAAAQACAQCCAAARgAIAEAYQAgAA=</HashCode>
+      <FileName>ClientsList.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMEX::List&lt;ElementType, IDType&gt;" Collapsed="true">
+    <Position X="7.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EIIIAAACAAAAAAAAgAAQRAAQAAAAAAAAAAAAAAAYAAI=</HashCode>
+      <FileName>List.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMEX::IndividualOperationList" Collapsed="true">
+    <Position X="2.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAgEKAwgQG0EwACABEAQBYAAEAAQAAgAYQBAEAAAAM=</HashCode>
+      <FileName>IndividualOperationList.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="IMEX::OperationList" Collapsed="true">
-    <Position X="12.75" Y="9.75" Width="1.5" />
+    <Position X="4.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAgAAAAAQAAAAAAIAAAQAAAAAAAAIAAAAAAAAA=</HashCode>
       <FileName>OperationList.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMEX::ClientsList" Collapsed="true">
-    <Position X="11" Y="8" Width="1.5" />
+  <Class Name="IMEX::ProductList" Collapsed="true">
+    <Position X="8.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAEAIAgAAQAAQABAAAAAACAQACAAARgAIAEAQAAAAA=</HashCode>
-      <FileName>ClientsList.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="IMEX::List&lt;ElementType, IDType&gt;" Collapsed="true">
-    <Position X="12.75" Y="6.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>EAIIAAACgAAAAAAAAAAQBAAQAAAAAAAAAAAAAAAYAAI=</HashCode>
-      <FileName>List.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="IMEX::IndividualOperationList" Collapsed="true">
-    <Position X="12.75" Y="8" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAgAIAgAAEgEwACABAAQAYAAAAAQAAgAIAAAAAAAAM=</HashCode>
-      <FileName>IndividualOperationList.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="IMEX::WrongProductException" Collapsed="true">
-    <Position X="19" Y="4.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>WrongProductException.h</FileName>
+      <HashCode>IowIsCaggAQAAQAAABAAQBIAAEGAJAAIAMAGAAwAAAI=</HashCode>
+      <FileName>ProductList.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="IMEX::DuplicateLoginException" Collapsed="true">
-    <Position X="19" Y="3.25" Width="1.5" />
+    <Position X="21.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DuplicateLoginException.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="IMEX::WrongLoginException" Collapsed="true">
-    <Position X="20.75" Y="3.25" Width="1.5" />
+    <Position X="25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>WrongLoginException.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="IMEX::WrongProductException" Collapsed="true">
+    <Position X="21.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WrongProductException.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMEX::ClientInfo" Collapsed="true">
+    <Position X="10.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAQQigAAICQQAAAAAAAAAAAAEAgAiAMCAQAAABAA=</HashCode>
+      <FileName>ClientInfo.h</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="IMEX::Identifiable&lt;T&gt;" Collapsed="true">
-    <Position X="11.25" Y="3.25" Width="1.5" />
+    <Position X="13.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIAAAAAAAAgAAAAAAAgAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
       <FileName>Identifiable.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="IMEX::Operation" Collapsed="true">
-    <Position X="14.25" Y="4.5" Width="1.5" />
+    <Position X="16.75" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABQAEBAAAQAEAEAAEAAAAAAFQAABAAEQFAEQAAAAAAA=</HashCode>
       <FileName>Operation.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="IMEX::Product" Collapsed="true">
-    <Position X="16.5" Y="4.5" Width="1.5" />
+    <Position X="19" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACACAAAAAIAAAAAAAACACAAgAEgAAAAAAIQCBABAA=</HashCode>
       <FileName>Product.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IMEX::ClientInfo" Collapsed="true">
-    <Position X="11.25" Y="4.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>ABAAAQQigAAICQQAAAAAAAAAAAAEAgAiAMCAQAAABAA=</HashCode>
-      <FileName>ClientInfo.h</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="IMEX::Admin" Collapsed="true">
-    <Position X="4.75" Y="10.5" Width="1.5" />
+    <Position X="11.75" Y="8.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAIQAogAAKAAC4RoAAAgACAAAoAQBAAAAAA=</HashCode>
+      <HashCode>AAAiAAAAAAIQAogAAKAAC4RoAAAgACAAAoCQBACAAAA=</HashCode>
       <FileName>Admin.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="IMEX::Client" Collapsed="true">
+    <Position X="14" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAQAAAAIAApAAAAAAAARAAAAgAgCAQhyABACAAAQ=</HashCode>
+      <FileName>Client.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMEX::IntFilter" Collapsed="true">
+    <Position X="25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAEAAAAAASAAABEAAAAAEAAAAAAAAAAAAAABBAAAA=</HashCode>
+      <FileName>Filter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMEX::StringFilter" Collapsed="true">
+    <Position X="23.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAQAAEAAAAAAAAEAAAAAAAQAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Filter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMEX::EnumFilter" Collapsed="true">
+    <Position X="23.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIQAAAgAAEAAAAAAAAAAAACAAAAAAAABAAAA=</HashCode>
+      <FileName>Filter.h</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="IMEX::ISerializable" Collapsed="true">
-    <Position X="12.25" Y="11.25" Width="1.5" />
+    <Position X="2.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAiAAAAAQAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
       <FileName>ISerializable.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="IMEX::SortHelper" Collapsed="true">
+    <Position X="21.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>SortHelper.h</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="IMEX::User" Collapsed="true">
-    <Position X="6" Y="9.25" Width="1.5" />
+    <Position X="13" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABIBAQAAABAAAQgBBEAAAAZIAAAwAAAUAgMAhgAgEAE=</HashCode>
       <FileName>User.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="IMEX::Client" Collapsed="true">
-    <Position X="7" Y="10.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAQAAAAIAApAAAAAAAARAAAAgAgCAQhwABAAAAAQ=</HashCode>
-      <FileName>Client.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

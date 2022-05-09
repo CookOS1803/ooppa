@@ -9,6 +9,7 @@
 
 namespace IMEX
 {
+	// Шаблон класса
 	template <class ElementType, class IDType>
 	class List
 	{
@@ -16,6 +17,7 @@ namespace IMEX
 
 	protected:
 
+		// Использование умных указателей
 		std::map<IDType, std::shared_ptr<ElementType>> originalElements;
 		std::vector<std::shared_ptr<ElementType>> copiedElements;
 
@@ -51,7 +53,10 @@ namespace IMEX
 
 		auto GetElement(IDType ID) -> std::shared_ptr<ElementType>
 		{
-			return originalElements[ID];
+			if (originalElements.contains(ID))
+				return originalElements[ID];
+			else
+				throw std::exception("Такой записи нет");
 		}
 
 		void Sort(const std::function<bool(const std::shared_ptr<ElementType>&, const std::shared_ptr<ElementType>&)>& criteria)
