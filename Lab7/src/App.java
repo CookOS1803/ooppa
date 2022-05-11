@@ -7,7 +7,7 @@ public class App
         var matrix = new Matrix(10, 15);
         int choice;
         int x, y;
-
+        
         Random random = new Random();
         
         for (int i = 0; i < matrix.Rows(); i++)
@@ -22,7 +22,12 @@ public class App
         {
             while (true)
             {
-                choice = GetInt(in, "1. Показать матрицу\n2. Показать подматрицу\n3. Изменить размер матрицы\n4. Изменить элемент матрицы\n0. Выход\n");
+                choice = GetInt(in,
+                "1. Показать матрицу\n" +
+                "2. Показать подматрицу\n" +
+                "3. Изменить размер матрицы\n" +
+                "4. Изменить элемент матрицы\n" + 
+                "0. Выход\n");
 
                 System.out.println();
 
