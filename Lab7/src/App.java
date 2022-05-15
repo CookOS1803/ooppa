@@ -46,7 +46,7 @@ public class App
                         while (x < 0 || x > matrix.Rows());
 
                         do y = GetInt(in, "Введите номер столбца: ");
-                        while (y < 0 || y > matrix.Columns());                        
+                        while (y < 0 || y > matrix.Columns());
                         
                         do rows = GetInt(in, "Введите количество строк: ");
                         while (rows < 0);

@@ -4,9 +4,12 @@
     <ClCompile Include="Menus.cpp" />
     <ClCompile Include="__6.cpp" />
     <ClCompile Include="Drug.cpp" />
+    <ClCompile Include="DrugList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Menus.h" />
     <ClInclude Include="Drug.h" />
+    <ClInclude Include="UserInput.h" />
+    <ClInclude Include="DrugList.h" />
   </ItemGroup>
 </Project>
