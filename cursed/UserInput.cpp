@@ -20,7 +20,7 @@ std::string StringInput(std::string_view message, std::string_view invalidChars)
 
         for (char c : invalidChars)
         {
-            if (message.contains(c))
+            if (str.contains(c))
             {
                 invalidInput = true;
                 break;

@@ -67,7 +67,7 @@ void IMEX::LoginMenu(User* user)
 {
     std::string login, password;
 
-    login = StringInput("¬ведите логин: ");
+    login = StringInput("¬ведите логин: ", " ");
 
     // ќбработка ошибок
     try
@@ -104,7 +104,7 @@ void IMEX::RegistrationMenu(Client* client)
 {
     std::string login, password;
 
-    login = StringInput("¬ведите логин: ");
+    login = StringInput("¬ведите логин: ", " ");
     password = StringInput("¬ведите пароль: ");
 
     client->SetLogin(login);
