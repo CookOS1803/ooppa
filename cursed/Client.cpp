@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iomanip>
 #include "UserInput.h"
+#include "SortHelper.h"
 
 using namespace IMEX;
 
@@ -271,30 +272,30 @@ void Client::SortStorageMenu()
         {
         case 1:
             if (order == 1)
-                products.Sort(ProductList::ByNameAscendingly);
+                products.Sort(ProductSort::ByNameAscendingly);
             else
-                products.Sort(ProductList::ByNameDescendingly);
+                products.Sort(ProductSort::ByNameDescendingly);
 
             break;
         case 2:
             if (order == 1)
-                products.Sort(ProductList::ByCategoryAscendingly);
+                products.Sort(ProductSort::ByCategoryAscendingly);
             else
-                products.Sort(ProductList::ByCategoryDescendingly);
+                products.Sort(ProductSort::ByCategoryDescendingly);
 
             break;
         case 3:
             if (order == 1)
-                products.Sort(ProductList::ByIDAscendingly);
+                products.Sort(ProductSort::ByIDAscendingly);
             else
-                products.Sort(ProductList::ByIDDescendingly);
+                products.Sort(ProductSort::ByIDDescendingly);
 
             break;
         case 4:
             if (order == 1)
-                products.Sort(ProductList::ByUnitPriceAscendingly);
+                products.Sort(ProductSort::ByUnitPriceAscendingly);
             else
-                products.Sort(ProductList::ByUnitPriceDescendingly);
+                products.Sort(ProductSort::ByUnitPriceDescendingly);
 
             break;
         case 0:
@@ -519,37 +520,37 @@ void Client::SortOperationsMenu()
         {
         case 1:
             if (order == 1)
-                operations.Sort(IndividualOperationList::ByIDAscendingly);
+                operations.Sort(OperationSort::ByIDAscendingly);
             else
-                operations.Sort(IndividualOperationList::ByIDDescendingly);
+                operations.Sort(OperationSort::ByIDDescendingly);
 
             break;
         case 2:
             if (order == 1)
-                operations.Sort(OperationList::ByTypeAscendingly);
+                operations.Sort(OperationSort::ByTypeAscendingly);
             else
-                operations.Sort(OperationList::ByTypeDescendingly);
+                operations.Sort(OperationSort::ByTypeDescendingly);
 
             break;
         case 3:
             if (order == 1)
-                operations.Sort(OperationList::ByStatusAscendingly);
+                operations.Sort(OperationSort::ByStatusAscendingly);
             else
-                operations.Sort(OperationList::ByStatusDescendingly);
+                operations.Sort(OperationSort::ByStatusDescendingly);
 
             break;
         case 4:
             if (order == 1)
-                operations.Sort(OperationList::ByProductIDAscendingly);
+                operations.Sort(OperationSort::ByProductIDAscendingly);
             else
-                operations.Sort(OperationList::ByProductIDDescendingly);
+                operations.Sort(OperationSort::ByProductIDDescendingly);
 
             break;
         case 5:
             if (order == 1)
-                operations.Sort(OperationList::ByProductAmountAscendingly);
+                operations.Sort(OperationSort::ByProductAmountAscendingly);
             else
-                operations.Sort(OperationList::ByProductAmountDescendingly);
+                operations.Sort(OperationSort::ByProductAmountDescendingly);
 
             break;
         case 0:
