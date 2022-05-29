@@ -11,6 +11,7 @@ namespace IMEX
 	{
 		ClientInfo info;
 		ProductList products;
+		ProductList requests;
 		IndividualOperationList operations;
 
 	public:
@@ -29,14 +30,14 @@ namespace IMEX
 		auto GetCredentialsFileName()->std::string override;
 		auto GetInfoFileName() -> std::string;
 		void InfoChangeMenu();
-		void StorageMenu();
-		void ShowStorageTask();
-		void SortStorageMenu();
-		void FilterStorageMenu();
+		void StorageMenu(ProductList& curr);
+		void ShowStorageTask(ProductList& curr);
+		void SortStorageMenu(ProductList& curr);
+		void FilterStorageMenu(ProductList& curr);
 		void OperationsMenu();
 		void SortOperationsMenu();
 		void FilterOperationsMenu();
-		void MakeOperationTask(Operation::Type type);
+		void MakeOperationTask(Operation::Type type, ProductList& curr);
 		void CanselOperationTask();
 
 	};

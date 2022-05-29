@@ -10,6 +10,7 @@ namespace IMEX
     {
         ClientsList clients;
         ProductList products;
+        ProductList requests;
         OperationList operations;
 
     public:
@@ -30,12 +31,12 @@ namespace IMEX
         void SortOperationsMenu();
         void FilterOperationsMenu();
         void HandleOperationTask();
-        void StorageMenu();
-        void AddProductTask();
-        void SortStorageMenu();
-        void FilterStorageMenu();
-        void DeleteProductTask();
-        void ChangeProductTask();
+        void StorageMenu(ProductList& curr);
+        void AddProductTask(ProductList& curr);
+        void SortStorageMenu(ProductList& curr);
+        void FilterStorageMenu(ProductList& curr);
+        void DeleteProductTask(ProductList& curr);
+        void ChangeProductTask(ProductList& curr);
         void ChangeProductMenu(std::shared_ptr<Product> product);
         void AdminsMenu();
         void AddAdminTask();

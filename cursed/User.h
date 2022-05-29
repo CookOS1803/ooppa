@@ -16,6 +16,7 @@ namespace IMEX // Использование пространства имён
 		static inline const std::string CRED_FILE_NAME = "credentials" + CRED_FILE_EXT;
 		static inline const std::string OPER_FILE_NAME = "operations" + OPER_FILE_EXT;
 		static inline const std::string PROD_FILE_NAME = "products" + PROD_FILE_EXT;
+		static inline const std::string REQ_FILE_NAME = "requests" + PROD_FILE_EXT;
 		static inline const std::string ADMINS_FOLDER = "admins\\";
 		static inline const std::string CLIENTS_FOLDER = "clients\\";
 

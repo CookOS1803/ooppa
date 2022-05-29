@@ -65,6 +65,8 @@ void Client::UserMenu()
     info.ReadFromFile();
     products.SetFileName(PROD_FILE_NAME);
     products.ReadFromFile();
+    requests.SetFileName(REQ_FILE_NAME);
+    requests.ReadFromFile();
     operations.SetOperationsFileName(GetFolderName() + OPER_FILE_NAME);
     operations.ReadFromFile();
 
@@ -79,7 +81,8 @@ void Client::UserMenu()
             << "1. Показать персональную информацию\n"
             << "2. Изменить персональную информацию\n"
             << "3. Товары\n"
-            << "4. Операции\n"
+            << "4. Запросы\n"
+            << "5. Операции\n"
             << "0. Выход\n",
             choice
         );
@@ -96,9 +99,12 @@ void Client::UserMenu()
             InfoChangeMenu();
             break;
         case 3:
-            StorageMenu();
+            StorageMenu(products);
             break;
         case 4:
+            StorageMenu(requests);
+            break;
+        case 5:
             OperationsMenu();
             break;
         case 0:
@@ -180,7 +186,7 @@ void Client::InfoChangeMenu()
     }
 }
 
-void Client::StorageMenu()
+void Client::StorageMenu(ProductList& curr)
 {
     int choice;
 
@@ -190,7 +196,7 @@ void Client::StorageMenu()
         (
             system("cls");
             std::cout
-            << "1. Просмотреть склад\n"
+            << "1. Просмотреть товары\n"
             << "2. Отсортировать список товаров\n"
             << "3. Применить фильтры поиска\n"
             << "0. Выход\n",
@@ -202,14 +208,14 @@ void Client::StorageMenu()
         switch (choice)
         {
         case 1:
-            ShowStorageTask();
+            ShowStorageTask(curr);
             std::cin.get();
             break;
         case 2:
-            SortStorageMenu();
+            SortStorageMenu(curr);
             break;
         case 3:
-            FilterStorageMenu();
+            FilterStorageMenu(curr);
             break;
         case 0:
             return;
@@ -217,7 +223,7 @@ void Client::StorageMenu()
     }
 }
 
-void Client::ShowStorageTask()
+void Client::ShowStorageTask(ProductList& curr)
 {
     std::cout << std::left;
 
@@ -225,7 +231,7 @@ void Client::ShowStorageTask()
         << std::setw(30) << "Идентификационный номер" << std::setw(30) << "Наименование" << std::setw(30) << "Категория"
         << std::setw(30) << "Цена за штуку" << std::endl;
 
-    for (const auto& product : products)
+    for (const auto& product : curr)
     {
         std::cout
             << std::setw(30) << product->GetID() << std::setw(30) << product->GetName() << std::setw(30) << product->GetCategory()
@@ -234,7 +240,7 @@ void Client::ShowStorageTask()
 
 }
 
-void Client::SortStorageMenu()
+void Client::SortStorageMenu(ProductList& curr)
 {
     int choice, order;
 
@@ -272,30 +278,30 @@ void Client::SortStorageMenu()
         {
         case 1:
             if (order == 1)
-                products.Sort(ProductSort::ByNameAscendingly);
+                curr.Sort(ProductSort::ByNameAscendingly);
             else
-                products.Sort(ProductSort::ByNameDescendingly);
+                curr.Sort(ProductSort::ByNameDescendingly);
 
             break;
         case 2:
             if (order == 1)
-                products.Sort(ProductSort::ByCategoryAscendingly);
+                curr.Sort(ProductSort::ByCategoryAscendingly);
             else
-                products.Sort(ProductSort::ByCategoryDescendingly);
+                curr.Sort(ProductSort::ByCategoryDescendingly);
 
             break;
         case 3:
             if (order == 1)
-                products.Sort(ProductSort::ByIDAscendingly);
+                curr.Sort(ProductSort::ByIDAscendingly);
             else
-                products.Sort(ProductSort::ByIDDescendingly);
+                curr.Sort(ProductSort::ByIDDescendingly);
 
             break;
         case 4:
             if (order == 1)
-                products.Sort(ProductSort::ByUnitPriceAscendingly);
+                curr.Sort(ProductSort::ByUnitPriceAscendingly);
             else
-                products.Sort(ProductSort::ByUnitPriceDescendingly);
+                curr.Sort(ProductSort::ByUnitPriceDescendingly);
 
             break;
         case 0:
@@ -303,12 +309,12 @@ void Client::SortStorageMenu()
         }
 
         system("cls");
-        products.ShowToConsole();
+        curr.ShowToConsole();
         std::cin.get();
     }
 }
 
-void Client::FilterStorageMenu()
+void Client::FilterStorageMenu(ProductList& curr)
 {
     int choice;
     std::string s;
@@ -336,13 +342,13 @@ void Client::FilterStorageMenu()
         case 1:
             s = StringInput("Введите строку-фильтр: ");
 
-            products.SetNameFilter(s);
+            curr.SetNameFilter(s);
 
             break;
         case 2:
             s = StringInput("Введите строку-фильтр: ");
 
-            products.SetCategoryFilter(s);
+            curr.SetCategoryFilter(s);
 
             break;
         case 3:
@@ -367,7 +373,7 @@ void Client::FilterStorageMenu()
                     choice
                 );
 
-                products.SetIDFilterMin(choice);
+                curr.SetIDFilterMin(choice);
             }
             else
             {
@@ -378,7 +384,7 @@ void Client::FilterStorageMenu()
                     choice
                 );
 
-                products.SetIDFilterMax(choice);
+                curr.SetIDFilterMax(choice);
             }
 
             break;
@@ -404,7 +410,7 @@ void Client::FilterStorageMenu()
                     choice
                 );
 
-                products.SetUnitPriceFilterMin(choice);
+                curr.SetUnitPriceFilterMin(choice);
             }
             else
             {
@@ -415,12 +421,12 @@ void Client::FilterStorageMenu()
                     choice
                 );
 
-                products.SetUnitPriceFilterMax(choice);
+                curr.SetUnitPriceFilterMax(choice);
             }
 
             break;
         case 5:
-            products.ClearFilters();
+            curr.ClearFilters();
 
             break;
         case 0:
@@ -428,7 +434,7 @@ void Client::FilterStorageMenu()
         }
 
         system("cls");
-        products.ShowToConsole();
+        curr.ShowToConsole();
         std::cin.get();
     }
 }
@@ -468,10 +474,10 @@ void Client::OperationsMenu()
             FilterOperationsMenu();
             break;
         case 4:
-            MakeOperationTask(Operation::Type::IMPORT);
+            MakeOperationTask(Operation::Type::IMPORT, products);
             break;
         case 5:
-            MakeOperationTask(Operation::Type::EXPORT);
+            MakeOperationTask(Operation::Type::EXPORT, requests);
             break;
         case 6:
             CanselOperationTask();
@@ -558,7 +564,7 @@ void Client::SortOperationsMenu()
         }
 
         system("cls");
-        products.ShowToConsole();
+        operations.ShowToConsole();
         std::cin.get();
     }
     
@@ -724,7 +730,7 @@ void Client::FilterOperationsMenu()
 
             break;
         case 6:
-            products.ClearFilters();
+            operations.ClearFilters();
 
             break;
         case 0:
@@ -732,12 +738,12 @@ void Client::FilterOperationsMenu()
         }
 
         system("cls");
-        products.ShowToConsole();
+        operations.ShowToConsole();
         std::cin.get();
     }
 }
 
-void Client::MakeOperationTask(Operation::Type type)
+void Client::MakeOperationTask(Operation::Type type, ProductList& curr)
 {
     Operation temp;
     int choice;
@@ -751,7 +757,7 @@ void Client::MakeOperationTask(Operation::Type type)
 
     system("cls");
 
-    if (!products.Contains(choice))
+    if (!curr.Contains(choice))
     {
         std::cout << "Нет такого товара\n\n";
         std::cin.get();
