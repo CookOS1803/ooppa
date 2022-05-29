@@ -645,6 +645,8 @@ void Admin::HandleOperationTask()
     else
         o->SetStatus(Operation::Status::REJECTED);
 
+    operations.ApplyFilters();
+
     operations.SaveToFile();        
 }
 
@@ -690,6 +692,7 @@ void IMEX::Admin::StorageMenu(ProductList& curr)
             break;
         case 6:
             ChangeProductTask(curr);
+            curr.ApplyFilters();
             break;
         case 0:
             return;
