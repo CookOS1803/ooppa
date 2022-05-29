@@ -18,7 +18,8 @@ namespace IMEX
 		{
 			PENDING,
 			REJECTED,
-			APPROVED
+			APPROVED,
+			CANCELED
 		};
 
 	private:

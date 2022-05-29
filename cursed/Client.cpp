@@ -797,14 +797,27 @@ void Client::CanselOperationTask()
         choice
     );
 
-    if (!operations.Contains(choice))
+    std::shared_ptr<Operation> op;
+    
+    try
     {
-        std::cout << "Ќет такой операции\n\n";
+        op = operations.GetElement(choice);
+    }
+    catch (const std::exception& e)
+    {
+        std::cout << e.what() << std::endl;
         std::cin.get();
         return;
     }
 
-    operations.Remove(choice);
-
-    operations.SaveToFile();
+    if (op->GetStatus() == Operation::Status::PENDING)
+    {
+        op->SetStatus(Operation::Status::CANCELED);
+        operations.SaveToFile();
+    }
+    else
+    {
+        std::cout << "Ёта операци€ уже обработана\n";
+        std::cin.get();
+    }
 }

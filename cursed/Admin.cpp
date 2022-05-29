@@ -619,7 +619,7 @@ void Admin::HandleOperationTask()
 
     if (o->GetStatus() != Operation::Status::PENDING)
     {
-        std::cout << "Эта операция уже рассмотрена\n\n";
+        std::cout << "Эта операция уже обработана\n\n";
         std::cin.get();
         return;
     }

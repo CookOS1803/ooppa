@@ -75,6 +75,8 @@ std::string Operation::StatusToString(Status status)
 		return "Отклонена";
 	case Status::APPROVED:
 		return "Одобрена";
+	case Status::CANCELED:
+		return "Отменена";
 	default:
 		return "***";
 	}
